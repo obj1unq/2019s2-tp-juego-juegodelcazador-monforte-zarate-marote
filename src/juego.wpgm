@@ -1,5 +1,22 @@
 import wollok.game.*
+import cazador.*
+import enemigos.*
+import armas.*
+import config.*
 
-program nombreDeSuJuego {
+program VampiresHunter {
+	//  CONFIG	
+	game.title("") //Hay que elegir el nombre
+	game.height(30)
+	game.width(30)
+	game.ground("")
+
+    inicializador.iniciar()  
+
+	//  VISUALES
+ 	game.addVisual(new Cazador())
+ 	
+ 	
+ 	//  COMIENZA
 	game.start()
 }
