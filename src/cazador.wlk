@@ -1,5 +1,5 @@
-class Cazador {
-	const property image 
+object cazador {
+	const property image = "cazador2.png"
 	var property vida = 5
 	var property armasEncontradas
 	var property position 

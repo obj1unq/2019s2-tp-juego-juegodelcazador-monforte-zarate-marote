@@ -2,7 +2,7 @@ import cazador.*
 import armas.*
 
 class VampiroFinal { 
-    const image 
+    const property image
 	var property vida
 	var property position
 	
@@ -38,7 +38,7 @@ class Bruja {
 }
 
 class Fantasma {
-	const image 
+	const property image = "fantasma1.png"
 	var property vida
 	var property position 
 	

@@ -17,8 +17,10 @@ class AguaBendita {
 }
 
 class Ballesta {
+	const property image = "ballesta10.png" 
 	var property vidaUtil
 	var property danio
+	const property position
 
     method esUsada() {    	
     }
