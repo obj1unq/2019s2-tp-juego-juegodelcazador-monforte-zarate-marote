@@ -4,18 +4,22 @@ import enemigos.*
 import armas.*
 
 program VampiresHunter {
-	//  CONFIG	
+	
+    //inicializador.iniciar() 
+ 	
+ 	//// PRIMER NIVEL
+ 	
+ 	//  CONFIG	
 	game.title("vampiros") //Hay que elegir el nombre
 	game.height(15)
 	game.width(25)
 	game.ground("pasto6.png")
-
-    //inicializador.iniciar()  
-
-	//  VISUALES
+ 	
+ 	//  VISUALES
  	game.addVisualIn(cazador, game.at(1, 1))
  	game.addVisualIn(new Ballesta(), game.at(3, 3))
  	game.addVisualIn(new Fantasma(), game.at(10, 15))
+ 	
  	
  	//  COMIENZA
 	game.start()
