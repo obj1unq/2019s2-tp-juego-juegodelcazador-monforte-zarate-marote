@@ -38,7 +38,7 @@ class Bruja {
 }
 
 class Fantasma {
-	const property image = "fantasma1.png"
+	const property image = "fantasma.png"
 	var property vida
 	var property position 
 	

@@ -17,7 +17,7 @@ class AguaBendita {
 }
 
 class Ballesta {
-	const property image = "ballesta10.png" 
+	const property image = "ballesta.png" 
 	var property vidaUtil
 	var property danio
 	const property position

@@ -1,5 +1,5 @@
 class MuroDeCastillo {
-	const property image = "pared.png"
+	const property image = "muroCastillo1.jpg"
 	const property position = 0 
 }
 
@@ -10,5 +10,10 @@ class PuertaDeCastillo {
 
 class Arbusto {
 	const property image = "arbusto.png"
+	const property position = 0  
+}
+
+class ParteDeCamino {
+	const property image = "pared3.png"
 	const property position = 0  
 }
