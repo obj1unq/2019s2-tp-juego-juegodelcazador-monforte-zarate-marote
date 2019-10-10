@@ -51,6 +51,12 @@ class Fantasma {
 	} 
 }
 
+object fantasmaFinal {
+	const property image = "fantasma2.png"
+	var property vida
+	var property position = 12 -> 12
+}
+
 class Murcielago {
 	const image 
 	var property vida

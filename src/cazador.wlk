@@ -1,8 +1,10 @@
+import wollok.game.*
+
 object cazador {
-	const property image = "cazador2.png"
+	const property image = "cazador.png"
 	var property vida = 5
 	var property armasEncontradas
-	var property position 
+	var property position = new Position(x = 12, y = 0)
 	var property tiempoDeProteccion
 	
 	method atacarConArma(arma) {}

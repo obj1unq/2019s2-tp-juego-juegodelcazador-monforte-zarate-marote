@@ -3,6 +3,7 @@ import cazador.*
 import enemigos.*
 import armas.*
 import cosasExtras.*
+import escenarios.*
 
 program VampiresHunter {
 	
@@ -13,49 +14,23 @@ program VampiresHunter {
  	//  CONFIG	
 	game.title("vampiros") //Hay que elegir el nombre
 	game.height(15)
-	game.width(19)
-	game.ground("pasto6.png")
+	game.width(25)
+	game.ground("pasto5.png")
  	
  	//  VISUALES
  	
- 	game.addVisualIn(new MuroDeCastillo(), game.at(5, 14))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(6, 14))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(7, 14))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(8, 14))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(9, 14))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(10, 14))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(11, 14))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(12, 14))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(13, 14))
-    game.addVisualIn(new MuroDeCastillo(), game.at(5, 13))
-    game.addVisualIn(new MuroDeCastillo(), game.at(6, 13))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(7, 13))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(8, 13))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(9, 13))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(10, 13))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(11, 13))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(12, 13))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(13, 13))
-    game.addVisualIn(new MuroDeCastillo(), game.at(5, 12))
-    game.addVisualIn(new MuroDeCastillo(), game.at(6, 12))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(7, 12))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(8, 12))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(9, 12))
- //	game.addVisualIn(new PuertaDeCastillo(), game.at(9, 12))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(10, 12))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(11, 12))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(12, 12))
- 	game.addVisualIn(new MuroDeCastillo(), game.at(13, 12))
-    
-    game.addVisualIn(new Fantasma(), game.at( 4, 8))
-    game.addVisualIn(new Fantasma(), game.at( 3, 13))
-    game.addVisualIn(new Fantasma(), game.at( 14, 12))
-    game.addVisualIn(new Fantasma(), game.at( 10, 4))
-    game.addVisualIn(new Fantasma(), game.at( 4, 10))
-    game.addVisualIn(new Fantasma(), game.at( 2, 5))
-    game.addVisualIn(new Fantasma(), game.at( 15, 8))    
-    
-    game.addVisualIn(new ParteDeCamino(), game.at( 0, 0))
+ 	primerEscenario.iniciar()
+ 	
+ 	game.addVisual(cazador)
+
+ 	
+	keyboard.left().onPressDo({ cazador.irA(cazador.position().left(1))})
+	keyboard.right().onPressDo({ cazador.irA(cazador.position().right(1))})
+	keyboard.up().onPressDo({ cazador.irA(cazador.position().up(1))})
+	keyboard.down().onPressDo({ cazador.irA(cazador.position().down(1))})
+ 	
+ 	
+ 	
  	//  COMIENZA
 	game.start()
 }

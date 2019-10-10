@@ -39,13 +39,12 @@ class Ajo {
 	var property danio
 
     method esUsada() {
-       Cazador.tiempoDeProteccion(10) 	
+       cazador.tiempoDeProteccion(10) 	
     }
 }
  
-class Cofre {
-    const property elementosContenidos = []	
-
-    method sacarElemento(elemento) {
-    } 
+class Sal {
+	const property image = "sal.png" 
+    var property vidaUtil
+	var property danio	
 }
