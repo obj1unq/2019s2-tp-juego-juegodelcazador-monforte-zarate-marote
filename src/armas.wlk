@@ -1,20 +1,13 @@
 import cazador.*
 
 class Estaca {
+	const property image = ".png" 
     var property vidaUtil
     var property danio
     
     method esUsada() {   	
     }
 } 
-
-class AguaBendita {
-	var property vidaUtil
-	var property danio
-    
-    method esUsada() {
-    }
-}
 
 class Ballesta {
 	const property image = "ballesta.png" 
@@ -27,6 +20,7 @@ class Ballesta {
 }
 
 class RifleDePlata {
+	const property image = ".png" 
 	var property vidaUtil
 	var property danio
     
@@ -35,6 +29,7 @@ class RifleDePlata {
 }
 
 class Ajo {
+	const property image = ".png" 
 	var property vidaUtil
 	var property danio
 
@@ -47,4 +42,7 @@ class Sal {
 	const property image = "sal.png" 
     var property vidaUtil
 	var property danio	
+	 
+	 
+	 
 }

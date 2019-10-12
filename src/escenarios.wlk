@@ -8,7 +8,9 @@ object primerEscenario {
 	
 	method iniciar() {
 		
-	// CASTILLO
+	// CASTILLO	
+	
+	// var muroDeCastillo = new MuroDeCastillo()	
 		
 	game.addVisualIn(new MuroDeCastillo(), game.at(6, 14))
  	game.addVisualIn(new MuroDeCastillo(), game.at(7, 14))
@@ -112,9 +114,6 @@ object primerEscenario {
 	game.addVisualIn(new ParteDeCamino(), game.at( 18, 8))
 	game.addVisualIn(new ParteDeCamino(), game.at( 19, 8))
 	game.addVisualIn(new ParteDeCamino(), game.at( 19, 9))
-	game.addVisualIn(new ParteDeCamino(), game.at( 20, 9))
-	game.addVisualIn(new ParteDeCamino(), game.at( 21, 9))
-	game.addVisualIn(new ParteDeCamino(), game.at( 22, 9))
 	game.addVisualIn(new ParteDeCamino(), game.at( 19, 10))
 	game.addVisualIn(new ParteDeCamino(), game.at( 19, 10))
 	game.addVisualIn(new ParteDeCamino(), game.at( 18, 10))
@@ -124,8 +123,6 @@ object primerEscenario {
 	game.addVisualIn(new ParteDeCamino(), game.at( 15, 11))
 	game.addVisualIn(new ParteDeCamino(), game.at( 14, 11))
 	game.addVisualIn(new ParteDeCamino(), game.at( 13, 11))
-	game.addVisualIn(new ParteDeCamino(), game.at( 21, 9))
-	game.addVisualIn(new ParteDeCamino(), game.at( 22, 9))
 	game.addVisualIn(new ParteDeCamino(), game.at( 11, 6))
 	game.addVisualIn(new ParteDeCamino(), game.at( 10, 6))
 	game.addVisualIn(new ParteDeCamino(), game.at( 9, 6))
@@ -156,7 +153,7 @@ object primerEscenario {
     game.addVisualIn(new ParteDeCamino(), game.at( 12, 0))
 	
 	/// FANTASMAS
-	
+	 
 	game.addVisual(fantasmaFinal)
 	game.addVisualIn(new Fantasma(), game.at( 12, 6))
     game.addVisualIn(new Fantasma(), game.at( 12, 10))
@@ -172,6 +169,17 @@ object primerEscenario {
     game.addVisualIn(new Sal(), game.at( 1, 10))
     game.addVisualIn(new Sal(), game.at( 24, 11)) 
     game.addVisualIn(new Sal(), game.at( 5, 9))
-	
-	}
+	game.addVisualIn(new Sal(), game.at( 14, 1))
+    
+    }
+}
+
+object segundoEscenario {
+    
+    method iniciar() {
+    	
+    // 	
+    	
+    	
+    }
 }

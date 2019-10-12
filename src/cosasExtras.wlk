@@ -8,6 +8,11 @@ class PuertaDeCastillo {
 	const property position = 0 
 } 
 
+class VentanaDeCastillo {
+	const property image = "ventanaCastillo.jpg"
+	const property position = 0 
+}
+
 class Arbusto {
 	const property image = "arbusto.png"
 	const property position = 0  

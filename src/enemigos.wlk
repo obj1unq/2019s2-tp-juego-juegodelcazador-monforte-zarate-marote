@@ -1,21 +1,20 @@
 import cazador.*
 import armas.*
+import wollok.game.*
 
-class VampiroFinal { 
-    const property image
+object dracula { 
+    const property image = ".png"
 	var property vida
 	var property position
 	
 	method image() { return image }
 	
-	method atacar() {}
+	method atacar(arma) {}
 	
-	method esAtacadoCon(arma) {}
+	method esAtacadoCon() {}
 	
-	method muere(){
-        if(self.esAtacadoCon(RifleDePlata)) {
-            vida =  0     	
-        }	   
+	method murio(){
+       	   return vida == 0
     }
     
 	method irA(nuevaPosicion) {
@@ -42,19 +41,15 @@ class Fantasma {
 	var property vida
 	var property position 
 	
-	method image() { return image }
+	method puedeSerAtacado() {}
 	
 	method atacar() {}
-	
-	method irA(nuevaPosicion) {
-		position = nuevaPosicion
-	} 
 }
 
 object fantasmaFinal {
 	const property image = "fantasma2.png"
-	var property vida
-	var property position = 12 -> 12
+	var property vida 
+	var property position = game.at(12, 12)
 }
 
 class Murcielago {
