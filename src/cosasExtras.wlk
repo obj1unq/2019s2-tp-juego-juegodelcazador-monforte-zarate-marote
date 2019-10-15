@@ -22,3 +22,4 @@ class ParteDeCamino {
 	const property image = "camino1.png"
 	const property position = 0  
 }
+

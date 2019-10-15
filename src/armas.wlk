@@ -42,7 +42,4 @@ class Sal {
 	const property image = "sal.png" 
     var property vidaUtil
 	var property danio	
-	 
-	 
-	 
 }

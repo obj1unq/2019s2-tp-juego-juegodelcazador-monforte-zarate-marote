@@ -177,7 +177,6 @@ object segundoEscenario {
     method iniciar() {
     	
     // 	
-    	
-    	
+    		
     }
 }
