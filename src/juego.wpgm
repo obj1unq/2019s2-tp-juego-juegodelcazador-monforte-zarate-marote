@@ -6,12 +6,11 @@ import cosasExtras.*
 import escenarios.*
 
 program VampiresHunter {
-	
-    //inicializador.iniciar() 
  	
  	//// PRIMER NIVEL
  	
  	//  CONFIG	
+ 	
 	game.title("vampiros") //Hay que elegir el nombre
 	game.height(15)
 	game.width(25)

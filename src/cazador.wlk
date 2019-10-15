@@ -14,39 +14,54 @@ object cazador {
 	var property rifleDePlata = new RifleDePlata()
 	var property estaca = new Estaca()
 	var property sal = new Sal()
+	var property fantasma = new Fantasma()
+	var property murcielago = new Murcielago()
+	var property bruja = new Bruja()
 	
 	method recogerArmaOProteccion(arma) { 
 		if ( arma == ballesta or arma == rifleDePlata or arma == estaca ) {
 			armasEncontradas.add(arma)
 			game.removeVisual(arma)
 		} else if ( arma == sal) {
-			cantSales += 1
+			cantSales = cantSales +1
 			game.removeVisual(arma)
 		   } else {
-		      tiempoDeProteccion += 10	
+		      tiempoDeProteccion = tiempoDeProteccion +10	
 		      game.removeVisual(arma)
 		    }
 	}
 	
-	method atacar(enemigo, arma) {
-	var fantasma = new Fantasma() 	
-		if (enemigo == fantasma and fantasma.puedeSerAtacado()) {
-			game.removeVisual(enemigo)
-		} else if(arma) {}
-		/// modificar
-		
+	method atacarEnemigoConArma(enemigo, arma) { 	
+		enemigo.recibirAtaqueCon(arma)
 	}
 	     	
 	method recogerVida() {
-	   if(vida == 5) {
+	   if(vida == 10) {
 	   	 self.error("Tengo las vidas completas")
 	   } else {
-	   	   vida += 1 
+	   	   vida = vida + 1 
 	   }
 	}
 	
-	method cambiarDeEscenario() {	
+	method recibirAtaque(enemigo) {
+		if( enemigo == fantasma) {
+			vida = vida - 1
+		} else if( enemigo == fantasmaFinal) {
+			vida = vida - 2
+		} else if( enemigo == murcielago) {
+			vida = vida - 3
+		} else if( enemigo == bruja) {
+			vida = vida - 4
+		} else {
+			vida = vida - 6
+		}
 	}
+	
+	method cambiarDeEscenario(puertaDeCastillo) {	
+	     if(self.estaSituadoEnCambioDeEscenario(puertaDeCastillo)) {
+	     	/////
+	     }
+	 }
 	
 	method estaSituadoEnCambioDeEscenario(puertaDeCastillo) {
 		return position == puertaDeCastillo.position()
@@ -55,7 +70,7 @@ object cazador {
 	method irA(nuevaPosicion) { position = nuevaPosicion }
 	
 	method ganaElJuego() {
-	   return dracula.murio()
+	   return dracula.muere()
 	}
 	
 	method pierdeElJuego() { return vida == 0 }

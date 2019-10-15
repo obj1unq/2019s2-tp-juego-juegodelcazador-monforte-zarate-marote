@@ -168,9 +168,7 @@ object primerEscenario {
     game.addVisualIn(new Sal(), game.at( 19, 8)) 
     game.addVisualIn(new Sal(), game.at( 1, 10))
     game.addVisualIn(new Sal(), game.at( 24, 11)) 
-    game.addVisualIn(new Sal(), game.at( 5, 9))
-	game.addVisualIn(new Sal(), game.at( 14, 1))
-    
+    game.addVisualIn(new Sal(), game.at( 5, 9))    
     }
 }
 
