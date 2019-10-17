@@ -4,6 +4,7 @@ class Estaca {
 	const property image = ".png" 
     var property vidaUtil
     var property danio
+    const property position
     
     method esUsada() {   	
     }
@@ -23,6 +24,7 @@ class RifleDePlata {
 	const property image = ".png" 
 	var property vidaUtil
 	var property danio
+	const property position
     
     method esUsada() {	
     }
@@ -31,15 +33,15 @@ class RifleDePlata {
 class Ajo {
 	const property image = ".png" 
 	var property vidaUtil
-	var property danio
+	const property tiempoQueProteje = 10 
+	
 
-    method esUsada() {
-       cazador.tiempoDeProteccion(10) 	
-    }
+    method esUsada() {}
 }
  
 class Sal {
 	const property image = "sal.png" 
     var property vidaUtil
 	var property danio	
+	const property position
 }

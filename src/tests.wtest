@@ -1,6 +1,72 @@
+import cazador.*
+import enemigos.*
+import armas.*
+import cosasExtras.*
 
-test "¡sep, vale hacer tests también!" {
+describe "cazador" {
+	
+const ballesta = new Ballesta()	
+const estaca = new Estaca()
+const rifleDePlata = new RifleDePlata()
+const sal = new Sal()
+const ajo = new Ajo()
+const fantasma = new Fantasma()
+const bruja = new Bruja()
+const murcielago = new Murcielago()	
+	
+	test "cazador recoge armas" {
+    cazador.recogerArmaOProteccion(ballesta)
+    cazador.recogerArmaOProteccion(rifleDePlata)
+    cazador.recogerArmaOProteccion(estaca)
+	assert.equals([ballesta, rifleDePlata, estaca], cazador.inventario())  
+}
 
-	assert.that(false)
+    test "cazador recoge sal" {
+      cazador.recogerArmaOProteccion(sal)
+	  assert.equals(1, cazador.cantDeSales())  
+}
 
+    test "cazador recoge Ajo" {
+    cazador.recogerArmaOProteccion(ajo)
+	assert.equals(10, cazador.tiempoDeProteccionConAjo())  
+}
+   
+    test "atacar enemigo" {}
+   
+    test "cazador recoge vida" {
+    cazador.recogerVida()
+    assert.equals(6, cazador.vida())	
+    }
+
+    test " recibe ataque de fantasma" {
+    cazador.recibirAtaque(fantasma)
+    assert.equals(4, cazador.vida())	
+    }
+    
+    test " recibe ataque de murcielago" {
+    cazador.recibirAtaque(murcielago)
+    assert.equals(2, cazador.vida())	
+    }
+    
+    test " recibe ataque de bruja" {
+    cazador.recibirAtaque(bruja)
+    assert.equals(1, cazador.vida())	
+    }
+    
+    test " recibe ataque de fantasma final" {	
+    cazador.recibirAtaque(fantasmaFinal)
+    assert.equals(3, cazador.vida())	
+    }
+	
+}
+
+/* 
+describe "enemigos" {
+	test "cazador recoge ballesta" {
+    
+
+}
+
+*/
+	
 }

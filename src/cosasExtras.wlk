@@ -1,3 +1,5 @@
+import cazador.*
+
 class MuroDeCastillo {
 	const property image = "muroCastillo1.jpg"
 	const property position = 0 
@@ -18,8 +20,13 @@ class Arbusto {
 	const property position = 0  
 }
 
-class ParteDeCamino {
-	const property image = "camino1.png"
+class ParteDePasto {
+	const property image = "pasto5.png"
 	const property position = 0  
+
+   method colisionasteConCazador() {
+    	return self.position() == cazador.position()
+    }
+
 }
 

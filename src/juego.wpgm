@@ -14,7 +14,7 @@ program VampiresHunter {
 	game.title("vampiros") //Hay que elegir el nombre
 	game.height(15)
 	game.width(25)
-	game.ground("pasto5.png")
+	
  	
  	//  VISUALES
  	
@@ -28,7 +28,7 @@ program VampiresHunter {
 	keyboard.up().onPressDo({ cazador.irA(cazador.position().up(1))})
 	keyboard.down().onPressDo({ cazador.irA(cazador.position().down(1))})
 	//keyboard.c().onPressDo({ cazador.cambiarDeEscenario()})
-    //keyboard.e().onPressDo({ cazador.recogerArmaOProteccion(game.colliders(cazador).first())})
+    keyboard.e().onPressDo({ cazador.recogerArmaOProteccion(game.colliders(cazador).first())})
 	//keyboard.a().onPressDo({ cazador.atacar(arma)})
  	
  	//  COMIENZA
