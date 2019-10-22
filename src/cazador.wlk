@@ -2,6 +2,7 @@ import wollok.game.*
 import enemigos.*
 import cosasExtras.*
 import armas.*
+import escenarios.*
 
 object cazador {
 	const property image = "cazador.png"
@@ -53,10 +54,10 @@ object cazador {
 		vida = vida - enemigo.poderDanio()
 	}
 	
-	
 	method cambiarDeEscenario(puertaDeCastillo) {	
 	     if(self.estaSituadoEnCambioDeEscenario(puertaDeCastillo)) {
-	     	/////
+	     	game.clear()
+	        segundoEscenario.iniciar()
 	     }
 	 }
 	

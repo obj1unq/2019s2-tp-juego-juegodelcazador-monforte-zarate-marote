@@ -9,6 +9,9 @@ object primerEscenario {
 	method iniciar() {
 		
 	game.ground("camino1.png")	
+	
+	config.configurarTeclas()
+	
 		
 	// CASTILLO	
 	
@@ -316,6 +319,8 @@ object primerEscenario {
     game.addVisualIn(new Sal(), game.at( 1, 10))
     game.addVisualIn(new Sal(), game.at( 24, 11)) 
     game.addVisualIn(new Sal(), game.at( 5, 9))    
+    
+    game.addVisual(cazador)
     }
 }
 
@@ -323,7 +328,23 @@ object segundoEscenario {
     
     method iniciar() {
     	
-    // 	
+    game.ground("pasto3.png")	
+    
+    game.addVisual(cazador)
+	
+	config.configurarTeclas()	
     		
     }
+}
+
+object config {
+	method configurarTeclas() {
+		keyboard.left().onPressDo({ cazador.irA(cazador.position().left(1))})
+    	keyboard.right().onPressDo({ cazador.irA(cazador.position().right(1))})
+	    keyboard.up().onPressDo({ cazador.irA(cazador.position().up(1))})
+	    keyboard.down().onPressDo({ cazador.irA(cazador.position().down(1))})
+	    keyboard.c().onPressDo({ cazador.cambiarDeEscenario(game.colliders(cazador).first())})
+        keyboard.e().onPressDo({ cazador.recogerArmaOProteccion(game.colliders(cazador).first())})
+	  //keyboard.a().onPressDo({ cazador.atacar(arma)})	
+	}	
 }
