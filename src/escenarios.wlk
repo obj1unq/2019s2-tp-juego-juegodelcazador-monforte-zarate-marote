@@ -309,8 +309,11 @@ object primerEscenario {
 	
 	game.addVisualIn(new Murcielago(), game.at( 15, 4)) 
     game.addVisualIn(new Ballesta(), game.at( 11, 5)) 
-	
-	
+	game.addVisualIn(new ArmaDePlata(), game.at( 10, 5)) 
+	game.addVisualIn(new Ajo(), game.at( 9, 5)) 
+	game.addVisualIn(new EstacaYMartillo(), game.at( 8, 5)) 
+	game.addVisualIn(new Bruja(), game.at( 7, 5)) 
+	game.addVisualIn(dracula, game.at( 6, 5)) 
 	
 	// SALES
 	

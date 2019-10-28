@@ -8,11 +8,11 @@ object dracula {
 	var vida = 10
 	var property position
 	var property ballesta = new Ballesta()
-	var property rifleDePlata = new RifleDePlata()
-	var property estaca = new Estaca()
+	var property armaDePlata = new ArmaDePlata()
+	var property estaca = new EstacaYMartillo()
 	
 	method recibirAtaqueCon(arma) {
-		if(arma == rifleDePlata) {
+		if(arma == armaDePlata) {
 			vida = 0
 		} else if (arma == estaca){
 			vida -= 3
@@ -32,15 +32,15 @@ class Bruja {
 	var property vida
 	var property position 
 	var property ballesta = new Ballesta()
-	var property rifleDePlata = new RifleDePlata()
-	var property estaca = new Estaca()
+	var property armaDePlata = new ArmaDePlata()
+	var property estaca = new EstacaYMartillo()
 	
 	method image() { return image }
 	
 	method recibirAtaqueCon(arma) {
 		if(arma == ballesta) {
 			vida -= 3 
-		} else if (arma == rifleDePlata){
+		} else if (arma == armaDePlata){
 			vida -= 2
 		} else { vida -= 1}
 	}
@@ -88,7 +88,7 @@ class Murcielago {
 	var property vida
 	var property position 
 	var property ballesta = new Ballesta()
-	var property rifleDePlata = new RifleDePlata()
+	var property armaDePlata = new ArmaDePlata()
 	
     method recibirAtaqueCon(arma) {
 		if(arma == ballesta) {

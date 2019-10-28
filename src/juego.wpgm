@@ -16,7 +16,7 @@ program VampiresHunter {
  	
  	//  VISUALES
  	
- 	segundoEscenario.iniciar()
+ 	primerEscenario.iniciar()
  	
  	//  COMIENZA
 	game.start()

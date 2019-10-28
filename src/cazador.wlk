@@ -11,8 +11,8 @@ object cazador {
 	var property inventario = []
 	var property position = new Position(x = 12, y = 0)
     var property ballesta = new Ballesta()
-	var property rifleDePlata = new RifleDePlata()
-	var property estaca = new Estaca()
+	var property armaDePlata = new ArmaDePlata()
+	var property estaca = new EstacaYMartillo()
 	var property sal = new Sal()
 	var property fantasma = new Fantasma()
 	var property murcielago = new Murcielago()

@@ -1,7 +1,7 @@
 import cazador.*
 
-class Estaca {
-	const property image = ".png" 
+class EstacaYMartillo {
+	const property image = "estacaYMartillo.png" 
     var property vidaUtil
     var property danio
     const property position
@@ -20,8 +20,8 @@ class Ballesta {
     }
 }
 
-class RifleDePlata {
-	const property image = ".png" 
+class ArmaDePlata {
+	const property image = "armaPlata.png" 
 	var property vidaUtil
 	var property danio
 	const property position
@@ -31,7 +31,7 @@ class RifleDePlata {
 }
 
 class Ajo {
-	const property image = ".png" 
+	const property image = "ajo.png" 
 	var property vidaUtil
 	const property tiempoQueProteje = 10 
 	
