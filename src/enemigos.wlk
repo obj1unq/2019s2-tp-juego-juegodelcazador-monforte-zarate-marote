@@ -3,8 +3,8 @@ import armas.*
 import wollok.game.*
 
 object dracula { 
-    const property image = ".png"
-	const property poderDanio = 6
+    const property image = "dracula.png"
+	const property poderDanio = 40
 	var vida = 10
 	var property position
 	var property ballesta = new Ballesta()
@@ -16,7 +16,9 @@ object dracula {
 			vida = 0
 		} else if (arma == estaca){
 			vida -= 3
-		} else { vida -= 1}
+		} else if(arma == ballesta) { 
+			vida -= 1
+		}
 	}
 	
 	method muere(){ return vida == 0 }
@@ -25,8 +27,8 @@ object dracula {
 }
 	
 class Bruja { 
-	const property image 
-	const property poderDanio = 4
+	const property image = "bruja.png" 
+	const property poderDanio = 20
 	var property vida
 	var property position 
 	var property ballesta = new Ballesta()
@@ -54,7 +56,7 @@ class Fantasma {
 	var property vida
 	var property position 
 	
-	method recibirAtaqueCon() { 
+	method recibirAtaque() { 
 		if(cazador.cantDeSales() == 1) {
 			self.muere()
 		}

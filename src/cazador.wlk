@@ -6,7 +6,8 @@ import escenarios.*
 
 object cazador {
 	const property image = "cazador.png"
-	var property vida = 5
+	var property vida = 3
+	var property energia = 100
 	var property inventario = []
 	var property position = new Position(x = 12, y = 0)
     var property ballesta = new Ballesta()
@@ -42,16 +43,16 @@ object cazador {
 		enemigo.recibirAtaqueCon(arma)
 	}
 	     	
-	method recogerVida() {
-	   if(vida == 10) {
-	   	 self.error("Tengo las vidas completas")
+	method recogerEnergia() {
+	   if(vida == 100) {
+	   	 self.error("Tengo energia completa")
 	   } else {
 	   	   vida = vida + 1 
 	   }
 	}
 	
 	method recibirAtaque(enemigo) {
-		vida = vida - enemigo.poderDanio()
+		energia = energia - enemigo.poderDanio()
 	}
 	
 	method cambiarDeEscenario(puertaDeCastillo) {	
@@ -81,5 +82,8 @@ object cazador {
 	   return dracula.muere()
 	}
 	
+	method pierdeVida() { return energia == 0	}
+	
 	method pierdeElJuego() { return vida == 0 }
+
 }
