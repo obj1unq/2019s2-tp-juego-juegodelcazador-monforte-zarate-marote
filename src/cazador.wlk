@@ -64,7 +64,7 @@ object cazador {
 	
 	method estaSituadoEnCambioDeEscenario(puertaDeCastillo) {
 		return position == puertaDeCastillo.position()
-	} 
+	}  // usar onCollideDo(visual, action)
 	 
 	method irA(nuevaPosicion) { 
 		//if( not self.colisionaEn(nuevaPosicion)) {
