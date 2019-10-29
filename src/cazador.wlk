@@ -8,8 +8,8 @@ object cazador {
 	const property image = "cazador.png"
 	var property vida = 3
 	var property energia = 100
-	var property inventario = []
-	var property position = new Position(x = 12, y = 0)
+	const property inventario = []
+	var property position
     var property ballesta = new Ballesta()
 	var property armaDePlata = new ArmaDePlata()
 	var property estaca = new EstacaYMartillo()
@@ -42,6 +42,10 @@ object cazador {
 	method atacarEnemigoConArma(enemigo, arma) { 	
 		enemigo.recibirAtaqueCon(arma)
 	}
+	     	
+	method recibirDanio(cantidad) {
+		energia -= cantidad
+	}     	
 	     	
 	method recogerEnergia() {
 	   if(vida == 100) {
@@ -76,13 +80,16 @@ object cazador {
 }	
 	method colisionaConEn(posicion) {
     	return posicion == parteDePasto.position()
-    }
+    }  // usar onCollideDo(visual, action)
 	
 	method ganaElJuego() {
 	   return dracula.muere()
 	}
 	
-	method pierdeVida() { return energia == 0	}
+	method pierdeVida() { 
+		 if( energia == 0)
+		   vida -= 1
+	}
 	
 	method pierdeElJuego() { return vida == 0 }
 

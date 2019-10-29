@@ -6,8 +6,8 @@ import cosasExtras.*
 describe "cazador" {
 	
 const ballesta = new Ballesta()	
-const estaca = new Estaca()
-const rifleDePlata = new RifleDePlata()
+const estaca = new EstacaYMartillo()
+const armaDePlata = new ArmaDePlata()
 const sal = new Sal()
 const ajo = new Ajo()
 const fantasma = new Fantasma()
@@ -16,9 +16,9 @@ const murcielago = new Murcielago()
 	
 	test "cazador recoge armas" {
     cazador.recogerArmaOProteccion(ballesta)
-    cazador.recogerArmaOProteccion(rifleDePlata)
+    cazador.recogerArmaOProteccion(armaDePlata)
     cazador.recogerArmaOProteccion(estaca)
-	assert.equals([ballesta, rifleDePlata, estaca], cazador.inventario())  
+	assert.equals([ballesta, armaDePlata, estaca], cazador.inventario())  
 }
 
     test "cazador recoge sal" {
@@ -33,9 +33,9 @@ const murcielago = new Murcielago()
    
     test "atacar enemigo" {}
    
-    test "cazador recoge vida" {
-    cazador.recogerVida()
-    assert.equals(6, cazador.vida())	
+    test "cazador recogeenergia" {
+    cazador.recogerEnergia()
+    assert.equals(6, cazador.energia())	
     }
 
     test " recibe ataque de fantasma" {
@@ -57,16 +57,5 @@ const murcielago = new Murcielago()
     cazador.recibirAtaque(fantasmaFinal)
     assert.equals(3, cazador.vida())	
     }
-	
-}
-
-/* 
-describe "enemigos" {
-	test "cazador recoge ballesta" {
-    
-
-}
-
-*/
 	
 }

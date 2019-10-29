@@ -21,6 +21,10 @@ object dracula {
 		}
 	}
 	
+	method atacar() {
+		cazador.recibirDanio(poderDanio)
+	}
+	
 	method muere(){ return vida == 0 }
     
 	//method irA(nuevaPosicion) { position = nuevaPosicion }
@@ -45,6 +49,10 @@ class Bruja {
 		} else { vida -= 1}
 	}
 	
+	method atacar() {
+		cazador.recibirDanio(poderDanio)
+	}
+	
 	method muere(){ return vida == 0 }
 	
 	//method irA(nuevaPosicion) { position = nuevaPosicion } 
@@ -57,10 +65,13 @@ class Fantasma {
 	var property position 
 	
 	method recibirAtaque() { 
-		if(cazador.cantDeSales() == 1) {
-			self.muere()
-		}
+	   if(cazador.cantDeSales() == 1) 
+		  self.muere()
 	}  
+	
+	method atacar() {
+		cazador.recibirDanio(poderDanio)
+	}
 	
 	method muere(){ return vida == 0 } 
 }
@@ -75,16 +86,18 @@ object fantasmaFinal {
 	method muere(){ return vida == 0 }
 
     method recibirAtaqueCon(arma) {
-		if(arma == ajo and cazador.cantDeSales() == 5) {
+		if(arma == ajo and cazador.cantDeSales() == 5) 
 			self.muere() 
-		} else {
-		}
+	}
+	
+	method atacar() {
+		cazador.recibirDanio(poderDanio)
 	}
 }
 
 class Murcielago {
 	const property image = "murcielago.png"
-	const property poderDanio = 3
+	const property poderDanio = 10
 	var property vida
 	var property position 
 	var property ballesta = new Ballesta()
@@ -94,6 +107,10 @@ class Murcielago {
 		if(arma == ballesta) {
 			vida = vida -2  
 	    }
+	}
+
+    method atacar() {
+		cazador.recibirDanio(poderDanio)
 	}
 
     method muere(){ return vida == 0 }

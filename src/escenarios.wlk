@@ -324,7 +324,7 @@ object primerEscenario {
     game.addVisualIn(new Sal(), game.at( 24, 11)) 
     game.addVisualIn(new Sal(), game.at( 5, 9))    
     
-    game.addVisual(cazador)
+    game.addVisualIn(cazador, game.at(12,0))
     }
 }
 
