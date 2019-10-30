@@ -18,6 +18,8 @@ object primerEscenario {
 	
 	// var muroDeCastillo = new MuroDeCastillo()	
 		
+		
+	// MODIFICAR CON FOREACH	
 	game.addVisualIn(new MuroDeCastillo(), game.at(6, 14))
  	game.addVisualIn(new MuroDeCastillo(), game.at(7, 14))
  	game.addVisualIn(new MuroDeCastillo(), game.at(8, 14))

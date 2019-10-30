@@ -2,11 +2,19 @@ import cazador.*
 import armas.*
 import wollok.game.*
 
-object dracula { 
+class Enemigo {
+	var property vida  // Posible cambio por diferentes valores de cada enemigo
+	var property position 
+	const property poderDanio   // Posible cambio por diferentes valores de cada enemigo 
+	method muere(){ return vida == 0 }
+
+    method atacar() {
+		cazador.recibirDanio(poderDanio)
+	}
+}
+
+object dracula inherits Enemigo{ 
     const property image = "dracula.png"
-	const property poderDanio = 40
-	var vida = 10
-	var property position
 	var property ballesta = new Ballesta()
 	var property armaDePlata = new ArmaDePlata()
 	var property estaca = new EstacaYMartillo()
@@ -20,21 +28,11 @@ object dracula {
 			vida -= 1
 		}
 	}
-	
-	method atacar() {
-		cazador.recibirDanio(poderDanio)
-	}
-	
-	method muere(){ return vida == 0 }
-    
 	//method irA(nuevaPosicion) { position = nuevaPosicion }
 }
 	
-class Bruja { 
+class Bruja inherits Enemigo{ 
 	const property image = "bruja.png" 
-	const property poderDanio = 20
-	var property vida
-	var property position 
 	var property ballesta = new Ballesta()
 	var property armaDePlata = new ArmaDePlata()
 	var property estaca = new EstacaYMartillo()
@@ -48,72 +46,37 @@ class Bruja {
 			vida -= 2
 		} else { vida -= 1}
 	}
-	
-	method atacar() {
-		cazador.recibirDanio(poderDanio)
-	}
-	
-	method muere(){ return vida == 0 }
-	
 	//method irA(nuevaPosicion) { position = nuevaPosicion } 
 }
 
-class Fantasma {
+class Fantasma inherits Enemigo{
 	const property image = "fantasma.png"
-	const property poderDanio = 1
-	var property vida
-	var property position 
-	
-	method recibirAtaque() { 
-	   if(cazador.cantDeSales() == 1) 
+	var ajo = new Ajo()
+
+	method recibirAtaqueCon(arma) { 
+	   if(arma == ajo and cazador.cantDe(arma) == 1) 
 		  self.muere()
 	}  
-	
-	method atacar() {
-		cazador.recibirDanio(poderDanio)
-	}
-	
-	method muere(){ return vida == 0 } 
 }
 
-object fantasmaFinal {
+object fantasmaFinal inherits Enemigo{
 	const property image = "fantasma2.png"
-	const property poderDanio = 2
-	var property vida 
-	var property position = game.at(12, 12)
 	var ajo = new Ajo()
-	
-	method muere(){ return vida == 0 }
 
     method recibirAtaqueCon(arma) {
-		if(arma == ajo and cazador.cantDeSales() == 5) 
-			self.muere() 
-	}
-	
-	method atacar() {
-		cazador.recibirDanio(poderDanio)
+		if(arma == ajo and cazador.cantDe(arma) == 5) 
+		   self.muere() 
 	}
 }
 
-class Murcielago {
+class Murcielago inherits Enemigo{
 	const property image = "murcielago.png"
-	const property poderDanio = 10
-	var property vida
-	var property position 
 	var property ballesta = new Ballesta()
 	var property armaDePlata = new ArmaDePlata()
 	
     method recibirAtaqueCon(arma) {
-		if(arma == ballesta) {
-			vida = vida -2  
-	    }
+		if(arma == ballesta) 
+			vida = vida -2      
 	}
-
-    method atacar() {
-		cazador.recibirDanio(poderDanio)
-	}
-
-    method muere(){ return vida == 0 }
-	
   //method irA(nuevaPosicion) { position = nuevaPosicion } 	
 }

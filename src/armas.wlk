@@ -1,36 +1,40 @@
 import cazador.*
 
-class EstacaYMartillo {
+class Arma {
+	const property position
+}
+
+class EstacaYMartillo inherits Arma {
 	const property image = "estacaYMartillo.png" 
     var property vidaUtil
     var property danio
-    const property position
     
-    method esUsada() {   	
+    
+    method esUsada() {  	
     }
 } 
 
-class Ballesta {
+class Ballesta  inherits Arma {
 	const property image = "ballesta.png" 
 	var property vidaUtil
 	var property danio
-	const property position
+	
 
     method esUsada() {    	
     }
 }
 
-class ArmaDePlata {
+class ArmaDePlata  inherits Arma {
 	const property image = "armaPlata.png" 
 	var property vidaUtil
 	var property danio
-	const property position
+	
     
     method esUsada() {	
     }
 }
 
-class Ajo {
+class Ajo  inherits Arma {
 	const property image = "ajo.png" 
 	var property vidaUtil
 	const property tiempoQueProteje = 10 
@@ -39,9 +43,11 @@ class Ajo {
     method esUsada() {}
 }
  
-class Sal {
+class Sal  inherits Arma {
 	const property image = "sal.png" 
     var property vidaUtil
 	var property danio	
-	const property position
+
+    method esUsada() {}
+
 }

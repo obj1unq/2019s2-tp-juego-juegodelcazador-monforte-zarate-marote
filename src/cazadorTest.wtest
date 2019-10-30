@@ -23,7 +23,7 @@ const murcielago = new Murcielago()
 
     test "cazador recoge sal" {
       cazador.recogerArmaOProteccion(sal)
-	  assert.equals(1, cazador.cantDeSales())  
+	  assert.equals(1, cazador.cantDe(sal))  
 }
 
     test "cazador recoge Ajo" {
@@ -33,7 +33,7 @@ const murcielago = new Murcielago()
    
     test "atacar enemigo" {}
    
-    test "cazador recogeenergia" {
+    test "cazador recoge energia" {
     cazador.recogerEnergia()
     assert.equals(6, cazador.energia())	
     }
@@ -57,5 +57,4 @@ const murcielago = new Murcielago()
     cazador.recibirAtaque(fantasmaFinal)
     assert.equals(3, cazador.vida())	
     }
-	
 }

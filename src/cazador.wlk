@@ -6,9 +6,9 @@ import escenarios.*
 
 object cazador {
 	const property image = "cazador.png"
-	var property vida = 3
-	var property energia = 100
 	const property inventario = []
+	var property vida = 3
+	var property energia = 100	
 	var property position
     var property ballesta = new Ballesta()
 	var property armaDePlata = new ArmaDePlata()
@@ -30,14 +30,11 @@ object cazador {
 		//////
 	}
 	
-	method cantDeSales() { return inventario.map( { arma => arma /* */ }).size()}
+	method cantDe(unArma) { return inventario.filter( { arma => arma == unArma }).size()}
 	
 	method tiempoDeProteccionConAjo() {
-		 return self.cantDeAjos() * ajo.tiempoQueProteje()
+		 return self.cantDe(ajo) * ajo.tiempoQueProteje()
 	}
-	
-	method cantDeAjos() {
-		return inventario.map( { arma => arma == ajo}).sum()}
 	
 	method atacarEnemigoConArma(enemigo, arma) { 	
 		enemigo.recibirAtaqueCon(arma)
