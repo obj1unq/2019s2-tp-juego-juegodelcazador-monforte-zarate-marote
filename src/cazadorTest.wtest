@@ -10,51 +10,89 @@ const estaca = new EstacaYMartillo()
 const armaDePlata = new ArmaDePlata()
 const sal = new Sal()
 const ajo = new Ajo()
-const fantasma = new Fantasma()
-const bruja = new Bruja()
-const murcielago = new Murcielago()	
+const fantasma = new Fantasma(vida = 10, position = 17->3 , poderDanio = 10)
+const bruja = new Bruja(vida = 50, position = 15->0 , poderDanio = 40)
+const murcielago = new Murcielago(vida = 15, position = 17->0 , poderDanio = 30)
+const fantasmaPoderoso = new FantasmaPoderoso(vida = 20, position = 12->12 , poderDanio = 20)
 	
-	test "cazador recoge armas" {
+	
+	test "Cazador recoge armas" {
     cazador.recogerArmaOProteccion(ballesta)
     cazador.recogerArmaOProteccion(armaDePlata)
     cazador.recogerArmaOProteccion(estaca)
 	assert.equals([ballesta, armaDePlata, estaca], cazador.inventario())  
 }
 
-    test "cazador recoge sal" {
+    test "Cazador recoge sal" {
       cazador.recogerArmaOProteccion(sal)
-	  assert.equals(1, cazador.cantDe(sal))  
+	  assert.that(cazador.inventario().contains(sal))  
 }
 
-    test "cazador recoge Ajo" {
+    test "Tiempo de protreccion por ajo" {
     cazador.recogerArmaOProteccion(ajo)
 	assert.equals(10, cazador.tiempoDeProteccionConAjo())  
 }
    
-    test "atacar enemigo" {}
+    test "Cantidad de ballesta en inventario" {
+    	cazador.recogerArmaOProteccion(ballesta)
+        cazador.recogerArmaOProteccion(armaDePlata)
+        cazador.recogerArmaOProteccion(estaca)
+        cazador.recogerArmaOProteccion(ballesta)
+        assert.equals(2,cazador.cantDe(ballesta))
+    }
    
-    test "cazador recoge energia" {
+    test "Cazador recoge energia" {
+    cazador.energia(50)	
     cazador.recogerEnergia()
-    assert.equals(6, cazador.energia())	
+    assert.equals(60, cazador.energia())	
+    }
+    
+    test "Cazador recoge vida" {
+    cazador.vida(2)	
+    cazador.recogerVida()
+    assert.equals(3, cazador.vida())	
     }
 
-    test " recibe ataque de fantasma" {
+    test "Recibe ataque de fantasma" {
     cazador.recibirAtaque(fantasma)
-    assert.equals(4, cazador.vida())	
+    assert.equals(90, cazador.energia())	
     }
     
-    test " recibe ataque de murcielago" {
+    test "Recibe ataque de murcielago" {
     cazador.recibirAtaque(murcielago)
-    assert.equals(2, cazador.vida())	
+    assert.equals(70, cazador.energia())	
     }
     
-    test " recibe ataque de bruja" {
+    test "Recibe ataque de bruja" {
     cazador.recibirAtaque(bruja)
-    assert.equals(1, cazador.vida())	
+    assert.equals(60, cazador.energia())	
     }
     
-    test " recibe ataque de fantasma final" {	
-    cazador.recibirAtaque(fantasmaFinal)
-    assert.equals(3, cazador.vida())	
+    test "Recibe ataque de fantasma final" {	
+    cazador.recibirAtaque(fantasmaPoderoso)
+    assert.equals(80, cazador.energia())	
+    }
+    
+    test "Gana el juego" {
+      dracula.vida(0)	
+      assert.that(cazador.ganaElJuego()) 	
+    }
+    
+    test "No gana el juego" {
+      assert.notThat(cazador.ganaElJuego())    	
+    }
+    
+    test "Pierde vida" {
+    	cazador.pierdeVida()
+    	assert.equals(2,cazador.vida())
+    }
+    
+    test "Pierde el juego" {
+        cazador.vida(0)
+        assert.that(cazador.pierdeElJuego())	
+    }
+    
+    test "No pierde el juego" {
+    	assert.notThat(cazador.pierdeElJuego())
     }
 }

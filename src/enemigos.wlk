@@ -3,14 +3,13 @@ import armas.*
 import wollok.game.*
 
 class Enemigo {
-	var property vida  // Posible cambio por diferentes valores de cada enemigo
+	var property vida //Posible cambio por diferentes valores de cada enemigo
 	var property position 
-	const property poderDanio   // Posible cambio por diferentes valores de cada enemigo 
-	method muere(){ return vida == 0 }
+	const property poderDanio //Posible cambio por diferentes valores de cada enemigo 
+	
+	method muere() { return vida == 0 }
 
-    method atacar() {
-		cazador.recibirDanio(poderDanio)
-	}
+    method atacar() { cazador.recibirAtaque(self) }
 }
 
 object dracula inherits Enemigo{ 
@@ -37,8 +36,6 @@ class Bruja inherits Enemigo{
 	var property armaDePlata = new ArmaDePlata()
 	var property estaca = new EstacaYMartillo()
 	
-	method image() { return image }
-	
 	method recibirAtaqueCon(arma) {
 		if(arma == ballesta) {
 			vida -= 3 
@@ -59,7 +56,7 @@ class Fantasma inherits Enemigo{
 	}  
 }
 
-object fantasmaFinal inherits Enemigo{
+class FantasmaPoderoso inherits Enemigo{
 	const property image = "fantasma2.png"
 	var ajo = new Ajo()
 

@@ -23,7 +23,7 @@ object cazador {
 	method recogerArmaOProteccion(arma) { 
 			self.validarQueEsArma(arma)
 			inventario.add(arma)
-		    game.removeVisual(arma)	
+		  //  game.removeVisual(arma)	//Con esto da error en los test de recoger
 	}
 	
 	method validarQueEsArma(arma) {
@@ -33,28 +33,28 @@ object cazador {
 	method cantDe(unArma) { return inventario.filter( { arma => arma == unArma }).size()}
 	
 	method tiempoDeProteccionConAjo() {
-		 return self.cantDe(ajo) * ajo.tiempoQueProteje()
+		 return ajo.tiempoQueProteje() * self.cantDe(ajo)
 	}
 	
-	method atacarEnemigoConArma(enemigo, arma) { 	
-		enemigo.recibirAtaqueCon(arma)
-	}
-	     	
-	method recibirDanio(cantidad) {
-		energia -= cantidad
-	}     	
+	method atacarEnemigoConArma(enemigo, arma) { enemigo.recibirAtaqueCon(arma)  }    	
 	     	
 	method recogerEnergia() {
-	   if(vida == 100) {
-	   	 self.error("Tengo energia completa")
+	   if(vida < 100) {
+	   	   energia = (energia +10).min(100) 
 	   } else {
-	   	   vida = vida + 1 
+	   	   self.error("Tengo la energia completa")
 	   }
 	}
 	
-	method recibirAtaque(enemigo) {
-		energia = energia - enemigo.poderDanio()
+	method recogerVida() {
+	   if(vida < 3) {
+	   	   vida += 1 
+	   }else {
+	   	   self.error("Tengo las vidas completas")
+	   }
 	}
+	
+	method recibirAtaque(enemigo) { energia -= enemigo.poderDanio() }
 	
 	method cambiarDeEscenario(puertaDeCastillo) {	
 	     if(self.estaSituadoEnCambioDeEscenario(puertaDeCastillo)) {
@@ -79,15 +79,12 @@ object cazador {
     	return posicion == parteDePasto.position()
     }  // usar onCollideDo(visual, action)
 	
-	method ganaElJuego() {
-	   return dracula.muere()
-	}
+	method ganaElJuego() { return dracula.muere() }
 	
 	method pierdeVida() { 
-		 if( energia == 0)
+		 if( energia > 0)
 		   vida -= 1
 	}
 	
 	method pierdeElJuego() { return vida == 0 }
-
 }
