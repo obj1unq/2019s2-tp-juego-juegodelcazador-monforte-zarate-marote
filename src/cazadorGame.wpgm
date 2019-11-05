@@ -10,8 +10,8 @@ program VampiresHunter {
  	//  CONFIG	
  	
 	game.title("vampiros") //Hay que elegir el nombre
-	game.height(15)
-	game.width(25)
+	game.height(13)
+	game.width(20)
 	//game.sound("haunting piano.mp3")
  	
  	//  VISUALES

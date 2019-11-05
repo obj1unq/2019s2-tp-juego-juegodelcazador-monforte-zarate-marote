@@ -1,18 +1,8 @@
 import cazador.*
 
-class MuroDeCastillo {
-	const property image = "muroCastillo1.jpg"
-	const property position = 0 
-}
-
-class PuertaDeCastillo {
-	const property image = "puertaCastillo.jpg"
-	const property position = 0 
-} 
-
-class VentanaDeCastillo {
-	const property image = "ventanaCastillo.jpg"
-	const property position = 0 
+object castillo {
+	const property image = "castillo.gif"
+	const property position = 0
 }
 
 class Arbusto {

@@ -3,11 +3,12 @@ import armas.*
 import wollok.game.*
 
 class Enemigo {
-	var property vida //Posible cambio por diferentes valores de cada enemigo
+	var property hp //Posible cambio por diferentes valores de cada enemigo
 	var property position 
-	const property poderDanio //Posible cambio por diferentes valores de cada enemigo 
+	const property atk //Posible cambio por diferentes valores de cada enemigo 
+
 	
-	method muere() { return vida == 0 }
+	method muere() { return hp == 0 }
 
     method atacar() { cazador.recibirAtaque(self) }
 }
@@ -20,11 +21,11 @@ object dracula inherits Enemigo{
 	
 	method recibirAtaqueCon(arma) {
 		if(arma == armaDePlata) {
-			vida = 0
+			hp = 0
 		} else if (arma == estaca){
-			vida -= 3
+			hp -= 3
 		} else if(arma == ballesta) { 
-			vida -= 1
+			hp -= 1
 		}
 	}
 	//method irA(nuevaPosicion) { position = nuevaPosicion }
@@ -38,10 +39,10 @@ class Bruja inherits Enemigo{
 	
 	method recibirAtaqueCon(arma) {
 		if(arma == ballesta) {
-			vida -= 3 
+			hp -= 3 
 		} else if (arma == armaDePlata){
-			vida -= 2
-		} else { vida -= 1}
+			hp -= 2
+		} else { hp -= 1}
 	}
 	//method irA(nuevaPosicion) { position = nuevaPosicion } 
 }
@@ -73,7 +74,7 @@ class Murcielago inherits Enemigo{
 	
     method recibirAtaqueCon(arma) {
 		if(arma == ballesta) 
-			vida = vida -2      
+			hp = hp -2      
 	}
   //method irA(nuevaPosicion) { position = nuevaPosicion } 	
 }

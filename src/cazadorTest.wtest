@@ -10,10 +10,10 @@ const estaca = new EstacaYMartillo()
 const armaDePlata = new ArmaDePlata()
 const sal = new Sal()
 const ajo = new Ajo()
-const fantasma = new Fantasma(vida = 10, position = 17->3 , poderDanio = 10)
-const bruja = new Bruja(vida = 50, position = 15->0 , poderDanio = 40)
-const murcielago = new Murcielago(vida = 15, position = 17->0 , poderDanio = 30)
-const fantasmaPoderoso = new FantasmaPoderoso(vida = 20, position = 12->12 , poderDanio = 20)
+const fantasma = new Fantasma(hp = 10, position = 17->3 , atk = 10)
+const bruja = new Bruja(hp = 50, position = 15->0 , atk = 40)
+const murcielago = new Murcielago(hp = 15, position = 17->0 , atk = 30)
+const fantasmaPoderoso = new FantasmaPoderoso(hp = 20, position = 12->12 , atk = 20)
 	
 	
 	test "Cazador recoge armas" {
@@ -74,7 +74,7 @@ const fantasmaPoderoso = new FantasmaPoderoso(vida = 20, position = 12->12 , pod
     }
     
     test "Gana el juego" {
-      dracula.vida(0)	
+      dracula.hp(0)	
       assert.that(cazador.ganaElJuego()) 	
     }
     
