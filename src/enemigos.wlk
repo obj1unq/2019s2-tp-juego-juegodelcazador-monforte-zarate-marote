@@ -38,11 +38,9 @@ class Bruja inherits Enemigo{
 	var property estaca = new EstacaYMartillo()
 	
 	method recibirAtaqueCon(arma) {
-		if(arma == ballesta) {
-			hp -= 3 
-		} else if (arma == armaDePlata){
-			hp -= 2
-		} else { hp -= 1}
+		if(arma == ballesta) {hp -= 3}
+		else if (arma == armaDePlata){hp -= 2} 
+		else { hp -= 1}
 	}
 	//method irA(nuevaPosicion) { position = nuevaPosicion } 
 }
@@ -50,21 +48,10 @@ class Bruja inherits Enemigo{
 class Fantasma inherits Enemigo{
 	const property image = "fantasma.png"
 	var ajo = new Ajo()
-
-	method recibirAtaqueCon(arma) { 
-	   if(arma == ajo and cazador.cantDe(arma) == 1) 
-		  self.muere()
+	
+	method recibirAtaqueCon(arma) {   if(arma == ajo and cazador.cantDe(arma) == 1) 
+		  								self.muere()
 	}  
-}
-
-class FantasmaPoderoso inherits Enemigo{
-	const property image = "fantasma2.png"
-	var ajo = new Ajo()
-
-    method recibirAtaqueCon(arma) {
-		if(arma == ajo and cazador.cantDe(arma) == 5) 
-		   self.muere() 
-	}
 }
 
 class Murcielago inherits Enemigo{
@@ -72,9 +59,6 @@ class Murcielago inherits Enemigo{
 	var property ballesta = new Ballesta()
 	var property armaDePlata = new ArmaDePlata()
 	
-    method recibirAtaqueCon(arma) {
-		if(arma == ballesta) 
-			hp = hp -2      
-	}
+    method recibirAtaqueCon(arma) {	if(arma == ballesta)	hp = hp -2}
   //method irA(nuevaPosicion) { position = nuevaPosicion } 	
 }
