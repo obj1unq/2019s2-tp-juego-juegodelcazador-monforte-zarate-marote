@@ -13,7 +13,6 @@ object primerEscenario {
 	
 	config.configurarTeclas()
 	
-		
 	// CASTILLO	
 		
 	game.addVisualIn(castillo, game.at(10,11))	

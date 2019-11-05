@@ -17,6 +17,4 @@ class ParteDePasto {
    method colisionasteConCazador() {
     	return self.position() == cazador.position()
     }
-
 }
-
