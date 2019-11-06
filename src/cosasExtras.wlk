@@ -1,20 +1,22 @@
 import cazador.*
 
-object castillo {
+class NoColisionable {
+	const puedeColisionar = false
+	
+}
+
+
+object castillo inherits NoColisionable{
 	const property image = "castillo.gif"
 	const property position = 0
 }
 
-class Arbusto {
-	const property image = "arbusto.png"
-	const property position = 0  
-}
 
-class ParteDePasto {
-	const property image = "pasto5.png"
-	const property position = 0  
-
-   method colisionasteConCazador() {
-    	return self.position() == cazador.position()
-    }
+class Pared  inherits NoColisionable{
+	const property position
+	var image 
+	
+	method mover(direccion) {
+		throw new Exception(message = "No puedes mover las paredes.")
+	}
 }
