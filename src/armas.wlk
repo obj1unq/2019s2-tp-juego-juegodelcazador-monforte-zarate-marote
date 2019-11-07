@@ -1,11 +1,17 @@
+import wollok.game.*
 import cazador.*
+import cosasExtras.*
 
-class Arma {
+class Arma inherits Colisionable {
 	const property position
 	
 	method esUsadaCon(enemigo) {
     	cazador.atacarEnemigoConArma(enemigo, self)  	
     }
+    
+    method colisionarCon(cazador) { 
+		game.removeVisual(self)
+	}
 }
 
 class EstacaYMartillo inherits Arma {

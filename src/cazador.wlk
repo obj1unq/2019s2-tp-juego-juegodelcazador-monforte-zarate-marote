@@ -1,54 +1,73 @@
-import wollok.game.*
 import enemigos.*
 import cosasExtras.*
 import armas.*
 import escenarios.*
+import wollok.game.*
 
 object cazador {
 	const property image = "cazador.png"
 	const property inventario = []
 	var property vida = 500	
-	var property position
+	var property position = game.at(14,0)
+	var property tiempoProtegido
+	var property ajo = new Ajo()
 	
 	method recogerArmaOProteccion(arma) { 
 			//Preguntar si es colisionable
 			inventario.add(arma)
-		  //  game.removeVisual(arma)	//Con esto da error en los test de recoger
+		    arma.colisionarCon(self)
 	}
 	
 	method cantDe(unArma) { return inventario.filter( { arma => arma == unArma }).size()}
 	
 	method tiempoDeProteccionConAjo() {
-		 return ajo.tiempoQueProteje() * self.cantDe(ajo)
+		 tiempoProtegido += (ajo.tiempoQueProteje() * self.cantDe(ajo))
+		 // se tiene que ir descontando el tiempo
 	}
 	
-	method atacarEnemigoConArma(enemigo, arma) { enemigo.recibirAtaqueCon(arma)  }    	
+	method atacarEnemigoConArma(enemigo, arma) { 
+		enemigo.recibirAtaqueCon(arma)
+	}    	
 	     	
 	method recogerVida() {
 	   	  vida = (vida +10).min(500) 
 	}
 	
-	
-	method recibirAtaque(enemigo) { vida -= enemigo.poderDanio() } //ver poder danio
+	method recibirAtaque(enemigo) { 
+		vida -= enemigo.atk()
+	}
 	
 	method cambiarDeEscenario(puertaDeCastillo) {	
-	     if(self.estaSituadoEnCambioDeEscenario(puertaDeCastillo)) {
-	     	game.clear()
-	        segundoEscenario.iniciar() //trabajar duro en esto
-	     }
+	      //trabajar duro en esto
 	 }
 	
-	method estaSituadoEnCambioDeEscenario(puertaDeCastillo) {
-		return position == puertaDeCastillo.position()
-	}  // usar onCollideDo(visual, action)
+	method estaSituadoEnCambioDeEscenario() {
+		// usar onCollideDo(visual, action)
+		//trabajar duro en esto
+	}  
 	 
 	method irA(nuevaPosicion) { 
-		//   self.colisionaEn(nuevaPosicion)
 		     position = nuevaPosicion
-}	
-	method colisionaConEn(posicion) {
-    	return posicion == parteDePasto.position()
-    }  // usar onCollideDo(visual, action)
+    }	
+
+	method mover(nuevaPosicion) {
+		// Puede mover si no hay un obj no colisionable en direccion dir
+		 // Actualiza la variable del personaje
+		if (self.puedeMoverAl(nuevaPosicion)) {
+			position = nuevaPosicion		
+		}
+	}
+	
+	method puedeMoverAl(dirNueva) {
+		// Puede mover si no hay ningun obj en direccion dir o si el obj es colisionable
+		// Todos los obj entienden el mensaje esColisionable()
+		return /*game.getObjectsIn(dirNueva.posicionAl(self)).isEmpty() or */
+		      game.getObjectsIn(dirNueva.posicionAl(self)).all{ obj => obj.esColisionable() }
+	}
+   
+    method colisionarCon(enemigo) {
+	    // Respeta el polimorfismo.
+	}
 	
 	method ganaElJuego() { return dracula.muere() }
 	

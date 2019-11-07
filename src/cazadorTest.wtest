@@ -13,7 +13,6 @@ const ajo = new Ajo()
 const fantasma = new Fantasma(hp = 10, position = 17->3 , atk = 10)
 const bruja = new Bruja(hp = 50, position = 15->0 , atk = 40)
 const murcielago = new Murcielago(hp = 15, position = 17->0 , atk = 30)
-const fantasmaPoderoso = new FantasmaPoderoso(hp = 20, position = 12->12 , atk = 20)
 	
 	
 	test "Cazador recoge armas" {
@@ -42,9 +41,9 @@ const fantasmaPoderoso = new FantasmaPoderoso(hp = 20, position = 12->12 , atk =
     }
    
     test "Cazador recoge energia" {
-    cazador.energia(50)	
-    cazador.recogerEnergia()
-    assert.equals(60, cazador.energia())	
+    cazador.vida(50)	
+    cazador.recogerVida()
+    assert.equals(60, cazador.vida())	
     }
     
     test "Cazador recoge vida" {
@@ -55,22 +54,17 @@ const fantasmaPoderoso = new FantasmaPoderoso(hp = 20, position = 12->12 , atk =
 
     test "Recibe ataque de fantasma" {
     cazador.recibirAtaque(fantasma)
-    assert.equals(90, cazador.energia())	
+    assert.equals(90, cazador.vida())	
     }
     
     test "Recibe ataque de murcielago" {
     cazador.recibirAtaque(murcielago)
-    assert.equals(70, cazador.energia())	
+    assert.equals(70, cazador.vida())	
     }
     
     test "Recibe ataque de bruja" {
     cazador.recibirAtaque(bruja)
-    assert.equals(60, cazador.energia())	
-    }
-    
-    test "Recibe ataque de fantasma final" {	
-    cazador.recibirAtaque(fantasmaPoderoso)
-    assert.equals(80, cazador.energia())	
+    assert.equals(60, cazador.vida())	
     }
     
     test "Gana el juego" {
@@ -80,11 +74,6 @@ const fantasmaPoderoso = new FantasmaPoderoso(hp = 20, position = 12->12 , atk =
     
     test "No gana el juego" {
       assert.notThat(cazador.ganaElJuego())    	
-    }
-    
-    test "Pierde vida" {
-    	cazador.pierdeVida()
-    	assert.equals(2,cazador.vida())
     }
     
     test "Pierde el juego" {
