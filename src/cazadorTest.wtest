@@ -91,4 +91,5 @@ const murcielago = new Murcielago(hp = 15, position = 17->0 , atk = 30)
     test "No pierde el juego" {
     	assert.notThat(cazador.pierdeElJuego())
     }
+ 
 }

@@ -23,10 +23,10 @@ program VampiresHunter {
 	keyboard.c().onPressDo({ cazador.cambiarDeEscenario(game.colliders(cazador).first())})// este comando creo qe debería ser dirigidos al .game
     keyboard.e().onPressDo({ cazador.recogerArmaOProteccion(game.colliders(cazador).first())})
     //keyboard.r().onPressDo({ cazador.activarProteccion)})
-    //keyboard.num1().onPressDo({ cazador.equipar(ballesta) })
-    //keyboard.num2().onPressDo({ cazador.equipar(estacaYMartillo) })
-    //keyboard.num3().onPressDo({ cazador.equipar(revolverDePlata) })
-    //keyboard.num4().onPressDo({ cazador.equipar(sal) })
+    keyboard.num1().onPressDo({ cazador.equipar(ballesta) })
+    keyboard.num2().onPressDo({ cazador.equipar(estacaYMartillo) })
+    keyboard.num3().onPressDo({ cazador.equipar(revolverDePlata) })
+    keyboard.num4().onPressDo({ cazador.equipar(sal) })
     
     //keyboard.a().onPressDo({ cazador.atacar(arma)})	
  	
