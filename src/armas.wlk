@@ -1,6 +1,7 @@
 import wollok.game.*
 import cazador.*
 import cosasExtras.*
+import enemigos.*
 
 class Arma inherits Colisionable {
 	const property position
@@ -16,19 +17,25 @@ class Arma inherits Colisionable {
 
 class EstacaYMartillo inherits Arma {
 	const property image = "estacaYMartillo.png" 
-    var property danio    
+    var property danio = 1
+    
+    /*method armaDefinitiva(){ ***VER IDEA DE ARMA DEFINITIVA
+    	if (game. == dracula){
+    		dracula.muere()
+    	}
+    }*/
  
 } 
 
 class Ballesta inherits Arma {
 	const property image = "ballesta.png" 
-	var property danio
+	var property danio = 2
 	
 }
 
-class ArmaDePlata inherits Arma {
+class RevolverDePlata inherits Arma {
 	const property image = "armaPlata.png" 
-	var property danio
+	var property danio = 5
 	    
 }
 

@@ -7,27 +7,27 @@ class Direccion {
 
 object izquierda inherits Direccion { 
 
-override method imagenDelPersonaje() = "cazadorIzquierda.png"
+override method imagenDelPersonaje() = self.toString()+"Izquierda.png"
 
 override method posicionAl(jugador) = jugador.position().left(1)
 }
 
 object derecha inherits Direccion { 
 	
-override method imagenDelPersonaje()= "cazadorDerecha.png" 
+override method imagenDelPersonaje()= self.toString()+"Derecha.png" 
 
 	override method posicionAl(jugador) = jugador.position().right(1)
 }
 
 object abajo inherits Direccion { 
 	
-override method imagenDelPersonaje()= "cazadorAbajo.png" 
+override method imagenDelPersonaje()= self.toString()+"A.png"
 
 override method posicionAl(jugador) = jugador.position().down(1)
 }
 
 object arriba inherits Direccion { 
 	
-override method imagenDelPersonaje()= "cazadorArriba.png"
+override method imagenDelPersonaje()= self.toString()+"Arriba.png"
 	override method posicionAl(jugador) = jugador.position().up(1)
 }

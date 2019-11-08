@@ -1,6 +1,30 @@
+import wollok.game.*
+import enemigos.*
+import cazador.*
+import armas.*
+import escenarios.*
 
-test "testX" {
 
-	assert.that(true)
-
+describe "Test de enemigos spawn y borrado" {
+	
+	const casper = new Fantasma(hp = 1,position = (3->1),atk = 1)
+	const gasparin = new Fantasma(hp = 1,position = (3->2),atk = 1)
+	
+	fixture{
+		game.height(14)
+		game.width(22)
+		game.addVisual(casper)
+		game.addVisual(gasparin)
+	}
+	test "Existe"{
+		assert.that(game.hasVisual(casper))
+	}
+	
+	test "Remover"{
+		game.removeVisual(casper)
+		assert.notThat(game.hasVisual(casper))
+	}
+	
+	
+	
 }

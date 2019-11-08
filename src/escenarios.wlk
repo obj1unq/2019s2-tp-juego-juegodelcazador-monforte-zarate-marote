@@ -15,6 +15,7 @@ object primerEscenario {
 	game.addVisualIn(castillo, game.at(11,12))	
 		
 	/// LABERINTO
+
     
     const paredesDeLaberinto = [
     	                        new Pared(position =(0->0)),new Pared(position =(0->1)),new Pared(position =(0->2)),

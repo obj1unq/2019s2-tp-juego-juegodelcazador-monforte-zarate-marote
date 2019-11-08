@@ -6,7 +6,7 @@ import wollok.game.*
 //import direcciones.*
 
 object cazador {
-	var property imagen = "cazadorIzquierda.png"//orientacion.imagenDelPersonaje()
+	var property imagen = "cazadorArriba.png"//orientacion.imagenDelPersonaje()
 	const property inventario = []
 	var property vida = 500 // Si vamos a mostrar en juego lo mejor seria hasta 10 	
 	//var property orientacion = arriba
@@ -64,7 +64,7 @@ object cazador {
 	method puedeMoverAl(dirNueva) {
 		// Puede mover si no hay ningun obj en direccion dir o si el obj es colisionable
 		// Todos los obj entienden el mensaje esColisionable()
-		return /*game.getObjectsIn(dirNueva.posicionAl(self)).isEmpty() or */
+		return game.getObjectsIn(dirNueva.posicionAl(self)).isEmpty() or
 		      game.getObjectsIn(dirNueva.posicionAl(self)).all{ obj => obj.esColisionable() }
 	}
    
@@ -77,7 +77,7 @@ object cazador {
 	    // Respeta el polimorfismo.
 	}
 	
-	method ganaElJuego() { return dracula.muere() }
+	method ganaElJuego() { return dracula.muere() }// esto debería ir en game
 	
-	method pierdeElJuego() { return vida == 0 }
+	method pierdeElJuego() { return vida == 0 }//esto tmb
 }
