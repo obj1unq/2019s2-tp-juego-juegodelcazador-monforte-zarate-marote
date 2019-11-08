@@ -3,6 +3,7 @@ import cosasExtras.*
 import enemigos.*
 import armas.*
 import cazador.*
+import protecciones.
 
 object primerEscenario {
 	

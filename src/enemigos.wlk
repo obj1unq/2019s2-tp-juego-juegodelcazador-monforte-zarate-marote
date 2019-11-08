@@ -19,8 +19,7 @@ class Enemigo inherits NoColisionable {
 	method recibirAtaqueCon(arma) {	
 		hp = hp - arma.danio()
 		self.estaVivo()
-		self.desaparecer()
-			
+		self.desaparecer()		
 	}
 	
 	method estaVivo() = hp > 0
