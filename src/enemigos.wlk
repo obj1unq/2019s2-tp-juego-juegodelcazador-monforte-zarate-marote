@@ -37,7 +37,7 @@ class Bruja inherits Enemigo{
 }
 
 class Fantasma inherits Enemigo{
-	const property image = "fantasma.png"
+	const property image = "fantasmaDerecha.png"
 	var ajo = new Ajo()
 	
 	method recibirAtaqueCon(arma) {   

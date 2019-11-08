@@ -2,11 +2,11 @@ import cazador.*
 import wollok.game.*
 
 class NoColisionable {
-	const puedeColisionar = false
+	method esColisionable() = false
 }
 
 class Colisionable {
-	const puedeColisionar = true
+	method esColisionable() = true
 }
 
 object castillo inherits NoColisionable {
@@ -16,7 +16,7 @@ object castillo inherits NoColisionable {
 
 class Pared inherits NoColisionable {
 	const property position
-	var property image 
+	const property image = "laberinto1.png"
 	
 	method mover(direccion) {
 		throw new Exception(message = "No puedes mover las paredes.")
@@ -24,6 +24,6 @@ class Pared inherits NoColisionable {
 	
 	method crear(posicion) {
 		// Genera un pared en el tablero.
-		game.addVisualIn(self, posicion)	
+		game.addVisualIn(self, posicion)    // poder usarlo en escenarios para crear	
 	}
 }

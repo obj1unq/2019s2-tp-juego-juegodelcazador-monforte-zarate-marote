@@ -38,5 +38,4 @@ class Ajo inherits Arma {
  
 class Sal inherits Arma {
 	const property image = "sal.png" 
-	var property danio	
 }
