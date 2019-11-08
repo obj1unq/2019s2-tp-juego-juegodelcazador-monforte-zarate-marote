@@ -2,11 +2,15 @@ import cazador.*
 import armas.*
 import wollok.game.*
 import cosasExtras.*
+import protecciones.*
 
 class Enemigo inherits NoColisionable {
+	//var property imagen = orientacion.imagenDelPersonaje()
 	var property hp //Posible cambio por diferentes valores de cada enemigo
 	var property position 
+	//var property orientacion = derecha
 	const property atk //Posible cambio por diferentes valores de cada enemigo 
+	
 	
 	method muere() { 
 		return hp == 0
@@ -36,6 +40,10 @@ object dracula inherits Enemigo{
     method irA(nuevaPosicion) { 
     	//modificar
     }
+    
+    method malherido() {
+    	return hp == 1
+    }
 }
 	
 class Bruja inherits Enemigo{ 
@@ -54,7 +62,7 @@ class Fantasma inherits Enemigo{
 	}
 	
 	method patrullar(){
-		game.onTick(300, "fantasMoving", { => self.position().right(1) })	
+		game.onTick(300, "fantasmaMoving", { => self.position().right(1) })	
 	}
 	 
 }
