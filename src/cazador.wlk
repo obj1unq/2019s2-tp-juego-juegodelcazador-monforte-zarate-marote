@@ -13,6 +13,7 @@ object cazador {
 	var property position = game.at(14,0)
 	var property tiempoProtegido
 	var property ajo = new Ajo()
+	var property itemEquipado
 	
 	method recogerArmaOProteccion(arma) { 
 			if( arma.esColisionable()) 
@@ -71,6 +72,12 @@ object cazador {
     method actualizarImagen() {
 	//	imagen = orientacion.imagenDelPersonaje()
 		game.addVisual(self)
+	}
+	
+	method equipar(obj){
+		if (inventario.contains(obj)){
+		itemEquipado = inventario.find({item => item == obj})}
+		else{game.say(self, "No posees el/la"+obj.toString())}
 	}
    
     method colisionarCon(enemigo) {
