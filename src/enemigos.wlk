@@ -11,7 +11,6 @@ class Enemigo inherits NoColisionable {
 	//var property orientacion = derecha
 	const property atk //Posible cambio por diferentes valores de cada enemigo 
 	
-	
 	method muere() { 
 		return hp == 0
 	}
