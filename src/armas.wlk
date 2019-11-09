@@ -4,20 +4,20 @@ import enemigos.*
 import wollok.game.*
 
 class Arma inherits Colisionable {
-	var property municiones 
+	var property municiones = 0
 	const property position
-	
-	method cantDeMuniciones() {
-        return municiones.size()		
-	}
 	
 	method agregar(municion) {
 		if (municion.esColisionable())
 		    municiones.add(municion)
 	}
 	
-	method dispararConMunicion() {
-		// implementar
+	method dispararA(enemigo) {
+		if (municiones > 1) {
+			self.esUsadaCon(enemigo)
+			municiones -= 1
+		}
+		self.error("¡No tengo mas municiones!")
 	}
 	
 	method esUsadaCon(enemigo) {
@@ -41,7 +41,7 @@ object estacaYMartillo inherits Arma {
 
 object ballesta inherits Arma {
 	const property image = "ballesta.png" 
-	var property danio = 2
+	var property danio = 2	
 	
 }
 

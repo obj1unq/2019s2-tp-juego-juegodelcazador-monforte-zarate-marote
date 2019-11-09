@@ -7,19 +7,20 @@ import protecciones.*
 //import direcciones.*
 
 object cazador {
-	var property imagen = "cazadorIzquierda.png"//orientacion.imagenDelPersonaje()
+	var property imagen = "cazador.png"      //orientacion.imagenDelPersonaje()
 	const property inventario = []
-	var property vida = 500 // Si vamos a mostrar en juego lo mejor seria hasta 10 	
+	var property vida = 10	
 	//var property orientacion = arriba
 	var property position = game.at(14,0)
+	var previousPosition = position
 	var property tiempoProtegido
 	var property ajo = new Ajo()
 	var property itemEquipado
 	
-	method recogerArmaOProteccion(arma) { 
-			if( arma.esColisionable()) 
-				inventario.add(arma)
-		        arma.colisionarCon(self)			
+	method recoger(objeto) { 
+		if( objeto.esColisionable())
+			inventario.add(objeto)
+		    objeto.colisionarCon(self)			
 	}
 	
 	method cantDe(unArma) { return inventario.filter( { arma => arma == unArma }).size()}
@@ -34,7 +35,7 @@ object cazador {
 	}    	
 	     	
 	method recogerVida() {
-	   	  vida = (vida +10).min(500) 
+	   	  vida = (vida +1).min(10) 
 	}
 	
 	method recibirAtaque(enemigo) { 
@@ -51,7 +52,17 @@ object cazador {
 	}  
 	 
 	method irA(nuevaPosicion) { 
-		     position = nuevaPosicion
+		var newX = position.x() + if(position.x() > nuevaPosicion.x()) 1 else -1
+		var newY = position.y() +  if(position.y() > nuevaPosicion.y()) 1 else -1
+		  //  position = nuevaPosicion
+		     
+		     //EVITAR QUE SE POSICIONEN FUERA DEL TABLERO
+		
+		newX = newX.max(0).min(game.width() - 1)
+		newY = newY.max(0).min(game.height() - 1)
+		
+    	previousPosition = position
+		position = game.at(newX, newY)
     }	
 
 	method mover(nuevaPosicion) {

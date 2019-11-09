@@ -3,7 +3,7 @@ import cosasExtras.*
 import enemigos.*
 import armas.*
 import cazador.*
-import protecciones.
+import protecciones.*
 
 object primerEscenario {
 	
@@ -17,7 +17,6 @@ object primerEscenario {
 		
 	/// LABERINTO
 
-    
     const paredesDeLaberinto = [
     	                        new Pared(position =(0->0)),new Pared(position =(0->1)),new Pared(position =(0->2)),
     	                        new Pared(position =(0->3)),new Pared(position =(0->4)),new Pared(position =(0->5)),
@@ -72,12 +71,10 @@ object primerEscenario {
                                       
     paredesDeLaberinto.forEach({pared => game.addVisual(pared)}) 
      
-    const fantasmas = [new Fantasma(hp = 1,position = (3->1),atk = 1),new Fantasma(hp = 1,position = (3->4),atk = 1),
-    	               new Fantasma(hp = 1,position = (9->1),atk = 1),new Fantasma(hp = 1,position = (7->5),atk = 1),
-    	               new Fantasma(hp = 1,position = (2->10),atk = 1),new Fantasma(hp = 1,position = (8->10),atk = 1),
-    	               new Fantasma(hp = 1,position = (11->7),atk = 1),new Fantasma(hp = 1,position = (19->1),atk = 1),
-    	               new Fantasma(hp = 1,position = (15->8),atk = 1),new Fantasma(hp = 1,position = (5->8),atk = 1),
-    	               new Fantasma(hp = 1,position = (15->3),atk = 1)]
+    const fantasmas = [new Fantasma(position = (3->1)),new Fantasma(position = (3->4)),new Fantasma(position = (9->1)),
+                       new Fantasma(position = (7->5)),new Fantasma(position = (2->10)),new Fantasma(position = (8->10)),
+    	               new Fantasma(position = (11->7)),new Fantasma(position = (19->1)),new Fantasma(position = (15->8)),
+    	               new Fantasma(position = (5->8)),new Fantasma(position = (15->3))]
     
     fantasmas.forEach({fantasma => game.addVisual(fantasma)}) 	                
      
