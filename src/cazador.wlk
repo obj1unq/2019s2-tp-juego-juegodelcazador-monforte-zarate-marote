@@ -4,10 +4,10 @@ import armas.*
 import escenarios.*
 import wollok.game.*
 import protecciones.*
-//import direcciones.*
+import direcciones.*
 
 object cazador {
-	var property imagen = "cazador.png"      //orientacion.imagenDelPersonaje()
+	var property imagen = "bruja.png"      //orientacion.imagenDelPersonaje()
 	const property inventario = []
 	var property vida = 10	
 	//var property orientacion = arriba
@@ -52,12 +52,10 @@ object cazador {
 	}  
 	 
 	method irA(nuevaPosicion) { 
-		var newX = position.x() + if(position.x() > nuevaPosicion.x()) 1 else -1
-		var newY = position.y() +  if(position.y() > nuevaPosicion.y()) 1 else -1
-		  //  position = nuevaPosicion
+		var newX = nuevaPosicion.x()
+		var newY = nuevaPosicion.y()
 		     
-		     //EVITAR QUE SE POSICIONEN FUERA DEL TABLERO
-		
+		//EVITAR QUE SE POSICIONE FUERA DEL TABLERO
 		newX = newX.max(0).min(game.width() - 1)
 		newY = newY.max(0).min(game.height() - 1)
 		

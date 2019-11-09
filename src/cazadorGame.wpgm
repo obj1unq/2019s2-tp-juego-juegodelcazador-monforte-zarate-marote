@@ -21,12 +21,12 @@ program VampiresHunter {
 	keyboard.up().onPressDo({ cazador.irA(cazador.position().up(1))})
 	keyboard.down().onPressDo({ cazador.irA(cazador.position().down(1))})
 	keyboard.c().onPressDo({ cazador.cambiarDeEscenario(game.colliders(cazador).first())})// este comando creo qe debería ser dirigidos al .game
-    keyboard.e().onPressDo({ cazador.recogerArmaOProteccion(game.colliders(cazador).first())})
+    keyboard.e().onPressDo({ cazador.recoger(game.colliders(cazador).first())})
     //keyboard.r().onPressDo({ cazador.activarProteccion)})
-    keyboard.num1().onPressDo({ cazador.equipar(ballesta) })
-    keyboard.num2().onPressDo({ cazador.equipar(estacaYMartillo) })
-    keyboard.num3().onPressDo({ cazador.equipar(revolverDePlata) })
-    keyboard.num4().onPressDo({ cazador.equipar(sal) })
+  //  keyboard.num1().onPressDo({ cazador.equipar(ballesta) })
+  //  keyboard.num2().onPressDo({ cazador.equipar(estacaYMartillo) })
+  //  keyboard.num3().onPressDo({ cazador.equipar(revolverDePlata) })
+  //  keyboard.num4().onPressDo({ cazador.equipar(sal) })
     
     //keyboard.a().onPressDo({ cazador.atacar(arma)})	
  	
@@ -36,5 +36,5 @@ program VampiresHunter {
  	
  	//  COMIENZA
 	game.start()
-	game.sound("hauntingpiano.mp3")	
+	//game.sound("hauntingpiano.mp3")	
 }
