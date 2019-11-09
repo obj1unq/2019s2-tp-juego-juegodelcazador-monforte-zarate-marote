@@ -10,12 +10,19 @@ object cazador {
 	var property imagen = "bruja.png"      //orientacion.imagenDelPersonaje()
 	const property inventario = []
 	var property vida = 10	
-	//var property orientacion = arriba
+	var property orientacion = arriba
 	var property position = game.at(14,0)
-	var previousPosition = position
+	//var previousPosition = position
 	var property tiempoProtegido
 	var property ajo = new Ajo()
 	var property itemEquipado
+	
+
+
+
+///----------------------------------------------------------
+///---------------------- LOOTEO ------------------------
+///----------------------------------------------------------
 	
 	method recoger(objeto) { 
 		if( objeto.esColisionable())
@@ -23,8 +30,28 @@ object cazador {
 		    objeto.colisionarCon(self)			
 	}
 	
-	method cantDe(unArma) { return inventario.filter( { arma => arma == unArma }).size()}
+	method cantDe(unArma) { return inventario.count( { arma => arma == unArma })}    	
+	     	
+	method recogerVida() {
+	   	  vida = (vida +1).min(10) 
+	}
 	
+	
+	method equipar(obj){
+		if (inventario.contains(obj)){
+		itemEquipado = obj}
+		else{game.say(self, "No posees el/la"+obj.toString())}
+	}
+	
+///----------------------------------------------------------
+///---------------------- INTERACCIÓN -----------------------
+///----------------------------------------------------------
+	
+	method recibirAtaque(enemigo) { 
+		vida -= enemigo.atk()
+	}
+	
+		
 	method tiempoDeProteccionConAjo() {
 		 tiempoProtegido += (ajo.tiempoQueProteje() * self.cantDe(ajo))
 		 // se tiene que ir descontando el tiempo
@@ -32,16 +59,10 @@ object cazador {
 	
 	method atacarEnemigoConArma(enemigo, arma) { 
 		enemigo.recibirAtaqueCon(arma)
-	}    	
-	     	
-	method recogerVida() {
-	   	  vida = (vida +1).min(10) 
 	}
-	
-	method recibirAtaque(enemigo) { 
-		vida -= enemigo.atk()
-	}
-	
+///----------------------------------------------------------
+///---------------------- CAMBIO DE NIVEL ------------------------
+///----------------------------------------------------------
 	method cambiarDeEscenario(puertaDeCastillo) {	
 	      //trabajar duro en esto
 	 }
@@ -50,8 +71,13 @@ object cazador {
 		// usar onCollideDo(visual, action)
 		//trabajar duro en esto
 	}  
-	 
-	method irA(nuevaPosicion) { 
+	
+	
+///----------------------------------------------------------
+///---------------------- MOVIMIENTO ------------------------
+///----------------------------------------------------------
+
+	/*method irA(nuevaPosicion) { 
 		var newX = nuevaPosicion.x()
 		var newY = nuevaPosicion.y()
 		     
@@ -61,22 +87,28 @@ object cazador {
 		
     	previousPosition = position
 		position = game.at(newX, newY)
-    }	
+    }	*/
 
-	method mover(nuevaPosicion) {
+	method mover(nuevaPosicion, dir) {
 		// Puede mover si no hay un obj no colisionable en direccion dir
 	//	orientacion = nuevaPosicion // Actualiza la variable del personaje
-		self.actualizarImagen()
-		if (self.puedeMoverAl(nuevaPosicion)) {
+		orientacion = dir
+		//self.actualizarImagen()
+		
+		if (self.estaVivo() and self.puedeMoverAl(dir)) {
 			self.position(nuevaPosicion)		
 		}
 	}
 	
-	method puedeMoverAl(dirNueva) {
+	method estaVivo(){
+		return vida > 0
+	}
+	
+	method puedeMoverAl(dir) {
 		// Puede mover si no hay ningun obj en direccion dir o si el obj es colisionable
 		// Todos los obj entienden el mensaje esColisionable()
-		return /*game.getObjectsIn(dirNueva.posicionAl(self)).isEmpty() or */
-		      game.getObjectsIn(dirNueva.posicionAl(self)).all{ obj => obj.esColisionable() }
+		return game.getObjectsIn(dir.posicionAl(self)).isEmpty() or
+		      game.getObjectsIn(dir.posicionAl(self)).all{ obj => obj.esColisionable() }
 	}
    
     method actualizarImagen() {
@@ -84,15 +116,11 @@ object cazador {
 		game.addVisual(self)
 	}
 	
-	method equipar(obj){
-		if (inventario.contains(obj)){
-		itemEquipado = inventario.find({item => item == obj})}
-		else{game.say(self, "No posees el/la"+obj.toString())}
-	}
-   
     method colisionarCon(enemigo) {
 	    // Respeta el polimorfismo.
 	}
+	
+	
 	
 	method ganaElJuego() { return dracula.muere() }
 	

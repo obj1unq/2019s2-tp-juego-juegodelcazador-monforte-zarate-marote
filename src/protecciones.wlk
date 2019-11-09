@@ -14,6 +14,10 @@ class Proteccion inherits Colisionable{
 
 class Ajo inherits Proteccion {
 	const property image = "ajo.png" 
+	
+	method tiempoQueProteje(){
+		return 10
+	}
 }
  
 class Sal inherits Proteccion {

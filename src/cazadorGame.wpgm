@@ -4,6 +4,7 @@ import enemigos.*
 import armas.*
 import cosasExtras.*
 import escenarios.*
+import direcciones.*
 
 program VampiresHunter {
  	
@@ -16,10 +17,16 @@ program VampiresHunter {
  	
  	// TECLADO
  	
- 	keyboard.left().onPressDo({ cazador.irA(cazador.position().left(1))})
+ 	
+ 	keyboard.up().onPressDo{ cazador.mover(cazador.position().up(1), arriba)}
+	keyboard.down().onPressDo{ cazador.mover(cazador.position().down(1), abajo)}
+	keyboard.left().onPressDo{ cazador.mover(cazador.position().left(1), izquierda)}
+	keyboard.right().onPressDo{ cazador.mover(cazador.position().right(1), derecha)}
+	keyboard.space().onPressDo{ cazador.interactuar()}
+ 	/*keyboard.left().onPressDo({ cazador.irA(cazador.position().left(1))})
     keyboard.right().onPressDo({ cazador.irA(cazador.position().right(1))})
 	keyboard.up().onPressDo({ cazador.irA(cazador.position().up(1))})
-	keyboard.down().onPressDo({ cazador.irA(cazador.position().down(1))})
+	keyboard.down().onPressDo({ cazador.irA(cazador.position().down(1))})*/
 	keyboard.c().onPressDo({ cazador.cambiarDeEscenario(game.colliders(cazador).first())})// este comando creo qe debería ser dirigidos al .game
     keyboard.e().onPressDo({ cazador.recoger(game.colliders(cazador).first())})
     //keyboard.r().onPressDo({ cazador.activarProteccion)})

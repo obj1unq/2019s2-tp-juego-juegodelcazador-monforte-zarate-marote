@@ -1,0 +1,455 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x000001f49c8a1066, pid=16728, tid=0x0000000000004294
+#
+# JRE version: OpenJDK Runtime Environment (8.0_222-b10) (build 1.8.0_222-b10)
+# Java VM: OpenJDK 64-Bit Server VM (25.222-b10 mixed mode windows-amd64 compressed oops)
+# Problematic frame:
+# C  [OpenAL64.dll+0x11066]
+#
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000001f49c6db000):  JavaThread "main" [_thread_in_native, id=17044, stack(0x000000db67400000,0x000000db67500000)]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x000001f4b6401004
+
+Registers:
+RAX=0x0000000000060007, RBX=0x000001f4b82a0090, RCX=0x000001f4b6401008, RDX=0x000001f4b6401004
+RSP=0x000000db674fc1e0, RBP=0x00000000000000ff, RSI=0x000001f4b63f47ec, RDI=0x0000000000000000
+R8 =0x0000000000003206, R9 =0x000001f4b63f47ec, R10=0x000001f49e0e9c62, R11=0x0000000054203f40
+R12=0x0000000000000001, R13=0x000001f4b87b4280, R14=0x000000db674fc380, R15=0x000001f49c6db000
+RIP=0x000001f49c8a1066, EFLAGS=0x0000000000010202
+
+Top of Stack: (sp=0x000000db674fc1e0)
+0x000000db674fc1e0:   0000000000000000 0000000000000000
+0x000000db674fc1f0:   0000000000000000 000001f49c6db000
+0x000000db674fc200:   000000db674fc380 000001f4b87b4280
+0x000000db674fc210:   000001f49c6db000 000001f49c6c9d30
+0x000000db674fc220:   000001f4b87b4280 0000000000000000
+0x000000db674fc230:   000001f49c6a5180 00000000540a6635
+0x000000db674fc240:   000000db674fcb10 000001f49c6db4b0
+0x000000db674fc250:   000001f49c6db000 000000db674fc380
+0x000000db674fc260:   000001f4b87b4280 0000000000000000
+0x000000db674fc270:   000001f4b63f47ec 0000000000000248
+0x000000db674fc280:   000000db674fc348 000001f49c8a248f
+0x000000db674fc290:   000001f4b82a0090 000001f4b82a0090
+0x000000db674fc2a0:   000000000000ac44 000001f400060007
+0x000000db674fc2b0:   000001f49e0d7bd0 000001f49e0e9c8e
+0x000000db674fc2c0:   000001f4b87b4280 000000db674fc2c8
+0x000000db674fc2d0:   000001f49e0d7bd0 000001f49e0e999b 
+
+Instructions: (pc=0x000001f49c8a1066)
+0x000001f49c8a1046:   41 2b ec 81 3a 03 00 02 00 75 09 8b 01 89 84 24
+0x000001f49c8a1056:   c8 00 00 00 49 83 c0 02 48 83 c1 08 4a 8d 14 86
+0x000001f49c8a1066:   39 3a 75 af 4c 8d 84 24 c0 00 00 00 48 8d 15 d7
+0x000001f49c8a1076:   2b 03 00 33 c9 e8 58 5f 00 00 b8 40 1f 00 00 4c 
+
+
+Register to memory mapping:
+
+RAX=0x0000000000060007 is an unknown value
+RBX=0x000001f4b82a0090 is an unknown value
+RCX=0x000001f4b6401008 is an unknown value
+RDX=0x000001f4b6401004 is an unknown value
+RSP=0x000000db674fc1e0 is pointing into the stack for thread: 0x000001f49c6db000
+RBP=0x00000000000000ff is an unknown value
+RSI=0x000001f4b63f47ec is an unknown value
+RDI=0x0000000000000000 is an unknown value
+R8 =0x0000000000003206 is an unknown value
+R9 =0x000001f4b63f47ec is an unknown value
+R10=0x000001f49e0e9c62 is at code_begin+962 in an Interpreter codelet
+method entry point (kind = native)  [0x000001f49e0e98a0, 0x000001f49e0ea340]  2720 bytes
+R11=0x0000000054203f40 is an unknown value
+R12=0x0000000000000001 is an unknown value
+R13={method} {0x000001f4b87b4288} 'nalcCreateContext' '(JJ)J' in 'org/lwjgl/openal/ALC10'
+R14=0x000000db674fc380 is pointing into the stack for thread: 0x000001f49c6db000
+R15=0x000001f49c6db000 is a thread
+
+
+Stack: [0x000000db67400000,0x000000db67500000],  sp=0x000000db674fc1e0,  free space=1008k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [OpenAL64.dll+0x11066]
+C  [OpenAL64.dll+0x1248f]
+C  0x000001f49e0e9c8e
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  org.lwjgl.openal.ALC10.nalcCreateContext(JJ)J+0
+j  org.lwjgl.openal.ALC10.alcCreateContext(Lorg/lwjgl/openal/ALCdevice;Ljava/nio/IntBuffer;)Lorg/lwjgl/openal/ALCcontext;+8
+j  org.lwjgl.openal.AL.init(Ljava/lang/String;IIZZ)V+69
+j  org.lwjgl.openal.AL.create(Ljava/lang/String;IIZZ)V+246
+j  org.lwjgl.openal.AL.create(Ljava/lang/String;IIZ)V+5
+j  org.lwjgl.openal.AL.create()V+6
+j  com.badlogic.gdx.backends.lwjgl.audio.OpenALAudio.<init>(III)V+114
+j  com.badlogic.gdx.backends.lwjgl.LwjglApplication.<init>(Lcom/badlogic/gdx/ApplicationListener;Lcom/badlogic/gdx/backends/lwjgl/LwjglApplicationConfiguration;Lcom/badlogic/gdx/backends/lwjgl/LwjglGraphics;)V+120
+j  com.badlogic.gdx.backends.lwjgl.LwjglApplication.<init>(Lcom/badlogic/gdx/ApplicationListener;Lcom/badlogic/gdx/backends/lwjgl/LwjglApplicationConfiguration;)V+11
+j  org.uqbar.project.wollok.game.gameboard.WollokGDXApplication.<init>(Lorg/uqbar/project/wollok/game/gameboard/Gameboard;Ljava/lang/Boolean;)V+17
+j  org.uqbar.project.wollok.game.helpers.Application.start(Lorg/uqbar/project/wollok/game/gameboard/Gameboard;Ljava/lang/Boolean;)V+5
+j  org.uqbar.project.wollok.game.gameboard.Gameboard.start(Ljava/lang/Boolean;)V+13
+j  wollok.game.GameObject.doStart(Ljava/lang/Boolean;)V+12
+v  ~StubRoutines::call_stub
+j  sun.reflect.NativeMethodAccessorImpl.invoke0(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+0
+j  sun.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+100
+J 3757 C2 java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object; (62 bytes) @ 0x000001f49ed21a60 [0x000001f49ed219e0+0x80]
+J 3842 C1 org.uqbar.project.wollok.ui.utils.XTendUtilExtensions.invokeConvertingArgs(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (378 bytes) @ 0x000001f49ed415cc [0x000001f49ed3f9a0+0x1c2c]
+J 3770 C1 org.uqbar.project.wollok.interpreter.AbstractWollokCallable._invokeNative(Ljava/lang/Object;Ljava/lang/String;[Lorg/uqbar/project/wollok/interpreter/core/WollokObject;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (49 bytes) @ 0x000001f49ed016e4 [0x000001f49ed01440+0x2a4]
+J 3718 C1 org.uqbar.project.wollok.interpreter.AbstractWollokCallable.invokeNative(Ljava/lang/Object;Ljava/lang/String;[Lorg/uqbar/project/wollok/interpreter/core/WollokObject;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (76 bytes) @ 0x000001f49eccadec [0x000001f49ecca1a0+0xc4c]
+J 3753 C1 org.uqbar.project.wollok.interpreter.AbstractWollokCallable$1.apply()Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (145 bytes) @ 0x000001f49ecf2c1c [0x000001f49ecf25c0+0x65c]
+J 3752 C1 org.uqbar.project.wollok.interpreter.AbstractWollokCallable$1.apply()Ljava/lang/Object; (5 bytes) @ 0x000001f49eceeb4c [0x000001f49eceeac0+0x8c]
+J 3467 C1 org.uqbar.project.wollok.interpreter.threads.WThread.performOnStack(Lorg/eclipse/emf/ecore/EObject;Lorg/uqbar/project/wollok/interpreter/context/EvaluationContext;Lorg/eclipse/xtext/xbase/lib/Functions$Function0;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (163 bytes) @ 0x000001f49ebf6654 [0x000001f49ebf6340+0x314]
+J 3694 C1 org.uqbar.project.wollok.interpreter.AbstractWollokCallable.call(Lorg/uqbar/project/wollok/wollokDsl/WMethodDeclaration;[Lorg/uqbar/project/wollok/interpreter/core/WollokObject;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (46 bytes) @ 0x000001f49ecb5424 [0x000001f49ecb4920+0xb04]
+J 3595 C1 org.uqbar.project.wollok.interpreter.core.WollokObject.call(Ljava/lang/String;[Lorg/uqbar/project/wollok/interpreter/core/WollokObject;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (61 bytes) @ 0x000001f49ec5c0fc [0x000001f49ec5ba40+0x6bc]
+J 3785 C1 org.uqbar.project.wollok.interpreter.WollokInterpreterEvaluator._evaluate(Lorg/uqbar/project/wollok/wollokDsl/WFeatureCall;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (125 bytes) @ 0x000001f49ed11394 [0x000001f49ed10200+0x1194]
+J 3302 C1 org.uqbar.project.wollok.launch.WollokLauncherInterpreterEvaluator.evaluate(Lorg/eclipse/emf/ecore/EObject;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (502 bytes) @ 0x000001f49eb4fbcc [0x000001f49eb4ba20+0x41ac]
+J 3375 C1 org.uqbar.project.wollok.interpreter.WollokInterpreter.eval(Lorg/eclipse/emf/ecore/EObject;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (190 bytes) @ 0x000001f49ebb330c [0x000001f49ebb2900+0xa0c]
+J 3713 C1 org.uqbar.project.wollok.interpreter.WollokInterpreterEvaluator$1.apply(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object; (13 bytes) @ 0x000001f49ecbdca4 [0x000001f49ecbd920+0x384]
+J 3747 C1 org.eclipse.xtext.xbase.lib.IteratorExtensions.fold(Ljava/util/Iterator;Ljava/lang/Object;Lorg/eclipse/xtext/xbase/lib/Functions$Function2;)Ljava/lang/Object; (30 bytes) @ 0x000001f49ecf0b1c [0x000001f49ecf0960+0x1bc]
+J 3741 C1 org.uqbar.project.wollok.interpreter.WollokInterpreterEvaluator._evaluate(Lorg/uqbar/project/wollok/wollokDsl/WBlockExpression;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (40 bytes) @ 0x000001f49ececf14 [0x000001f49ecec2c0+0xc54]
+J 3302 C1 org.uqbar.project.wollok.launch.WollokLauncherInterpreterEvaluator.evaluate(Lorg/eclipse/emf/ecore/EObject;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (502 bytes) @ 0x000001f49eb5340c [0x000001f49eb4ba20+0x79ec]
+J 3375 C1 org.uqbar.project.wollok.interpreter.WollokInterpreter.eval(Lorg/eclipse/emf/ecore/EObject;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (190 bytes) @ 0x000001f49ebb330c [0x000001f49ebb2900+0xa0c]
+J 3753 C1 org.uqbar.project.wollok.interpreter.AbstractWollokCallable$1.apply()Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (145 bytes) @ 0x000001f49ecf2f4c [0x000001f49ecf25c0+0x98c]
+J 3752 C1 org.uqbar.project.wollok.interpreter.AbstractWollokCallable$1.apply()Ljava/lang/Object; (5 bytes) @ 0x000001f49eceeb4c [0x000001f49eceeac0+0x8c]
+J 3467 C1 org.uqbar.project.wollok.interpreter.threads.WThread.performOnStack(Lorg/eclipse/emf/ecore/EObject;Lorg/uqbar/project/wollok/interpreter/context/EvaluationContext;Lorg/eclipse/xtext/xbase/lib/Functions$Function0;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (163 bytes) @ 0x000001f49ebf6654 [0x000001f49ebf6340+0x314]
+J 3694 C1 org.uqbar.project.wollok.interpreter.AbstractWollokCallable.call(Lorg/uqbar/project/wollok/wollokDsl/WMethodDeclaration;[Lorg/uqbar/project/wollok/interpreter/core/WollokObject;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (46 bytes) @ 0x000001f49ecb5424 [0x000001f49ecb4920+0xb04]
+J 3595 C1 org.uqbar.project.wollok.interpreter.core.WollokObject.call(Ljava/lang/String;[Lorg/uqbar/project/wollok/interpreter/core/WollokObject;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (61 bytes) @ 0x000001f49ec5c0fc [0x000001f49ec5ba40+0x6bc]
+J 3785 C1 org.uqbar.project.wollok.interpreter.WollokInterpreterEvaluator._evaluate(Lorg/uqbar/project/wollok/wollokDsl/WFeatureCall;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (125 bytes) @ 0x000001f49ed11394 [0x000001f49ed10200+0x1194]
+J 3302 C1 org.uqbar.project.wollok.launch.WollokLauncherInterpreterEvaluator.evaluate(Lorg/eclipse/emf/ecore/EObject;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (502 bytes) @ 0x000001f49eb4fbcc [0x000001f49eb4ba20+0x41ac]
+J 3375 C1 org.uqbar.project.wollok.interpreter.WollokInterpreter.eval(Lorg/eclipse/emf/ecore/EObject;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject; (190 bytes) @ 0x000001f49ebb330c [0x000001f49ebb2900+0xa0c]
+J 3713 C1 org.uqbar.project.wollok.interpreter.WollokInterpreterEvaluator$1.apply(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object; (13 bytes) @ 0x000001f49ecbdca4 [0x000001f49ecbd920+0x384]
+j  org.eclipse.xtext.xbase.lib.IteratorExtensions.fold(Ljava/util/Iterator;Ljava/lang/Object;Lorg/eclipse/xtext/xbase/lib/Functions$Function2;)Ljava/lang/Object;+19
+j  org.eclipse.xtext.xbase.lib.IterableExtensions.fold(Ljava/lang/Iterable;Ljava/lang/Object;Lorg/eclipse/xtext/xbase/lib/Functions$Function2;)Ljava/lang/Object;+8
+j  org.uqbar.project.wollok.interpreter.WollokInterpreterEvaluator.evalAll(Ljava/lang/Iterable;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject;+12
+j  org.uqbar.project.wollok.interpreter.WollokInterpreterEvaluator._evaluate(Lorg/uqbar/project/wollok/wollokDsl/WProgram;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject;+18
+j  org.uqbar.project.wollok.launch.WollokLauncherInterpreterEvaluator.evaluate(Lorg/eclipse/emf/ecore/EObject;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject;+444
+j  org.uqbar.project.wollok.interpreter.WollokInterpreterEvaluator.evaluate(Lorg/eclipse/emf/ecore/EObject;)Ljava/lang/Object;+2
+j  org.uqbar.project.wollok.interpreter.WollokInterpreter.eval(Lorg/eclipse/emf/ecore/EObject;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject;+63
+j  org.uqbar.project.wollok.interpreter.WollokInterpreterEvaluator.eval(Lorg/eclipse/emf/ecore/EObject;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject;+5
+j  org.uqbar.project.wollok.launch.WollokLauncherInterpreterEvaluator._evaluate(Lorg/uqbar/project/wollok/wollokDsl/WFile;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject;+32
+j  org.uqbar.project.wollok.launch.WollokLauncherInterpreterEvaluator.evaluate(Lorg/eclipse/emf/ecore/EObject;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject;+428
+j  org.uqbar.project.wollok.interpreter.WollokInterpreterEvaluator.evaluate(Lorg/eclipse/emf/ecore/EObject;)Ljava/lang/Object;+2
+j  org.uqbar.project.wollok.interpreter.WollokInterpreter.interpret(Lorg/eclipse/emf/ecore/EObject;Ljava/lang/Boolean;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject;+25
+j  org.uqbar.project.wollok.interpreter.WollokInterpreter.interpret(Lorg/eclipse/emf/ecore/EObject;)Lorg/uqbar/project/wollok/interpreter/core/WollokObject;+8
+j  org.uqbar.project.wollok.launch.WollokLauncher.doSomething(Lorg/uqbar/project/wollok/wollokDsl/WFile;Lcom/google/inject/Injector;Ljava/io/File;Lorg/uqbar/project/wollok/launch/WollokLauncherParameters;)V+57
+j  org.uqbar.project.wollok.launch.WollokChecker.launch(Ljava/lang/String;Lorg/uqbar/project/wollok/launch/WollokLauncherParameters;)V+31
+j  org.uqbar.project.wollok.launch.WollokChecker.doMain([Ljava/lang/String;)V+213
+j  org.uqbar.project.wollok.launch.WollokLauncher.main([Ljava/lang/String;)V+8
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x000001f4b46a1800 JavaThread "com.google.inject.internal.util.$Finalizer" daemon [_thread_blocked, id=14052, stack(0x000000db68400000,0x000000db68500000)]
+  0x000001f4b4140000 JavaThread "EMF Reference Cleaner" daemon [_thread_blocked, id=17220, stack(0x000000db68300000,0x000000db68400000)]
+  0x000001f4b288e000 JavaThread "Service Thread" daemon [_thread_blocked, id=16560, stack(0x000000db68100000,0x000000db68200000)]
+  0x000001f4b2811800 JavaThread "C1 CompilerThread2" daemon [_thread_blocked, id=13512, stack(0x000000db68000000,0x000000db68100000)]
+  0x000001f4b280e000 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=7228, stack(0x000000db67f00000,0x000000db68000000)]
+  0x000001f4b2808000 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=15888, stack(0x000000db67e00000,0x000000db67f00000)]
+  0x000001f4b2801000 JavaThread "Attach Listener" daemon [_thread_blocked, id=3928, stack(0x000000db67d00000,0x000000db67e00000)]
+  0x000001f4b27fe800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=16748, stack(0x000000db67c00000,0x000000db67d00000)]
+  0x000001f4b27d9000 JavaThread "Finalizer" daemon [_thread_blocked, id=5036, stack(0x000000db67b00000,0x000000db67c00000)]
+  0x000001f4b27cf800 JavaThread "Reference Handler" daemon [_thread_blocked, id=1504, stack(0x000000db67a00000,0x000000db67b00000)]
+=>0x000001f49c6db000 JavaThread "main" [_thread_in_native, id=17044, stack(0x000000db67400000,0x000000db67500000)]
+
+Other Threads:
+  0x000001f4b27a5800 VMThread [stack: 0x000000db67900000,0x000000db67a00000] [id=17380]
+  0x000001f4b28a0800 WatcherThread [stack: 0x000000db68200000,0x000000db68300000] [id=14172]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+heap address: 0x0000000082200000, size: 2014 MB, Compressed Oops mode: 32-bit
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 3
+Compressed class space size: 1073741824 Address: 0x0000000100000000
+
+Heap:
+ PSYoungGen      total 145408K, used 13503K [0x00000000d6100000, 0x00000000dff00000, 0x0000000100000000)
+  eden space 130560K, 6% used [0x00000000d6100000,0x00000000d68b9380,0x00000000de080000)
+  from space 14848K, 37% used [0x00000000def80000,0x00000000df4f6af0,0x00000000dfe00000)
+  to   space 15360K, 0% used [0x00000000de080000,0x00000000de080000,0x00000000def80000)
+ ParOldGen       total 86016K, used 28584K [0x0000000082200000, 0x0000000087600000, 0x00000000d6100000)
+  object space 86016K, 33% used [0x0000000082200000,0x0000000083dea2f0,0x0000000087600000)
+ Metaspace       used 20698K, capacity 20920K, committed 21120K, reserved 1067008K
+  class space    used 2543K, capacity 2604K, committed 2688K, reserved 1048576K
+
+Card table byte_map: [0x000001f4ad490000,0x000001f4ad880000] byte_map_base: 0x000001f4ad07f000
+
+Marking Bits: (ParMarkBitMap*) 0x0000000054794e90
+ Begin Bits: [0x000001f4adb20000, 0x000001f4afa98000)
+ End Bits:   [0x000001f4afa98000, 0x000001f4b1a10000)
+
+Polling page: 0x000001f49c800000
+
+CodeCache: size=245760Kb used=13175Kb max_used=13175Kb free=232584Kb
+ bounds [0x000001f49e0d0000, 0x000001f49edc0000, 0x000001f4ad0d0000]
+ total_blobs=4356 nmethods=3935 adapters=333
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 3.840 Thread 0x000001f4b2811800 3931       3       java.nio.DirectByteBuffer::put (18 bytes)
+Event: 3.840 Thread 0x000001f4b2811800 nmethod 3931 0x000001f49ed9f110 code [0x000001f49ed9f280, 0x000001f49ed9f4f8]
+Event: 3.840 Thread 0x000001f4b2811800 3932       3       java.nio.DirectByteBuffer::ix (10 bytes)
+Event: 3.840 Thread 0x000001f4b2811800 nmethod 3932 0x000001f49ed9edd0 code [0x000001f49ed9ef20, 0x000001f49ed9f078]
+Event: 3.841 Thread 0x000001f4b2811800 3934       3       java.nio.DirectByteBuffer::put (18 bytes)
+Event: 3.841 Thread 0x000001f4b2811800 nmethod 3934 0x000001f49ed9e8d0 code [0x000001f49ed9ea40, 0x000001f49ed9ecb8]
+Event: 3.841 Thread 0x000001f4b2811800 3935       1       java.nio.DirectByteBuffer::ix (10 bytes)
+Event: 3.841 Thread 0x000001f4b2811800 nmethod 3935 0x000001f49ed9e610 code [0x000001f49ed9e760, 0x000001f49ed9e878]
+Event: 3.844 Thread 0x000001f4b2811800 3936       3       java.io.WinNTFileSystem::parentOrNull (171 bytes)
+Event: 3.845 Thread 0x000001f4b2811800 nmethod 3936 0x000001f49ed9d150 code [0x000001f49ed9d380, 0x000001f49ed9e100]
+
+GC Heap History (10 events):
+Event: 0.784 GC heap before
+{Heap before GC invocations=2 (full 0):
+ PSYoungGen      total 37888K, used 37878K [0x00000000d6100000, 0x00000000d8b00000, 0x0000000100000000)
+  eden space 32768K, 100% used [0x00000000d6100000,0x00000000d8100000,0x00000000d8100000)
+  from space 5120K, 99% used [0x00000000d8100000,0x00000000d85fd958,0x00000000d8600000)
+  to   space 5120K, 0% used [0x00000000d8600000,0x00000000d8600000,0x00000000d8b00000)
+ ParOldGen       total 86016K, used 1608K [0x0000000082200000, 0x0000000087600000, 0x00000000d6100000)
+  object space 86016K, 1% used [0x0000000082200000,0x00000000823923c8,0x0000000087600000)
+ Metaspace       used 8355K, capacity 8526K, committed 8832K, reserved 1056768K
+  class space    used 992K, capacity 1045K, committed 1152K, reserved 1048576K
+Event: 0.792 GC heap after
+Heap after GC invocations=2 (full 0):
+ PSYoungGen      total 37888K, used 5098K [0x00000000d6100000, 0x00000000dab00000, 0x0000000100000000)
+  eden space 32768K, 0% used [0x00000000d6100000,0x00000000d6100000,0x00000000d8100000)
+  from space 5120K, 99% used [0x00000000d8600000,0x00000000d8afab10,0x00000000d8b00000)
+  to   space 5120K, 0% used [0x00000000d8100000,0x00000000d8100000,0x00000000d8600000)
+ ParOldGen       total 86016K, used 9134K [0x0000000082200000, 0x0000000087600000, 0x00000000d6100000)
+  object space 86016K, 10% used [0x0000000082200000,0x0000000082aeb838,0x0000000087600000)
+ Metaspace       used 8355K, capacity 8526K, committed 8832K, reserved 1056768K
+  class space    used 992K, capacity 1045K, committed 1152K, reserved 1048576K
+}
+Event: 1.155 GC heap before
+{Heap before GC invocations=3 (full 0):
+ PSYoungGen      total 37888K, used 37866K [0x00000000d6100000, 0x00000000dab00000, 0x0000000100000000)
+  eden space 32768K, 100% used [0x00000000d6100000,0x00000000d8100000,0x00000000d8100000)
+  from space 5120K, 99% used [0x00000000d8600000,0x00000000d8afab10,0x00000000d8b00000)
+  to   space 5120K, 0% used [0x00000000d8100000,0x00000000d8100000,0x00000000d8600000)
+ ParOldGen       total 86016K, used 9134K [0x0000000082200000, 0x0000000087600000, 0x00000000d6100000)
+  object space 86016K, 10% used [0x0000000082200000,0x0000000082aeb838,0x0000000087600000)
+ Metaspace       used 11759K, capacity 11866K, committed 12032K, reserved 1060864K
+  class space    used 1456K, capacity 1495K, committed 1536K, reserved 1048576K
+Event: 1.162 GC heap after
+Heap after GC invocations=3 (full 0):
+ PSYoungGen      total 37888K, used 5106K [0x00000000d6100000, 0x00000000dab00000, 0x0000000100000000)
+  eden space 32768K, 0% used [0x00000000d6100000,0x00000000d6100000,0x00000000d8100000)
+  from space 5120K, 99% used [0x00000000d8100000,0x00000000d85fcb00,0x00000000d8600000)
+  to   space 5120K, 0% used [0x00000000da600000,0x00000000da600000,0x00000000dab00000)
+ ParOldGen       total 86016K, used 15641K [0x0000000082200000, 0x0000000087600000, 0x00000000d6100000)
+  object space 86016K, 18% used [0x0000000082200000,0x0000000083146690,0x0000000087600000)
+ Metaspace       used 11759K, capacity 11866K, committed 12032K, reserved 1060864K
+  class space    used 1456K, capacity 1495K, committed 1536K, reserved 1048576K
+}
+Event: 1.599 GC heap before
+{Heap before GC invocations=4 (full 0):
+ PSYoungGen      total 37888K, used 37874K [0x00000000d6100000, 0x00000000dab00000, 0x0000000100000000)
+  eden space 32768K, 100% used [0x00000000d6100000,0x00000000d8100000,0x00000000d8100000)
+  from space 5120K, 99% used [0x00000000d8100000,0x00000000d85fcb00,0x00000000d8600000)
+  to   space 5120K, 0% used [0x00000000da600000,0x00000000da600000,0x00000000dab00000)
+ ParOldGen       total 86016K, used 15641K [0x0000000082200000, 0x0000000087600000, 0x00000000d6100000)
+  object space 86016K, 18% used [0x0000000082200000,0x0000000083146690,0x0000000087600000)
+ Metaspace       used 14879K, capacity 14998K, committed 15232K, reserved 1062912K
+  class space    used 1868K, capacity 1889K, committed 1920K, reserved 1048576K
+Event: 1.610 GC heap after
+Heap after GC invocations=4 (full 0):
+ PSYoungGen      total 70656K, used 5090K [0x00000000d6100000, 0x00000000dab00000, 0x0000000100000000)
+  eden space 65536K, 0% used [0x00000000d6100000,0x00000000d6100000,0x00000000da100000)
+  from space 5120K, 99% used [0x00000000da600000,0x00000000daaf8af0,0x00000000dab00000)
+  to   space 5120K, 0% used [0x00000000da100000,0x00000000da100000,0x00000000da600000)
+ ParOldGen       total 86016K, used 21711K [0x0000000082200000, 0x0000000087600000, 0x00000000d6100000)
+  object space 86016K, 25% used [0x0000000082200000,0x0000000083733f48,0x0000000087600000)
+ Metaspace       used 14879K, capacity 14998K, committed 15232K, reserved 1062912K
+  class space    used 1868K, capacity 1889K, committed 1920K, reserved 1048576K
+}
+Event: 3.025 GC heap before
+{Heap before GC invocations=5 (full 0):
+ PSYoungGen      total 70656K, used 70626K [0x00000000d6100000, 0x00000000dab00000, 0x0000000100000000)
+  eden space 65536K, 100% used [0x00000000d6100000,0x00000000da100000,0x00000000da100000)
+  from space 5120K, 99% used [0x00000000da600000,0x00000000daaf8af0,0x00000000dab00000)
+  to   space 5120K, 0% used [0x00000000da100000,0x00000000da100000,0x00000000da600000)
+ ParOldGen       total 86016K, used 21711K [0x0000000082200000, 0x0000000087600000, 0x00000000d6100000)
+  object space 86016K, 25% used [0x0000000082200000,0x0000000083733f48,0x0000000087600000)
+ Metaspace       used 19306K, capacity 19552K, committed 19712K, reserved 1067008K
+  class space    used 2423K, capacity 2472K, committed 2560K, reserved 1048576K
+Event: 3.045 GC heap after
+Heap after GC invocations=5 (full 0):
+ PSYoungGen      total 70656K, used 5098K [0x00000000d6100000, 0x00000000dfe00000, 0x0000000100000000)
+  eden space 65536K, 0% used [0x00000000d6100000,0x00000000d6100000,0x00000000da100000)
+  from space 5120K, 99% used [0x00000000da100000,0x00000000da5fab00,0x00000000da600000)
+  to   space 14848K, 0% used [0x00000000def80000,0x00000000def80000,0x00000000dfe00000)
+ ParOldGen       total 86016K, used 28584K [0x0000000082200000, 0x0000000087600000, 0x00000000d6100000)
+  object space 86016K, 33% used [0x0000000082200000,0x0000000083dea2f0,0x0000000087600000)
+ Metaspace       used 19306K, capacity 19552K, committed 19712K, reserved 1067008K
+  class space    used 2423K, capacity 2472K, committed 2560K, reserved 1048576K
+}
+Event: 3.639 GC heap before
+{Heap before GC invocations=6 (full 0):
+ PSYoungGen      total 70656K, used 70634K [0x00000000d6100000, 0x00000000dfe00000, 0x0000000100000000)
+  eden space 65536K, 100% used [0x00000000d6100000,0x00000000da100000,0x00000000da100000)
+  from space 5120K, 99% used [0x00000000da100000,0x00000000da5fab00,0x00000000da600000)
+  to   space 14848K, 0% used [0x00000000def80000,0x00000000def80000,0x00000000dfe00000)
+ ParOldGen       total 86016K, used 28584K [0x0000000082200000, 0x0000000087600000, 0x00000000d6100000)
+  object space 86016K, 33% used [0x0000000082200000,0x0000000083dea2f0,0x0000000087600000)
+ Metaspace       used 19670K, capacity 19896K, committed 20224K, reserved 1067008K
+  class space    used 2434K, capacity 2476K, committed 2560K, reserved 1048576K
+Event: 3.651 GC heap after
+Heap after GC invocations=6 (full 0):
+ PSYoungGen      total 145408K, used 5594K [0x00000000d6100000, 0x00000000dff00000, 0x0000000100000000)
+  eden space 130560K, 0% used [0x00000000d6100000,0x00000000d6100000,0x00000000de080000)
+  from space 14848K, 37% used [0x00000000def80000,0x00000000df4f6af0,0x00000000dfe00000)
+  to   space 15360K, 0% used [0x00000000de080000,0x00000000de080000,0x00000000def80000)
+ ParOldGen       total 86016K, used 28584K [0x0000000082200000, 0x0000000087600000, 0x00000000d6100000)
+  object space 86016K, 33% used [0x0000000082200000,0x0000000083dea2f0,0x0000000087600000)
+ Metaspace       used 19670K, capacity 19896K, committed 20224K, reserved 1067008K
+  class space    used 2434K, capacity 2476K, committed 2560K, reserved 1048576K
+}
+
+Deoptimization events (10 events):
+Event: 3.403 Thread 0x000001f49c6db000 Uncommon trap: reason=array_check action=maybe_recompile pc=0x000001f49eca7f48 method=java.util.AbstractCollection.toArray([Ljava/lang/Object;)[Ljava/lang/Object; @ 119
+Event: 3.403 Thread 0x000001f49c6db000 Uncommon trap: reason=array_check action=maybe_recompile pc=0x000001f49eca7f48 method=java.util.AbstractCollection.toArray([Ljava/lang/Object;)[Ljava/lang/Object; @ 119
+Event: 3.404 Thread 0x000001f49c6db000 Uncommon trap: reason=array_check action=maybe_recompile pc=0x000001f49eca7f48 method=java.util.AbstractCollection.toArray([Ljava/lang/Object;)[Ljava/lang/Object; @ 119
+Event: 3.607 Thread 0x000001f49c6db000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x000001f49ec4cac8 method=org.eclipse.xtext.resource.impl.EObjectDescriptionLookUp.getExportedObjects(Lorg/eclipse/emf/ecore/EClass;Lorg/eclipse/xtext/naming/QualifiedName;Z)Ljava/lang/Iterable; @ 40
+Event: 3.651 Thread 0x000001f49c6db000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x000001f49ece89e0 method=org.eclipse.emf.common.util.Pool.addEntry(ZLjava/lang/Object;Lorg/eclipse/emf/common/util/Pool$AccessUnit;)Ljava/lang/Object; @ 50
+Event: 3.651 Thread 0x000001f49c6db000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x000001f49eac5ff4 method=org.eclipse.emf.common.util.Pool.access(ZLorg/eclipse/emf/common/util/Pool$AccessUnit;)V @ 48
+Event: 3.663 Thread 0x000001f49c6db000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x000001f49ed3eafc method=org.uqbar.project.wollok.interpreter.nativeobj.AbstractWollokDeclarativeNativeObject.matches(Ljava/lang/reflect/Method;[Ljava/lang/Object;)Z @ 27
+Event: 3.664 Thread 0x000001f49c6db000 Uncommon trap: reason=bimorphic action=maybe_recompile pc=0x000001f49ed237d0 method=com.google.common.base.Joiner.appendTo(Ljava/lang/Appendable;Ljava/util/Iterator;)Ljava/lang/Appendable; @ 6
+Event: 3.711 Thread 0x000001f49c6db000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x000001f49e4acfa0 method=java.io.WinNTFileSystem.normalize(Ljava/lang/String;)Ljava/lang/String; @ 49
+Event: 3.725 Thread 0x000001f49c6db000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x000001f49e730b00 method=sun.security.provider.DigestBase.engineUpdate([BII)V @ 1
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (10 events):
+Event: 2.585 Thread 0x000001f49c6db000 Exception <a 'java/io/FileNotFoundException'> (0x00000000d84bbcb8) thrown at [C:\cygwin64\tmp\openjdk-jdk8u-windows-x64-hotspot\workspace\build\src\hotspot\src\share\vm\prims\jni.cpp, line 710]
+Event: 2.588 Thread 0x000001f49c6db000 Exception <a 'java/io/FileNotFoundException'> (0x00000000d84e24e0) thrown at [C:\cygwin64\tmp\openjdk-jdk8u-windows-x64-hotspot\workspace\build\src\hotspot\src\share\vm\prims\jni.cpp, line 710]
+Event: 2.589 Thread 0x000001f49c6db000 Exception <a 'java/io/FileNotFoundException'> (0x00000000d84f0348) thrown at [C:\cygwin64\tmp\openjdk-jdk8u-windows-x64-hotspot\workspace\build\src\hotspot\src\share\vm\prims\jni.cpp, line 710]
+Event: 2.668 Thread 0x000001f49c6db000 Exception <a 'java/io/FileNotFoundException'> (0x00000000d8803e78) thrown at [C:\cygwin64\tmp\openjdk-jdk8u-windows-x64-hotspot\workspace\build\src\hotspot\src\share\vm\prims\jni.cpp, line 710]
+Event: 3.848 Thread 0x000001f49c6db000 Exception <a 'java/security/PrivilegedActionException'> (0x00000000d67696f0) thrown at [C:\cygwin64\tmp\openjdk-jdk8u-windows-x64-hotspot\workspace\build\src\hotspot\src\share\vm\prims\jvm.cpp, line 1502]
+Event: 3.848 Thread 0x000001f49c6db000 Exception <a 'java/security/PrivilegedActionException'> (0x00000000d676ac20) thrown at [C:\cygwin64\tmp\openjdk-jdk8u-windows-x64-hotspot\workspace\build\src\hotspot\src\share\vm\prims\jvm.cpp, line 1502]
+Event: 3.848 Thread 0x000001f49c6db000 Exception <a 'java/security/PrivilegedActionException'> (0x00000000d676c050) thrown at [C:\cygwin64\tmp\openjdk-jdk8u-windows-x64-hotspot\workspace\build\src\hotspot\src\share\vm\prims\jvm.cpp, line 1502]
+Event: 3.848 Thread 0x000001f49c6db000 Exception <a 'java/security/PrivilegedActionException'> (0x00000000d676d710) thrown at [C:\cygwin64\tmp\openjdk-jdk8u-windows-x64-hotspot\workspace\build\src\hotspot\src\share\vm\prims\jvm.cpp, line 1502]
+Event: 3.848 Thread 0x000001f49c6db000 Exception <a 'java/security/PrivilegedActionException'> (0x00000000d676eb08) thrown at [C:\cygwin64\tmp\openjdk-jdk8u-windows-x64-hotspot\workspace\build\src\hotspot\src\share\vm\prims\jvm.cpp, line 1502]
+Event: 3.848 Thread 0x000001f49c6db000 Exception <a 'java/security/PrivilegedActionException'> (0x00000000d676fed0) thrown at [C:\cygwin64\tmp\openjdk-jdk8u-windows-x64-hotspot\workspace\build\src\hotspot\src\share\vm\prims\jvm.cpp, line 1502]
+
+Events (10 events):
+Event: 3.874 loading class org/lwjgl/openal/ALCdevice
+Event: 3.874 loading class org/lwjgl/openal/ALCdevice done
+Event: 3.875 loading class org/lwjgl/openal/ALCcontext
+Event: 3.875 loading class org/lwjgl/openal/ALCcontext done
+Event: 3.875 loading class java/nio/DirectIntBufferU
+Event: 3.876 loading class java/nio/DirectIntBufferU done
+Event: 3.876 loading class org/lwjgl/openal/Util
+Event: 3.876 loading class org/lwjgl/openal/Util done
+Event: 3.876 loading class org/lwjgl/openal/OpenALException
+Event: 3.876 loading class org/lwjgl/openal/OpenALException done
+
+
+Dynamic libraries:
+0x00007ff6a2770000 - 0x00007ff6a27aa000 	C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\bin\javaw.exe
+0x00007ffe65c80000 - 0x00007ffe65e6d000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffe465b0000 - 0x00007ffe465c4000 	C:\Program Files\AVAST Software\Avast\aswhook.dll
+0x00007ffe637e0000 - 0x00007ffe63893000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffe62ac0000 - 0x00007ffe62d53000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffe656c0000 - 0x00007ffe65763000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffe634e0000 - 0x00007ffe6357e000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffe65bb0000 - 0x00007ffe65c4e000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffe658e0000 - 0x00007ffe65a02000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffe65a10000 - 0x00007ffe65ba7000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffe62e60000 - 0x00007ffe62e80000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffe65660000 - 0x00007ffe65689000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffe61e10000 - 0x00007ffe61fa9000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffe62e80000 - 0x00007ffe62f20000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ffe62d60000 - 0x00007ffe62e5a000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffe547d0000 - 0x00007ffe54a49000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.17763.802_none_05b1445c0722d2cc\COMCTL32.dll
+0x00007ffe62f20000 - 0x00007ffe6324c000 	C:\WINDOWS\System32\combase.dll
+0x00007ffe61fb0000 - 0x00007ffe6202e000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffe65690000 - 0x00007ffe656be000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007ffe27cd0000 - 0x00007ffe27dbf000 	C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\jre\bin\msvcr120.dll
+0x00007ffe27c20000 - 0x00007ffe27cc6000 	C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\jre\bin\msvcp120.dll
+0x0000000054010000 - 0x000000005480e000 	C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\jre\bin\server\jvm.dll
+0x00007ffe633e0000 - 0x00007ffe633e8000 	C:\WINDOWS\System32\PSAPI.DLL
+0x00007ffe515d0000 - 0x00007ffe515d9000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00007ffe63310000 - 0x00007ffe6337d000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffe5fe80000 - 0x00007ffe5fea4000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffe5d0b0000 - 0x00007ffe5d0ba000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffe5fd30000 - 0x00007ffe5fd5d000 	C:\WINDOWS\SYSTEM32\WINMMBASE.dll
+0x00007ffe62a70000 - 0x00007ffe62aba000 	C:\WINDOWS\System32\cfgmgr32.dll
+0x00007ffe5e5c0000 - 0x00007ffe5e5cf000 	C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\jre\bin\verify.dll
+0x00007ffe56330000 - 0x00007ffe56358000 	C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\jre\bin\java.dll
+0x00007ffe562f0000 - 0x00007ffe56306000 	C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\jre\bin\zip.dll
+0x00007ffe63a50000 - 0x00007ffe64f44000 	C:\WINDOWS\System32\SHELL32.dll
+0x00007ffe63260000 - 0x00007ffe63308000 	C:\WINDOWS\System32\shcore.dll
+0x00007ffe62210000 - 0x00007ffe6295d000 	C:\WINDOWS\System32\windows.storage.dll
+0x00007ffe61d30000 - 0x00007ffe61d54000 	C:\WINDOWS\System32\profapi.dll
+0x00007ffe61d60000 - 0x00007ffe61dbd000 	C:\WINDOWS\System32\powrprof.dll
+0x00007ffe63380000 - 0x00007ffe633d2000 	C:\WINDOWS\System32\shlwapi.dll
+0x00007ffe61cf0000 - 0x00007ffe61d01000 	C:\WINDOWS\System32\kernel.appcore.dll
+0x00007ffe61df0000 - 0x00007ffe61e07000 	C:\WINDOWS\System32\cryptsp.dll
+0x0000000065580000 - 0x0000000065616000 	C:\Users\PUNKHAZARD\AppData\Local\Temp\libgdxPUNKHAZARD\12dfaa03\gdx64.dll
+0x00007ffe61080000 - 0x00007ffe610b3000 	C:\WINDOWS\system32\rsaenh.dll
+0x00007ffe61dc0000 - 0x00007ffe61de6000 	C:\WINDOWS\System32\bcrypt.dll
+0x00007ffe61bf0000 - 0x00007ffe61c18000 	C:\WINDOWS\SYSTEM32\USERENV.dll
+0x00007ffe616d0000 - 0x00007ffe616dc000 	C:\WINDOWS\SYSTEM32\CRYPTBASE.dll
+0x00007ffe55c00000 - 0x00007ffe55c1a000 	C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\jre\bin\net.dll
+0x00007ffe570e0000 - 0x00007ffe572b7000 	C:\WINDOWS\SYSTEM32\urlmon.dll
+0x00007ffe55110000 - 0x00007ffe553b8000 	C:\WINDOWS\SYSTEM32\iertutil.dll
+0x00007ffe61500000 - 0x00007ffe61567000 	C:\WINDOWS\system32\mswsock.dll
+0x00007ffe61220000 - 0x00007ffe6125d000 	C:\WINDOWS\SYSTEM32\IPHLPAPI.DLL
+0x00007ffe64fb0000 - 0x00007ffe64fb8000 	C:\WINDOWS\System32\NSI.dll
+0x00007ffe59b70000 - 0x00007ffe59b86000 	C:\WINDOWS\SYSTEM32\dhcpcsvc6.DLL
+0x00007ffe59b50000 - 0x00007ffe59b6c000 	C:\WINDOWS\SYSTEM32\dhcpcsvc.DLL
+0x00007ffe61260000 - 0x00007ffe61326000 	C:\WINDOWS\SYSTEM32\DNSAPI.dll
+0x00007ffe559c0000 - 0x00007ffe559d2000 	C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\jre\bin\nio.dll
+0x0000000180000000 - 0x0000000180053000 	C:\Users\PUNKHAZARD\AppData\Local\Temp\libgdxPUNKHAZARD\dc0f0009\lwjgl64.dll
+0x00007ffe4a310000 - 0x00007ffe4a437000 	C:\WINDOWS\SYSTEM32\OPENGL32.dll
+0x00007ffe517e0000 - 0x00007ffe5180c000 	C:\WINDOWS\SYSTEM32\GLU32.dll
+0x000001f49c890000 - 0x000001f49c8f4000 	C:\Users\PUNKHA~1\AppData\Local\Temp\libgdxPUNKHAZARD\dc0f0009\OpenAL64.dll
+0x00007ffe65020000 - 0x00007ffe65175000 	C:\WINDOWS\System32\ole32.dll
+0x00007ffe602c0000 - 0x00007ffe6035c000 	C:\WINDOWS\system32\uxtheme.dll
+0x00007ffe63580000 - 0x00007ffe63622000 	C:\WINDOWS\System32\clbcatq.dll
+0x00007ffe5e6f0000 - 0x00007ffe5e899000 	C:\WINDOWS\System32\PROPSYS.dll
+0x00007ffe633f0000 - 0x00007ffe634b4000 	C:\WINDOWS\System32\OLEAUT32.dll
+0x00007ffe34f60000 - 0x00007ffe34ff6000 	C:\WINDOWS\SYSTEM32\dsound.dll
+0x00007ffe5c200000 - 0x00007ffe5c270000 	C:\WINDOWS\System32\MMDevApi.dll
+0x00007ffe61b00000 - 0x00007ffe61b29000 	C:\WINDOWS\System32\DEVOBJ.dll
+0x00007ffe5c270000 - 0x00007ffe5c3b8000 	C:\WINDOWS\SYSTEM32\AUDIOSES.DLL
+0x00007ffe5d920000 - 0x00007ffe5da73000 	C:\WINDOWS\SYSTEM32\wintypes.dll
+0x00007ffe5e0d0000 - 0x00007ffe5e0da000 	C:\WINDOWS\SYSTEM32\AVRT.dll
+0x00007ffe594a0000 - 0x00007ffe5968d000 	C:\WINDOWS\SYSTEM32\dbghelp.dll
+
+VM Arguments:
+jvm_args: -Duser.language=es_AR -Dfile.encoding=UTF-8 
+java_command: org.uqbar.project.wollok.launch.WollokLauncher -requestsPort 0 -eventsPort 0 -folder -dontValidate -wf src/cazadorGame.wpgm
+java_class_path (initial): C:\Program Files\Wollok\workspace\git\2019s2-tp-juego-juegodelcazador-monforte-zarate-marote\bin;C:\Program Files\Wollok\plugins\com.ibm.icu_56.1.0.v201601250100.jar;C:\Program Files\Wollok\plugins\org.eclipse.xtext_2.11.0.v20170130-0808.jar;C:\Program Files\Wollok\plugins\org.eclipse.emf.ecore.xmi_2.12.0.v20160420-0247.jar;C:\Program Files\Wollok\plugins\org.eclipse.emf.ecore_2.12.0.v20160420-0247.jar;C:\Program Files\Wollok\plugins\org.eclipse.emf.common_2.12.0.v20160420-0247.jar;C:\Program Files\Wollok\plugins\org.antlr.runtime_3.2.0.v201101311130.jar;C:\Program Files\Wollok\plugins\com.google.inject_3.0.0.v201605172100.jar;C:\Program Files\Wollok\plugins\org.eclipse.emf.mwe.core_1.5.0.201906111547.jar;C:\Program Files\Wollok\plugins\org.apache.commons.cli_1.2.0.v201404270220.jar;C:\Program Files\Wollok\plugins\org.eclipse.emf.mwe2.runtime_2.11.0.201906111547.jar;C:\Program Files\Wollok\plugins\org.eclipse.emf.mwe.utils_1.5.0.201906111547.jar;C:\Program Files\Wollok\plugins\org.eclipse.xtext.util_2.11.0.v20170130-0808.jar;C:\Program Files\Wollok\plugins\com.google.guava_15.0.0.v201403281430.jar;C:\Program Files\Wollok\plugins\javax.inject_1.0.0.v20091030.jar;C:\Program Files\Wollok\plugins\org.eclipse.xtext.generator_2.11.0.v20170131-1210.jar;C:\Program Files\Wollok\plugins\org.eclipse.xtext.xtext.generator_2.11.0.v20170130-0808.jar;C:\Program Files\Wollok\plugins\org.eclipse.xtext.xbase.lib_2.11.0.v20170124-1424.jar;C:\Program Files\Wollok\plugins\org.eclipse.emf.codegen.ecore_2.12.0.v20160526-0356.jar;C:\Program Files\Wollok\plugins\org.eclipse.emf.codegen_2.11.0.v20160526-0356.jar;C:\Program Files\Wollok\plugins\org.eclipse.xtend_2.2.0.v201605260315.jar;C:\Program Files\Wollok\plugins\org.eclipse.xpand_2.2.0.v201605260315.jar;C:\Program Files\Wollok\plugins\org.eclipse.xtend.typesystem.emf_2.2.0.v201605260315.jar;C:\Program Files\Wollok\plugins\org.eclipse.emf.mwe2.lib_2.9.0.v201605261103.jar;C:\Program Files\Wollok\plugins\org.uqb
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=C:/Program Files/AdoptOpenJDK/jdk-8.0.222.10-hotspot/bin/../jre/bin/server;C:/Program Files/AdoptOpenJDK/jdk-8.0.222.10-hotspot/bin/../jre/bin;C:/Program Files/AdoptOpenJDK/jdk-8.0.222.10-hotspot/bin/../jre/lib/amd64;C:\Program Files\Haskell\bin;C:\Program Files\Haskell Platform\8.6.5\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.6.5\bin;C:\Program Files\AdoptOpenJDK\jdk-8.0.222.10-hotspot\bin;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Haskell Platform\8.6.5\mingw\bin;C:\Users\PUNKHAZARD\AppData\Roaming\cabal\bin;C:\Users\PUNKHAZARD\AppData\Roaming\local\bin;C:\Users\PUNKHAZARD\AppData\Local\Microsoft\WindowsApps;C:\Users\PUNKHAZARD\AppData\Local\atom\bin;C:\Program Files\Wollok;
+USERNAME=PUNKHAZARD
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 60 Stepping 3, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 10.0 , 64 bit Build 17763 (10.0.17763.475)
+
+CPU:total 4 (initial active 4) (4 cores per cpu, 1 threads per core) family 6 model 60 stepping 3, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, lzcnt, tsc, tscinvbit, bmi1, bmi2
+
+Memory: 4k page, physical 8246148k(1466960k free), swap 16928192k(2937276k free)
+
+vm_info: OpenJDK 64-Bit Server VM (25.222-b10) for windows-amd64 JRE (1.8.0_222-b10), built on Jul 17 2019 08:11:33 by "jenkins" with MS VC++ 12.0 (VS2013)
+
+time: Sat Nov 09 14:47:26 2019
+timezone: Hora estándar de Argentina
+elapsed time: 3 seconds (0d 0h 0m 3s)
+

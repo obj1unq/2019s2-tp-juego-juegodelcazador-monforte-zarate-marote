@@ -1,5 +1,5 @@
 import wollok.game.*
-
+/* 
 object direccionRep{
 	method abajo() = 1
 	method izquierda() = 2
@@ -19,9 +19,9 @@ object direccionRep{
 			return posicionActual.right(1)		
 		}
 	}
-}
+}*/
 
-/* 
+
 class Direccion {
 	var property imagen = self.imagenDelPersonaje()
 	method posicionAl(jugador)  //Usado para comprobar los objetos que existen en esa direccion (relativa al jugador)
@@ -30,29 +30,37 @@ class Direccion {
 
 object izquierda inherits Direccion { 
 
-override method imagenDelPersonaje() = self.toString()+"Izquierda.png"
+	override method imagenDelPersonaje() = self.toString()+"Izquierda.png"
 
-override method posicionAl(jugador) = jugador.position().left(1)
+	override method posicionAl(jugador) = jugador.position().left(1)
+	
+	method opuesto() = derecha
 }
 
 object derecha inherits Direccion { 
 	
-override method imagenDelPersonaje()= self.toString()+"Derecha.png" 
+	override method imagenDelPersonaje()= self.toString()+"Derecha.png" 
 
 	override method posicionAl(jugador) = jugador.position().right(1)
+
+	method opuesto() = izquierda
 }
 
 object abajo inherits Direccion { 
 	
-override method imagenDelPersonaje()= self.toString()+"A.png"
+	override method imagenDelPersonaje()= self.toString()+"Abajo.png"
 
-override method posicionAl(jugador) = jugador.position().down(1)
+	override method posicionAl(jugador) = jugador.position().down(1)
+	
+	method opuesto() = arriba
 }
 
 object arriba inherits Direccion { 
 	
-override method imagenDelPersonaje()= self.toString()+"Arriba.png"
+	override method imagenDelPersonaje()= self.toString()+"Arriba.png"
+	
 	override method posicionAl(jugador) = jugador.position().up(1)
+	
+	method opuesto() = abajo
 }
  
-*/
