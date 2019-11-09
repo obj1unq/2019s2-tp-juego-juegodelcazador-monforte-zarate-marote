@@ -7,7 +7,7 @@ import protecciones.*
 import direcciones.*
 
 object cazador {
-	var property imagen = "bruja.png"      //orientacion.imagenDelPersonaje()
+	var property image = arriba.imagenDelPersonaje()      //orientacion.imagenDelPersonaje()
 	const property inventario = []
 	var property vida = 10	
 	var property orientacion = arriba
@@ -77,23 +77,12 @@ object cazador {
 ///---------------------- MOVIMIENTO ------------------------
 ///----------------------------------------------------------
 
-	/*method irA(nuevaPosicion) { 
-		var newX = nuevaPosicion.x()
-		var newY = nuevaPosicion.y()
-		     
-		//EVITAR QUE SE POSICIONE FUERA DEL TABLERO
-		newX = newX.max(0).min(game.width() - 1)
-		newY = newY.max(0).min(game.height() - 1)
-		
-    	previousPosition = position
-		position = game.at(newX, newY)
-    }	*/
+
 
 	method mover(nuevaPosicion, dir) {
 		// Puede mover si no hay un obj no colisionable en direccion dir
-	//	orientacion = nuevaPosicion // Actualiza la variable del personaje
 		orientacion = dir
-		//self.actualizarImagen()
+		self.actualizarImagen()
 		
 		if (self.estaVivo() and self.puedeMoverAl(dir)) {
 			self.position(nuevaPosicion)		
@@ -112,17 +101,18 @@ object cazador {
 	}
    
     method actualizarImagen() {
-	//	imagen = orientacion.imagenDelPersonaje()
-		game.addVisual(self)
+		image = orientacion.imagenDelPersonaje()
 	}
 	
     method colisionarCon(enemigo) {
 	    // Respeta el polimorfismo.
 	}
 	
-	
+ 	method cazadorMuerto(){
+ 		return vida < 0
+ 	}
 	
 	method ganaElJuego() { return dracula.muere() }
 	
-	method pierdeElJuego() { return vida == 0 }
+	method perdiste() { game.say(cazador, "El mal seguirá latente") }
 }

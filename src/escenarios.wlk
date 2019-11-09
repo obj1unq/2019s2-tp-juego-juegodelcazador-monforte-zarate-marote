@@ -71,10 +71,10 @@ object primerEscenario {
                                       
     paredesDeLaberinto.forEach({pared => game.addVisual(pared)}) 
      
-    const fantasmas = [new Fantasma(position = (3->1)),new Fantasma(position = (3->4)),new Fantasma(position = (9->1)),
-                       new Fantasma(position = (7->5)),new Fantasma(position = (2->10)),new Fantasma(position = (8->10)),
-    	               new Fantasma(position = (11->7)),new Fantasma(position = (19->1)),new Fantasma(position = (15->8)),
-    	               new Fantasma(position = (5->8)),new Fantasma(position = (15->3))]
+    const fantasmas = [new Fantasma(position = (3->1), hp = 1),new Fantasma(position = (3->4), hp = 1),new Fantasma(position = (9->1), hp = 1),
+                       new Fantasma(position = (7->5), hp = 1),new Fantasma(position = (2->10), hp = 1),new Fantasma(position = (8->10), hp = 1),
+    	               new Fantasma(position = (11->7), hp = 1),new Fantasma(position = (19->1), hp = 1),new Fantasma(position = (15->8), hp = 1),
+    	               new Fantasma(position = (5->8), hp = 1),new Fantasma(position = (15->3), hp = 1)]
     
     fantasmas.forEach({fantasma => game.addVisual(fantasma)}) 	                
      
