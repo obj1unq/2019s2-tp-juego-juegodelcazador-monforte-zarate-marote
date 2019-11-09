@@ -6,9 +6,9 @@
 
 Integrantes:
 
-- 
--
--
+- Marote Fabricio
+- Monforte Sofia
+- Zarate Gonzalo
 
 #### Descripción e instrucciones
 
