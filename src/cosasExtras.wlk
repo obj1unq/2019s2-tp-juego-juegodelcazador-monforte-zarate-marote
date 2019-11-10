@@ -92,11 +92,11 @@ object tablero {
 ///----------------------------------------------------------
 
 	method cazadorSituadoEnCambioDeEscenario(puerta) {	
-	    game.onCollideDo(puerta, {cazador => cazador.cambioDeEscenario(puerta)})
-	 }
+	   	 //implementar
+	   	 }
 	
 	method cambioDeEscenario(puerta) {
-		self.cazadorSituadoEnCambioDeEscenario(puerta)
+	
 		game.clear()
 	    //implementar	
 	}  

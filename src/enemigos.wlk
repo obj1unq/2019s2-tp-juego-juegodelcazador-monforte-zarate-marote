@@ -83,6 +83,21 @@ class Fantasma inherits Enemigo{
 	}
 }
 
+object fantasmaBoos inherits Enemigo {
+	const property image = "fantasma2.png"
+	const property atk = 3
+	const property cantSalQueAfecta = 5
+	
+	override method recibirAtaqueCon(objeto) {   //esto creo que hiria mejor para el vampiro o murcielago, no tanto con los fantasmas
+		const sal = new Sal()
+		if(objeto == sal and cazador.tiene(objeto)) {
+		   self.muere() 
+	   }else{
+	   	   self.atacar()
+	   }
+	}
+}
+
 class Murcielago inherits Enemigo{
 	const property image = "murcielago.png"
 	const property atk = 1

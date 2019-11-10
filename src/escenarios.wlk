@@ -43,10 +43,29 @@ object primerEscenario {
                             
     posicionesPared.forEach({posicion => new Pared().crear(posicion)})
      
-    const posFantasmas = [(3->1),(3->4),(9->1),(7->5),(2->10),(8->10),(11->7),(19->1),(5->8),(15->3),(16->8)]
+    // Fantasmas
     
-    posFantasmas.forEach({posicion => new Fantasma().crear(posicion)})
-    	                 
+    var fantasma1 = new Fantasma(position = (3->1), hp = 1)
+    var fantasma2 = new Fantasma(position = (3->4), hp = 1)
+    var fantasma3 = new Fantasma(position = (9->1), hp = 1)
+    var fantasma4 = new Fantasma(position = (7->5), hp = 1)
+    var fantasma5 = new Fantasma(position = (2->10), hp = 1)
+    var fantasma6 = new Fantasma(position = (8->10), hp = 1)
+    var fantasma7 = new Fantasma(position = (11->7), hp = 1)
+    var fantasma8 = new Fantasma(position = (19->1), hp = 1)
+    var fantasma9 = new Fantasma(position = (5->8), hp = 1)
+    var fantasma10 = new Fantasma(position = (15->3), hp = 1)
+    var fantasma11 = new Fantasma(position = (16->8), hp = 1)
+    
+    const fantasmas = [fantasma1,fantasma2,fantasma3,fantasma4,fantasma5,
+    	               fantasma6,fantasma7,fantasma8,fantasma9,fantasma10,
+    	               fantasma11]
+    
+    fantasmas.forEach({fantasma => 
+    	game.addVisual(fantasma)
+    	fantasma.patrullar()
+    }) 
+    
     const sales = [ new Sal(position = (1->1)),new Sal(position = (1->3)),new Sal(position = (15->1)),
     	            new Sal(position = (17->1)),new Sal(position = (17->3)),new Sal(position = (9->8))]
     	             
@@ -56,31 +75,28 @@ object primerEscenario {
     
     vidas.forEach({vida => game.addVisual(vida)})
      
-    const flechas = [new Flechas(position = (19->3)),new Flechas(position = (15->5)),new Flechas(position = (13->1))]
+    const flechas = [new Flechas(position = (19->3)),new Flechas(position = (15->5))]
     
     flechas.forEach({flecha => game.addVisual(flecha)})
-    
-    game.addVisualIn(ballesta, (14->1))
+     
     //Personaje principal
      
 	game.addVisual(cazador)
-	
-     //////////////CARTEL CONTADOR DE PUNTOS/////////////////////////////
- 	var puntos = new GraficaParaCartel("CartelPuntos.png",game.at(0, 13))
- 	game.addVisual(puntos)
-
-
     
- 	
+    //Activar boss final
+    self.activacioDeBoos(cazador) 
+    }
+    
+    method activacioDeBoos(cazador) {
+    	game.whenCollideDo(cazador, { fantasma6 => cazador.atacarA(fantasma6)})
+        game.addVisualIn(fantasmaBoos,(11->11))
     }
 }
-
-
 object segundoEscenario {
     
     method iniciar() {
     	
-    game.ground("concreto.png")	
+    game.ground("pasto3.png")	
     
     game.addVisual(cazador)
     }

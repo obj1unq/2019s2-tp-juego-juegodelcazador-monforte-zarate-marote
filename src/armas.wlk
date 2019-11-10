@@ -59,12 +59,10 @@ object revolverDePlata inherits ArmaADistancia {
 class Sal inherits Proyectil {
 	var property image = "sal.png"
 	var alcance = 1
+	
 	method imagenDeProyectil(){
 		image = "salExplosion.png"
 	}
-
-
-	
 }
 
 class Proyectil inherits Municion{

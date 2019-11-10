@@ -25,12 +25,11 @@ program VampiresHunter {
     keyboard.e().onPressDo({ cazador.recoger(game.colliders(cazador).first())})
     keyboard.a().onPressDo({ cazador.ataqueA()})
     //keyboard.r().onPressDo({ cazador.activarProteccion)})
-	 keyboard.num1().onPressDo({ cazador.equipar(ballesta, "Ballesta") })
-  //  keyboard.num2().onPressDo({ cazador.equipar(estacaYMartillo) })
-  //  keyboard.num3().onPressDo({ cazador.equipar(revolverDePlata) })
+	keyboard.num1().onPressDo({ cazador.equipar(ballesta, "Ballesta") })
+    //keyboard.num2().onPressDo({ cazador.equipar(estacaYMartillo) })
+    //keyboard.num3().onPressDo({ cazador.equipar(revolverDePlata) })
 	// keyboard.num4().onPressDo({ cazador.equipar(sal) })
     
-   // keyboard.a().onPressDo({ })	
  	
  	//  VISUALES
  	
