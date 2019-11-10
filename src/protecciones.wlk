@@ -19,11 +19,8 @@ class Ajo inherits Proteccion {
 		return 10
 	}
 }
- 
-class Sal inherits Proteccion {
-	const property image = "sal.png" 
-}
+
 
 class Vida inherits Proteccion {
-	const property image = "corazon.png"
+	const property image = "hp.png"	
 }

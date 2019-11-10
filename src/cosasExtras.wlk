@@ -9,46 +9,96 @@ class NoColisionable {
 class Colisionable {
 	method esColisionable() = true
 }
-//////////////////
-class ObjetoMovible {
-	var property position
-	
-	method direccion()
-	
-	method moverse(direccion_){	
-			if (self.noHayObstaculoAdelante()){
-				self.position(self.adelante())
-			}
-	}	
-	
-	method listaDeObjetosAdelante() = game.getObjectsIn(self.adelante())
 
-	method adelante() = direccionRep.adelante(self.position(), self.direccion())
-	
-	method noHayObstaculoAdelante(){
-		return  (self.listaDeObjetosAdelante().isEmpty() || self.objetosSonTraspasables(self.listaDeObjetosAdelante()))
-	}
-	
-	method objetosSonTraspasables(listaDeObjetos){
-		return listaDeObjetos.all{objeto => objeto.esTraspasable()}
-	}
-}
-/////////////
 object castillo inherits NoColisionable {
-	const property image = "castillo.gif"
+	const property image = "castillo.png"
 	const property position = 0
+}
+
+object puerta inherits Colisionable {
+    const property image = "puerta.png"
+	const property position = 0
+
+    method colisionarCon(cazador) { 
+		//implementar
+	}
 }
 
 class Pared inherits NoColisionable {
 	const property position
-	const property image = "laberinto1.png"
-	
-	method mover(direccion) {
-		throw new Exception(message = "No puedes mover las paredes.")
-	}
+	const property image = "laberinto2.png"
 	
 	method crear(posicion) {
 		// Genera un pared en el tablero.
-		game.addVisualIn(self, posicion)    // poder usarlo en escenarios para crear	
+		game.addVisualIn(self, posicion)
 	}
+}
+
+class GraficaParaCartel {
+	var property image
+	var property position
+	constructor (imagen, posicion){
+		image = imagen
+		position = posicion
+	}
+}
+
+class Cartel inherits Colisionable{
+	var property cantidadDeCifras
+	var property posicionInicial
+	var property hojas = []
+	constructor(nroCifras,_posicionInicial){
+		cantidadDeCifras = nroCifras
+		posicionInicial = _posicionInicial
+	}
+	method entrada() { return 0 }
+	method hojasNecesarias() {
+		return self.entrada().toString().size()
+	}
+	method agregarHojaSiFalta() {
+		if (self.hojasNecesarias() > hojas.size() ) {
+			hojas.add(new Hoja(self,self.hojasNecesarias()))
+			game.addVisual(hojas.get(self.hojasNecesarias() -1))
+		}
+	}
+}
+
+class Hoja {
+	var parteDelMarcador
+	const numeroDeHoja
+
+	constructor (marcador, hojaNro){
+		parteDelMarcador = marcador
+		numeroDeHoja = hojaNro
+	}
+	method position(){
+		return game.at(parteDelMarcador.posicionInicial().x()+numeroDeHoja, parteDelMarcador.posicionInicial().y())
+	}
+	method chocasteConPacman(pacman, fantasmas) {}
+	method chocarCon(alguien){}
+	method image() {
+		return parteDelMarcador.entrada().toString().charAt(numeroDeHoja - 1)+".png"
+	}	
+}
+	
+class Marcador inherits Cartel{
+
+		override method entrada() { return cazador.hp()}
+}	
+
+object tablero {
+///----------------------------------------------------------
+///---------------------- CAMBIO DE NIVEL -------------------
+///----------------------------------------------------------
+
+	method cazadorSituadoEnCambioDeEscenario(puerta) {	
+	    game.onCollideDo(puerta, {cazador => cazador.cambioDeEscenario(puerta)})
+	 }
+	
+	method cambioDeEscenario(puerta) {
+		self.cazadorSituadoEnCambioDeEscenario(puerta)
+		game.clear()
+	    //implementar	
+	}  
+		
 }

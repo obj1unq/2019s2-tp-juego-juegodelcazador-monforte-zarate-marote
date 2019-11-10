@@ -5,6 +5,7 @@ import armas.*
 import cosasExtras.*
 import escenarios.*
 import direcciones.*
+import protecciones.*
 
 program VampiresHunter {
  	
@@ -13,35 +14,30 @@ program VampiresHunter {
 	game.title("Vampire Hunter") //Hay que elegir el nombre
 	game.height(14)
 	game.width(22)
-	//game.sound("haunting piano.mp3")
  	
  	// TECLADO
- 	
- 	
+	
  	keyboard.up().onPressDo{ cazador.mover(cazador.position().up(1), arriba)}
 	keyboard.down().onPressDo{ cazador.mover(cazador.position().down(1), abajo)}
 	keyboard.left().onPressDo{ cazador.mover(cazador.position().left(1), izquierda)}
 	keyboard.right().onPressDo{ cazador.mover(cazador.position().right(1), derecha)}
-	keyboard.space().onPressDo{ cazador.interactuar()}
- 	/*keyboard.left().onPressDo({ cazador.irA(cazador.position().left(1))})
-    keyboard.right().onPressDo({ cazador.irA(cazador.position().right(1))})
-	keyboard.up().onPressDo({ cazador.irA(cazador.position().up(1))})
-	keyboard.down().onPressDo({ cazador.irA(cazador.position().down(1))})*/
-	keyboard.c().onPressDo({ cazador.cambiarDeEscenario(game.colliders(cazador).first())})// este comando creo qe debería ser dirigidos al .game
+	keyboard.c().onPressDo({ tablero.cambioDeEscenario(game.colliders(cazador).first())})// este comando creo qe debería ser dirigidos al .game
     keyboard.e().onPressDo({ cazador.recoger(game.colliders(cazador).first())})
+    keyboard.a().onPressDo({ cazador.ataqueA()})
     //keyboard.r().onPressDo({ cazador.activarProteccion)})
-  //  keyboard.num1().onPressDo({ cazador.equipar(ballesta) })
+	 keyboard.num1().onPressDo({ cazador.equipar(ballesta, "Ballesta") })
   //  keyboard.num2().onPressDo({ cazador.equipar(estacaYMartillo) })
   //  keyboard.num3().onPressDo({ cazador.equipar(revolverDePlata) })
-  //  keyboard.num4().onPressDo({ cazador.equipar(sal) })
+	// keyboard.num4().onPressDo({ cazador.equipar(sal) })
     
-    //keyboard.a().onPressDo({ cazador.atacar(arma)})	
+   // keyboard.a().onPressDo({ })	
  	
  	//  VISUALES
  	
  	primerEscenario.iniciar()
- 	
+
+   
  	//  COMIENZA
 	game.start()
-	//game.sound("hauntingpiano.mp3")	
 }
+

@@ -9,90 +9,78 @@ object primerEscenario {
 	
 	method iniciar() {
 		
-	game.ground("caminoLaberinto.png")	
+	game.ground("camino.png")	
 	
 	// CASTILLO	
 		
-	game.addVisualIn(castillo, game.at(11,12))	
+	game.addVisualIn(castillo, game.at(2,12))	
+	game.addVisualIn(puerta, game.at(11,12))
 		
 	/// LABERINTO
 
-    const paredesDeLaberinto = [
-    	                        new Pared(position =(0->0)),new Pared(position =(0->1)),new Pared(position =(0->2)),
-    	                        new Pared(position =(0->3)),new Pared(position =(0->4)),new Pared(position =(0->5)),
-    	                        new Pared(position =(0->6)),new Pared(position =(0->7)),new Pared(position =(0->8)),
-    	                        new Pared(position =(0->9)),new Pared(position =(0->10)),new Pared(position =(0->11)),
-    	                        new Pared(position =(21->1)),new Pared(position =(21->2)),new Pared(position =(21->3)),
-    	                        new Pared(position =(21->4)),new Pared(position =(21->5)),new Pared(position =(21->6)),
-    	                        new Pared(position =(21->7)),new Pared(position =(21->8)),new Pared(position =(21->9)),
-    	                        new Pared(position =(21->10)),new Pared(position =(21->11)),new Pared(position =(1->11)),
-    	                        new Pared(position =(2->11)),new Pared(position =(3->11)),new Pared(position =(4->11)),
-    	                        new Pared(position =(5->11)),new Pared(position =(6->11)),new Pared(position =(7->11)),
-    	                        new Pared(position =(8->11)),new Pared(position =(9->11)),new Pared(position =(10->11)),
-    	                        new Pared(position =(12->11)),new Pared(position =(13->11)),new Pared(position =(14->11)),
-    	                        new Pared(position =(15->11)),new Pared(position =(16->11)),new Pared(position =(17->11)),
-    	                        new Pared(position =(18->11)),new Pared(position =(19->11)),new Pared(position =(20->11)),
-    	                        new Pared(position =(1->0)),new Pared(position =(2->0)),new Pared(position =(3->0)),
-    	                        new Pared(position =(4->0)),new Pared(position =(5->0)),new Pared(position =(6->0)),
-    	                        new Pared(position =(7->0)),new Pared(position =(8->0)),new Pared(position =(9->0)),
-    	                        new Pared(position =(9->2)),new Pared(position =(9->3)),new Pared(position =(9->4)),
-    	                        new Pared(position =(10->0)),new Pared(position =(11->0)),new Pared(position =(12->0)),
-    	                        new Pared(position =(13->0)),new Pared(position =(15->0)),new Pared(position =(16->0)),
-    	                        new Pared(position =(17->0)),new Pared(position =(18->0)),new Pared(position =(19->0)),
-    	                        new Pared(position =(20->0)),new Pared(position =(21->0)),new Pared(position =(16->1)),
-    	                        new Pared(position =(15->2)),new Pared(position =(16->2)),new Pared(position =(17->2)),
-    	                        new Pared(position =(18->2)),new Pared(position =(19->2)),new Pared(position =(11->1)),
-    	                        new Pared(position =(11->2)),new Pared(position =(14->2)),new Pared(position =(13->2)),
-    	                        new Pared(position =(12->4)),new Pared(position =(13->3)),new Pared(position =(13->4)),
-    	                        new Pared(position =(14->4)),new Pared(position =(19->4)),new Pared(position =(18->6)),
-    	                        new Pared(position =(19->6)),new Pared(position =(19->8)),new Pared(position =(17->10)),
-    	                        new Pared(position =(20->8)),new Pared(position =(15->9)),new Pared(position = (16->9)),
-    	                        new Pared(position =(14->5)),new Pared(position =(14->6)),new Pared(position =(15->6)),
-    	                        new Pared(position =(15->7)),new Pared(position =(12->9)),new Pared(position =(13->9)),
-                                new Pared(position =(13->10)),new Pared(position =(12->8)),new Pared(position =(11->8)),
-                                new Pared(position =(3->7)),new Pared(position =(8->2)),new Pared(position =(10->5)),
-                                new Pared(position =(10->6)),new Pared(position =(9->6)),new Pared(position =(11->6)),
-                                new Pared(position =(12->6)),new Pared(position =(6->1)),new Pared(position =(6->2)),
-                                new Pared(position =(6->3)),new Pared(position =(7->4)),new Pared(position =(5->1)),
-                                new Pared(position =(4->3)),new Pared(position =(3->3)),new Pared(position =(3->2)),
-                                new Pared(position =(2->2)),new Pared(position =(1->2)),new Pared(position =(6->4)),
-                                new Pared(position =(10->4)),new Pared(position =(17->9)),new Pared(position =(1->4)),
-                                new Pared(position =(1->5)),new Pared(position =(2->5)),new Pared(position =(4->5)),
-                                new Pared(position =(5->6)),new Pared(position =(4->6)),new Pared(position =(4->7)),
-                                new Pared(position =(6->6)),new Pared(position =(6->7)),new Pared(position =(2->7)),
-                                new Pared(position =(2->8)),new Pared(position =(2->9)),new Pared(position =(8->8)),
-                                new Pared(position =(10->9)),new Pared(position =(10->8)),new Pared(position =(9->9)),
-                                new Pared(position =(8->9)),new Pared(position =(8->6)),new Pared(position =(8->7)),
-                                new Pared(position =(6->9)),new Pared(position =(14->7)),new Pared(position =(5->9)),
-                                new Pared(position =(5->10)),new Pared(position =(3->9)),new Pared(position =(19->10)),
-                                new Pared(position =(2->9)),new Pared(position =(15->4)),new Pared(position =(18->3)),
-                                new Pared(position =(18->4)),new Pared(position =(17->4)),new Pared(position =(17->5)),
-                                new Pared(position =(17->6)),new Pared(position =(17->7))]
-                                      
-    paredesDeLaberinto.forEach({pared => game.addVisual(pared)}) 
+    const posicionesPared = [(0->0),(0->1),(0->2),(0->3),(0->4),(0->5),(0->6),(0->7),(0->8),(0->9),(0->10),(0->11),
+    	                     (1->0),(1->2),(1->4),(1->5),(1->11),
+    	                     (2->0),(2->2),(2->5),(2->7),(2->8),(2->9),(2->11),
+    	                     (3->0),(3->2),(3->3),(3->7),(3->9),(3->11),
+    	                     (4->0),(4->3),(4->5),(4->6),(4->7),(4->11),
+    	                     (5->0),(5->1),(5->6),(5->9),(5->10),(5->11),
+    	                     (6->0),(6->1),(6->2),(6->3),(6->4),(6->6),(6->7),(6->9),(6->11),
+    	                     (7->0),(7->4),(7->11),
+    	                     (8->0),(8->2),(8->6),(8->7),(8->8),(8->9),(8->11),
+    	                     (9->0),(9->2),(9->3),(9->4),(9->6),(9->9),(9->11),
+    	                     (10->0),(10->4),(10->5),(10->6),(10->8),(10->9),(10->11),
+    	                     (11->0),(11->1),(11->2),(11->6),(11->8),
+    	                     (12->0),(12->4),(12->6),(12->8),(12->9),(12->11),
+    	                     (13->0),(13->2),(13->3),(13->4),(13->9),(13->10),(13->11),
+    	                     (14->2),(14->4),(14->5),(14->6),(14->7),(14->11),
+    	                     (15->0),(15->2),(15->4),(15->6),(15->7),(15->9),(15->11),
+    	                     (16->0),(16->1),(16->2),(16->9),(16->11),
+    	                     (17->0),(17->2),(17->4),(17->5),(17->6),(17->7),(17->9),(17->10),(17->11),
+    	                     (18->0),(18->2),(18->3),(18->4),(18->6),(18->11),
+    	                     (19->0),(19->2),(19->4),(19->6),(19->8),(19->10),(19->11),
+    	                     (20->0),(20->8),(20->11),
+    	                     (21->0),(21->1),(21->2),(21->3),(21->4),(21->5),(21->6),(21->7),(21->8),(21->9),(21->10),(21->11)]
+                            
+    posicionesPared.forEach({posicion => new Pared().crear(posicion)})
      
-    const fantasmas = [new Fantasma(position = (3->1), hp = 1),new Fantasma(position = (3->4), hp = 1),new Fantasma(position = (9->1), hp = 1),
-                       new Fantasma(position = (7->5), hp = 1),new Fantasma(position = (2->10), hp = 1),new Fantasma(position = (8->10), hp = 1),
-    	               new Fantasma(position = (11->7), hp = 1),new Fantasma(position = (19->1), hp = 1),new Fantasma(position = (15->8), hp = 1),
-    	               new Fantasma(position = (5->8), hp = 1),new Fantasma(position = (15->3), hp = 1)]
+    const posFantasmas = [(3->1),(3->4),(9->1),(7->5),(2->10),(8->10),(11->7),(19->1),(5->8),(15->3),(16->8)]
     
-    fantasmas.forEach({fantasma => game.addVisual(fantasma)}) 	                
-     
+    posFantasmas.forEach({posicion => new Fantasma().crear(posicion)})
+    	                 
     const sales = [ new Sal(position = (1->1)),new Sal(position = (1->3)),new Sal(position = (15->1)),
     	            new Sal(position = (17->1)),new Sal(position = (17->3)),new Sal(position = (9->8))]
     	             
     sales.forEach({sal => game.addVisual(sal)}) 
      
-	game.addVisual(cazador)
+    const vidas = [new Vida(position = (5->7)),new Vida(position = (20->10))] 
     
+    vidas.forEach({vida => game.addVisual(vida)})
+     
+    const flechas = [new Flechas(position = (19->3)),new Flechas(position = (15->5)),new Flechas(position = (13->1))]
+    
+    flechas.forEach({flecha => game.addVisual(flecha)})
+    
+    game.addVisualIn(ballesta, (14->1))
+    //Personaje principal
+     
+	game.addVisual(cazador)
+	
+     //////////////CARTEL CONTADOR DE PUNTOS/////////////////////////////
+ 	var puntos = new GraficaParaCartel("CartelPuntos.png",game.at(0, 13))
+ 	game.addVisual(puntos)
+
+
+    
+ 	
     }
 }
+
 
 object segundoEscenario {
     
     method iniciar() {
     	
-    game.ground("pasto3.png")	
+    game.ground("concreto.png")	
     
     game.addVisual(cazador)
     }

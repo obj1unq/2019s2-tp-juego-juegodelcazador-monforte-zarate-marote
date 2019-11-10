@@ -9,38 +9,49 @@ import direcciones.*
 object cazador {
 	var property image = arriba.imagenDelPersonaje()      //orientacion.imagenDelPersonaje()
 	const property inventario = []
-	var property vida = 10	
+	var property hp = 10	
 	var property orientacion = arriba
 	var property position = game.at(14,0)
 	//var previousPosition = position
 	var property tiempoProtegido
-	var property ajo = new Ajo()
 	var property itemEquipado
+	var property ajo = new Ajo()
+	var property fantasma = new Fantasma()
+	var property cantFlechas = 0
+	var property cantFal = 0
+	var property cantBalas = 0
 	
-
-
-
 ///----------------------------------------------------------
 ///---------------------- LOOTEO ------------------------
 ///----------------------------------------------------------
 	
 	method recoger(objeto) { 
-		if( objeto.esColisionable())
-			inventario.add(objeto)
-		    objeto.colisionarCon(self)			
+	  if( objeto.esColisionable())
+		 inventario.add(objeto)
+		 objeto.colisionarCon(self)
+		 //self.distribuirMunicion()
+		 			
 	}
 	
-	method cantDe(unArma) { return inventario.count( { arma => arma == unArma })}    	
+	
+	method cantDe(unArma) { 
+		return inventario.count( { arma => arma == unArma })
+	}    	
 	     	
 	method recogerVida() {
-	   	  vida = (vida +1).min(10) 
+	   	  hp = (hp +1).min(10) 
 	}
 	
+	method tiene(objeto) {
+		return inventario.contains(objeto)
+	}
 	
-	method equipar(obj){
-		if (inventario.contains(obj)){
-		itemEquipado = obj}
-		else{game.say(self, "No posees el/la"+obj.toString())}
+	method equipar(objeto, nombre){
+		if (self.tiene(objeto)){
+		    itemEquipado = objeto 
+		} else {
+			game.say(self, "No posees el/la"+nombre)
+		}
 	}
 	
 ///----------------------------------------------------------
@@ -48,71 +59,73 @@ object cazador {
 ///----------------------------------------------------------
 	
 	method recibirAtaque(enemigo) { 
-		vida -= enemigo.atk()
+		hp -= enemigo.atk()
 	}
-	
-		
+			
 	method tiempoDeProteccionConAjo() {
 		 tiempoProtegido += (ajo.tiempoQueProteje() * self.cantDe(ajo))
+		 game.onTick(100, "Cuenta regresiva protección",{ => self.descontarTiempoDeProteccion()})
 		 // se tiene que ir descontando el tiempo
 	}
 	
-	method atacarEnemigoConArma(enemigo, arma) { 
-		enemigo.recibirAtaqueCon(arma)
+	method descontarTiempoDeProteccion(){
+		if(tiempoProtegido == 0){
+			game.removeTickEvent("Cuenta regresiva protección")
+			game.removeVisual("ajoProteccion.png")
+		}else{
+			game.addVisualIn("ajoProteccion.png", (10->10))
+			tiempoProtegido -= 1
+		}	
 	}
-///----------------------------------------------------------
-///---------------------- CAMBIO DE NIVEL ------------------------
-///----------------------------------------------------------
-	method cambiarDeEscenario(puertaDeCastillo) {	
-	      //trabajar duro en esto
-	 }
 	
-	method estaSituadoEnCambioDeEscenario() {
-		// usar onCollideDo(visual, action)
-		//trabajar duro en esto
-	}  
+	method atacarACon(enemigo) { 
+		enemigo.recibirAtaqueCon(itemEquipado)
+	}
 	
+	method ataqueA() {
+		// Ataque solo funciona con un enemigo en orientacion 
+		self.enemigo().recibirAtaqueCon(itemEquipado)
+	}
+	
+	method enemigo() = game.getObjectsIn(orientacion.posicionAl(self))
+	
+
 	
 ///----------------------------------------------------------
 ///---------------------- MOVIMIENTO ------------------------
 ///----------------------------------------------------------
-
-
-
 	method mover(nuevaPosicion, dir) {
 		// Puede mover si no hay un obj no colisionable en direccion dir
 		orientacion = dir
 		self.actualizarImagen()
-		
 		if (self.estaVivo() and self.puedeMoverAl(dir)) {
 			self.position(nuevaPosicion)		
 		}
 	}
 	
-	method estaVivo(){
-		return vida > 0
-	}
+
 	
 	method puedeMoverAl(dir) {
 		// Puede mover si no hay ningun obj en direccion dir o si el obj es colisionable
 		// Todos los obj entienden el mensaje esColisionable()
+	
 		return game.getObjectsIn(dir.posicionAl(self)).isEmpty() or
 		      game.getObjectsIn(dir.posicionAl(self)).all{ obj => obj.esColisionable() }
 	}
    
-    method actualizarImagen() {
+        method actualizarImagen() {
 		image = orientacion.imagenDelPersonaje()
 	}
 	
-    method colisionarCon(enemigo) {
+        method colisionarCon(enemigo) {
 	    // Respeta el polimorfismo.
 	}
 	
- 	method cazadorMuerto(){
- 		return vida < 0
- 	}
+		method estaVivo(){
+		return hp > 0
+	}
 	
 	method ganaElJuego() { return dracula.muere() }
 	
-	method perdiste() { game.say(cazador, "El mal seguirá latente") }
+	method perdiste() { game.say(self, "El mal seguirá latente") }
 }

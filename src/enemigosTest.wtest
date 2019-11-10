@@ -6,9 +6,9 @@ import escenarios.*
 
 describe "Test de enemigos spawn y borrado" {
 	
-	const casper = new Fantasma(position = (3->1))
-	const gasparin = new Fantasma(position = (3->2))
-	
+	const casper = new Fantasma(position = (3->1), hp =1)
+	const gasparin = new Fantasma(position = (3->2), hp =1)
+	const sal = new Sal()
 	fixture{
 		game.height(14)
 		game.width(22)
@@ -24,6 +24,9 @@ describe "Test de enemigos spawn y borrado" {
 		assert.notThat(game.hasVisual(casper))
 	}
 	
-	
+	test "Recibir ataque"{
+		casper.recibirAtaqueCon(sal)
+		assert.notThat(game.hasVisual(casper))
+	}
 	
 }

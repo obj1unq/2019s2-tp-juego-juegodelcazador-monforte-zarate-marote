@@ -9,9 +9,9 @@ describe "cazador" {
 	
 const sal = new Sal()
 const ajo = new Ajo()
-const fantasma = new Fantasma(position = 17->3)
-const bruja = new Bruja(position = 15->0)
-const murcielago = new Murcielago(position = 17->0)
+const fantasma = new Fantasma(position = 17->3, hp =1)
+const bruja = new Bruja(position = 15->0,  hp =1)
+const murcielago = new Murcielago(position = 17->0,  hp =1)
 	
 	fixture{
 		game.addVisual(ballesta)
@@ -44,24 +44,24 @@ const murcielago = new Murcielago(position = 17->0)
     }
     
     test "Cazador recoge vida" {
-       cazador.vida(2)	
+       cazador.hp(2)	
        cazador.recogerVida()
-       assert.equals(3, cazador.vida())	
+       assert.equals(3, cazador.hp())	
     }
 
     test "Recibe ataque de fantasma" {
        cazador.recibirAtaque(fantasma)
-       assert.equals(9, cazador.vida())	
+       assert.equals(9, cazador.hp())	
     }
     
     test "Recibe ataque de murcielago" {
        cazador.recibirAtaque(murcielago)
-       assert.equals(9, cazador.vida())	
+       assert.equals(9, cazador.hp())	
     }
     
     test "Recibe ataque de bruja" {
        cazador.recibirAtaque(bruja)
-       assert.equals(8, cazador.vida())	
+       assert.equals(8, cazador.hp())	
     }
     
     test "Gana el juego" {	
@@ -73,11 +73,11 @@ const murcielago = new Murcielago(position = 17->0)
     }
     
     test "Pierde el juego" {
-       cazador.vida(0)
-       assert.that(cazador.pierdeElJuego())	
+       cazador.hp(0)
+       assert.that(cazador.cazadorMuerto())	
     }
     
     test "No pierde el juego" {
-       assert.notThat(cazador.pierdeElJuego())
+       assert.notThat(cazador.cazadorMuerto())
     }
 }

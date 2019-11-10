@@ -16,9 +16,9 @@ class Enemigo inherits NoColisionable {
 		return hp == 0
 	}
 	
-	method recibirAtaqueCon(arma) {	
-		arma.dispararA(self)
-		hp = hp - arma.danio()
+	method recibirAtaqueCon(objeto) {	
+		objeto.dispararA(self)
+		hp = hp - objeto.danio()
 		self.estaVivo()
 		self.desaparecer()		
 	}
@@ -32,6 +32,11 @@ class Enemigo inherits NoColisionable {
     method atacar() { 
     	cazador.recibirAtaque(self)
     }
+    
+    method crear(posicion) {
+		// Genera un pared en el tablero.
+		game.addVisualIn(self, posicion)	
+	}
 }
 
 object dracula inherits Enemigo{ 
@@ -59,19 +64,22 @@ class Bruja inherits Enemigo{
 }
 
 class Fantasma inherits Enemigo{
-	const property image = "fantasmaDerecha.png"
-	var sal = new Sal()
+	const property image = "fantasma.png"
 	const property atk = 1
 	
 	override method hp() = 1
 	
-	override method recibirAtaqueCon(arma) {   //esto creo que hiria mejor para el vampiro o murcielago, no tanto con los fantasmas
-		if(arma == sal and cazador.cantDe(arma) == 1) 
-		   self.muere()
+	override method recibirAtaqueCon(objeto) {
+		const sal = new Sal()
+		if(objeto == sal and cazador.tiene(objeto)) {
+		   self.muere() 
+	   }else{
+	   	   self.atacar()
+	   }
 	}
 	
 	method patrullar(){
-		game.onTick(300, "fantasmaMoving", { => self.position().right(1) })	
+		game.onTick(300, "fantasmaMoving", { => cazador.position().y(0.randomUpTo(2)) })	
 	}
 }
 
