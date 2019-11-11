@@ -30,13 +30,16 @@ program VampiresHunter {
     keyboard.num3().onPressDo({ cazador.equipar(pistolaDePlata, "pistola de plata") })
 	keyboard.num4().onPressDo({ cazador.equipar(4, "sal") })
     
- 	
  	//  VISUALES
  	
  	primerEscenario.iniciar()
-
+  
+  /* 
+    //////////////CARTEL CONTADOR DE PUNTOS/////////////////////////////
+ 	var vidas = new GraficaParaCartel("CartelVidas.png",game.at(0, 13))
+ 	game.addVisual(vidas)
+   */
    
  	//  COMIENZA
 	game.start()
 }
-

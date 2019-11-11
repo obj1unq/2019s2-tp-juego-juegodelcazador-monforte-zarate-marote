@@ -45,9 +45,7 @@ object dracula inherits Enemigo{
 		
 	override method hp() = 10	
 		
-    method irA(nuevaPosicion) { 
-    	//modificar
-    }
+    //method moverse(nuevaPosicion) {}
     
     method malherido() {
     	return hp == 1
@@ -60,9 +58,8 @@ class Bruja inherits Enemigo{
 
     override method hp() = 5
     
-	//method irA(nuevaPosicion) { position = nuevaPosicion } 
+	//method moverse(nuevaPosicion) {}
 }
-const bruja = new Bruja()
 
 class Fantasma inherits Enemigo{
 	const property image = "fantasma.png"
@@ -77,6 +74,8 @@ class Fantasma inherits Enemigo{
 	   	   self.atacar()
 	   }
 	}
+	
+	//method moverse(nuevaPosicion) {}
 	
 	method patrullar(){
 		game.onTick(300, "fantasmaMoving", { => cazador.position().y(0.randomUpTo(2)) })	
@@ -104,7 +103,7 @@ class Murcielago inherits Enemigo{
 
     override method hp() = 1
     
-  //method irA(nuevaPosicion) { position = nuevaPosicion } 	
+  //method moverse(nuevaPosicion) {} 	
 }
 const murcielago = new Murcielago()
 

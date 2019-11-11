@@ -27,11 +27,9 @@ object cazador {
 	  if( objeto.esColisionable())
 		 inventario.add(objeto)
 		 objeto.colisionarCon(self)
-		 //self.distribuirMunicion()
-		 			
+		 //self.distribuirMunicion()		 			
 	}
-	
-	
+
 	method cantDe(unArma) { 
 		return inventario.count( { arma => arma == unArma })
 	}    	
@@ -101,9 +99,7 @@ object cazador {
 			self.position(nuevaPosicion)		
 		}
 	}
-	
 
-	
 	method puedeMoverAl(dir) {
 		// Puede mover si no hay ningun obj en direccion dir o si el obj es colisionable
 		// Todos los obj entienden el mensaje esColisionable()
@@ -125,6 +121,10 @@ object cazador {
 	}
 	
 	method ganaElJuego() { return not dracula.estaVivo() }
+	
+	method muere() {
+		return hp == 0
+	}
 	
 	method perdiste() { game.say(self, "El mal seguirá latente") }
 }

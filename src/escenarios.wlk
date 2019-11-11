@@ -93,6 +93,7 @@ object primerEscenario {
         game.addVisualIn(fantasmaBoss,(11->11))
     }
 }
+
 object segundoEscenario {
     
     method iniciar() {

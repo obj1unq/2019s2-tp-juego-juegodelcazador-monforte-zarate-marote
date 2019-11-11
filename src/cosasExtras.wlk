@@ -52,9 +52,11 @@ class Cartel inherits Colisionable{
 		posicionInicial = _posicionInicial
 	}
 	method entrada() { return 0 }
+	
 	method hojasNecesarias() {
 		return self.entrada().toString().size()
 	}
+	
 	method agregarHojaSiFalta() {
 		if (self.hojasNecesarias() > hojas.size() ) {
 			hojas.add(new Hoja(self,self.hojasNecesarias()))

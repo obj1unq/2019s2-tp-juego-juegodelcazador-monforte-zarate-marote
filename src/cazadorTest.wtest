@@ -21,9 +21,9 @@ const murcielago = new Murcielago(position = 17->0,  hp =1)
 	
 	test "Cazador recoge armas" {
     cazador.recoger(ballesta)
-    cazador.recoger(revolverDePlata)
+    cazador.recoger(pistolaDePlata)
     cazador.recoger(estacaYMartillo)
-	assert.equals([ballesta, revolverDePlata, estacaYMartillo], cazador.inventario())  
+	assert.equals([ballesta, pistolaDePlata, estacaYMartillo], cazador.inventario())  
 }
 
     test "Cazador recoge sal" {
@@ -65,7 +65,7 @@ const murcielago = new Murcielago(position = 17->0,  hp =1)
     }
     
     test "Gana el juego" {	
-       assert.that(dracula.muere()) 	
+       assert.notThat(dracula.estaVivo()) 	
     }
     
     test "No gana el juego" {
@@ -74,10 +74,10 @@ const murcielago = new Murcielago(position = 17->0,  hp =1)
     
     test "Pierde el juego" {
        cazador.hp(0)
-       assert.that(cazador.cazadorMuerto())	
+       assert.that(cazador.muere())	
     }
     
     test "No pierde el juego" {
-       assert.notThat(cazador.cazadorMuerto())
+       assert.notThat(cazador.muere())
     }
 }
