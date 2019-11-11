@@ -8,7 +8,6 @@ import protecciones.*
 
 
 object primerEscenario {
-	const id = 1
 	method iniciar() {
 		
 	game.ground("camino.png")	
@@ -103,7 +102,6 @@ object primerEscenario {
 }
 
 object segundoEscenario {
-    const id = 2
     method iniciar() {
     	
     game.ground("pasto3.png")	
