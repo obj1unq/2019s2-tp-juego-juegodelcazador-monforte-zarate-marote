@@ -19,8 +19,10 @@ class Ajo inherits Proteccion {
 		return 10
 	}
 }
+const ajo = new Ajo()
 
 
 class Vida inherits Proteccion {
 	const property image = "hp.png"	
 }
+const vida = new Vida()

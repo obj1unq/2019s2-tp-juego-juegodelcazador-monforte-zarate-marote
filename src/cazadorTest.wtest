@@ -33,7 +33,7 @@ const murcielago = new Murcielago(position = 17->0,  hp =1)
 
     test "Tiempo de protreccion por ajo" {
        cazador.recoger(ajo)
-	   assert.equals(10, cazador.tiempoDeProteccionConAjo()) 
+	   assert.equals(10, cazador.tiempoProtegido()) 
 }
    
     test "Cantidad de ballesta en inventario" {

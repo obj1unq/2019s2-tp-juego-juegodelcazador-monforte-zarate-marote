@@ -6,10 +6,6 @@ import wollok.game.*
 class Arma inherits Colisionable {
 	
 	var property position
-	
-	method esUsadaCon(enemigo) {
-    	cazador.atacarACon(enemigo)  	
-    }
     
     method colisionarCon(cazador) { 
 		game.removeVisual(self)
@@ -20,6 +16,7 @@ object estacaYMartillo inherits Arma {
 	const property image = "estacaYMartillo.png" 
     var property danio = 1
     
+    var property id = 2
   /*   override method esUsadaCon(enemigo){ 
         if (dracula.malherido())
     	   cazador.atacarACon(dracula, self) 
@@ -46,31 +43,35 @@ object ballesta inherits ArmaADistancia {
 	const property image = "ballesta.png" 
 	var property danio = 2	
 	var alcance = 5
+	var property id = 1
 	
 }
 
-object revolverDePlata inherits ArmaADistancia {
+object pistolaDePlata inherits ArmaADistancia {
 	const property image = "armaPlata.png" 
 	var property danio = 4
 	var alcance = 8   
 	
+	var property id = 3
 }
 
 class Sal inherits Proyectil {
 	var property image = "sal.png"
 	var alcance = 1
-	
+	var property id = 4
 	method imagenDeProyectil(){
 		image = "salExplosion.png"
 	}
+	
 }
+const sal = new Sal()
 
 class Proyectil inherits Municion{
 	
 	var property orientacion = cazador.orientacion()
 	//var alcance
 	
-	method crearProyectil(arma) {
+	/*method crearProyectil(arma) {
 	//new Proyectil (position = cazador.position(), alcance = arma.alcance())
 	}
 	
@@ -104,7 +105,7 @@ class Proyectil inherits Municion{
 		      game.getObjectsIn(dir.posicionAl(self)).all{ obj => obj.esColisionable() }
 	}
 	
-	
+	*/
 } 
 
 

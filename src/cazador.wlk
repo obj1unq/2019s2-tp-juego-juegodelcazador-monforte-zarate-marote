@@ -15,8 +15,6 @@ object cazador {
 	//var previousPosition = position
 	var property tiempoProtegido
 	var property itemEquipado
-	var property ajo = new Ajo()
-	var property fantasma = new Fantasma()
 	var property cantFlechas = 0
 	var property cantFal = 0
 	var property cantBalas = 0
@@ -29,8 +27,10 @@ object cazador {
 	  if( objeto.esColisionable())
 		 inventario.add(objeto)
 		 objeto.colisionarCon(self)
-		 //self.distribuirMunicion()	 			
+		 //self.distribuirMunicion()
+		 			
 	}
+	
 	
 	method cantDe(unArma) { 
 		return inventario.count( { arma => arma == unArma })
@@ -45,11 +45,16 @@ object cazador {
 	}
 	
 	method equipar(objeto, nombre){
-		if (self.tiene(objeto)){
-		    itemEquipado = objeto 
+		if (self.tiene(objeto) or inventario.contains({obj => obj.id() == 4})){
+		    itemEquipado = self.encontrarObjetoEnBolsa(objeto)
+		    game.addVisualIn(objeto, (21->0)) 
 		} else {
-			game.say(self, "No posees el/la"+nombre)
+			game.say(self, "No posees la "+nombre)
 		}
+	}
+	
+	method encontrarObjetoEnBolsa(objeto){
+		return inventario.find({obj => obj.id() == objeto.id()})
 	}
 	
 ///----------------------------------------------------------
@@ -60,11 +65,11 @@ object cazador {
 		hp -= enemigo.atk()
 	}
 			
-	method tiempoDeProteccionConAjo() {
+	/*method tiempoDeProteccionConAjo() {
 		 tiempoProtegido += (ajo.tiempoQueProteje() * self.cantDe(ajo))
 		 game.onTick(100, "Cuenta regresiva protección",{ => self.descontarTiempoDeProteccion()})
 		 // se tiene que ir descontando el tiempo
-	}
+	}*/
 	
 	method descontarTiempoDeProteccion(){
 		if(tiempoProtegido == 0){
@@ -76,16 +81,14 @@ object cazador {
 		}	
 	}
 	
-	method atacarACon(enemigo) { 
-		enemigo.recibirAtaqueCon(itemEquipado)
-	}
-	
 	method ataqueA() {
 		// Ataque solo funciona con un enemigo en orientacion 
 		self.enemigo().recibirAtaqueCon(itemEquipado)
 	}
 	
 	method enemigo() = game.getObjectsIn(orientacion.posicionAl(self))
+	
+
 	
 ///----------------------------------------------------------
 ///---------------------- MOVIMIENTO ------------------------
@@ -98,7 +101,9 @@ object cazador {
 			self.position(nuevaPosicion)		
 		}
 	}
-		
+	
+
+	
 	method puedeMoverAl(dir) {
 		// Puede mover si no hay ningun obj en direccion dir o si el obj es colisionable
 		// Todos los obj entienden el mensaje esColisionable()
@@ -119,7 +124,7 @@ object cazador {
 		return hp > 0
 	}
 	
-	method ganaElJuego() { return dracula.muere() }
+	method ganaElJuego() { return not dracula.estaVivo() }
 	
 	method perdiste() { game.say(self, "El mal seguirá latente") }
 }

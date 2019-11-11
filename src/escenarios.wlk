@@ -63,7 +63,7 @@ object primerEscenario {
     
     fantasmas.forEach({fantasma => 
     	game.addVisual(fantasma)
-    	fantasma.patrullar()
+    	//fantasma.patrullar()
     }) 
     
     const sales = [ new Sal(position = (1->1)),new Sal(position = (1->3)),new Sal(position = (15->1)),
@@ -84,12 +84,13 @@ object primerEscenario {
 	game.addVisual(cazador)
     
     //Activar boss final
-    self.activacioDeBoos(cazador) 
+    self.activacioDeBoss(cazador) 
     }
     
-    method activacioDeBoos(cazador) {
-    	game.whenCollideDo(cazador, { fantasma6 => cazador.atacarA(fantasma6)})
-        game.addVisualIn(fantasmaBoos,(11->11))
+    method activacioDeBoss(cazador) {
+    	const fantasma = new Fantasma(position = (8->10), hp = 1)
+    	if (not fantasma.estaVivo())
+        game.addVisualIn(fantasmaBoss,(11->11))
     }
 }
 object segundoEscenario {

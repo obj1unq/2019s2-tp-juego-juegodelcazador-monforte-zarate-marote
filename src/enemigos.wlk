@@ -13,11 +13,11 @@ class Enemigo inherits NoColisionable {
     method hp() = hp
 
 	method muere() { 
-		return hp == 0
+		hp = 0
 	}
 	
 	method recibirAtaqueCon(objeto) {	
-		objeto.dispararA(self)
+		//objeto.dispararA(self)
 		hp = hp - objeto.danio()
 		self.estaVivo()
 		self.desaparecer()		
@@ -62,6 +62,7 @@ class Bruja inherits Enemigo{
     
 	//method irA(nuevaPosicion) { position = nuevaPosicion } 
 }
+const bruja = new Bruja()
 
 class Fantasma inherits Enemigo{
 	const property image = "fantasma.png"
@@ -70,8 +71,7 @@ class Fantasma inherits Enemigo{
 	override method hp() = 1
 	
 	override method recibirAtaqueCon(objeto) {
-		const sal = new Sal()
-		if(objeto == sal and cazador.tiene(objeto)) {
+		if(objeto == sal) {
 		   self.muere() 
 	   }else{
 	   	   self.atacar()
@@ -83,20 +83,20 @@ class Fantasma inherits Enemigo{
 	}
 }
 
-object fantasmaBoos inherits Enemigo {
+object fantasmaBoss inherits Enemigo {
 	const property image = "fantasma2.png"
 	const property atk = 3
 	const property cantSalQueAfecta = 5
 	
-	override method recibirAtaqueCon(objeto) {   //esto creo que hiria mejor para el vampiro o murcielago, no tanto con los fantasmas
-		const sal = new Sal()
-		if(objeto == sal and cazador.tiene(objeto)) {
+	override method recibirAtaqueCon(objeto) {
+		if(objeto == sal) {
 		   self.muere() 
 	   }else{
 	   	   self.atacar()
 	   }
 	}
 }
+
 
 class Murcielago inherits Enemigo{
 	const property image = "murcielago.png"
@@ -106,4 +106,5 @@ class Murcielago inherits Enemigo{
     
   //method irA(nuevaPosicion) { position = nuevaPosicion } 	
 }
+const murcielago = new Murcielago()
 
