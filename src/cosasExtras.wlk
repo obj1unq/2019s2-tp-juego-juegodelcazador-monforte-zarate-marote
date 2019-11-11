@@ -86,21 +86,4 @@ class Hoja {
 class Marcador inherits Cartel{
 
 		override method entrada() { return cazador.hp()}
-}	
-
-object tablero {
-///----------------------------------------------------------
-///---------------------- CAMBIO DE NIVEL -------------------
-///----------------------------------------------------------
-
-	method cazadorSituadoEnCambioDeEscenario(puerta) {	
-	   	 //implementar
-	   	 }
-	
-	method cambioDeEscenario(puerta) {
-	
-		game.clear()
-	    //implementar	
-	}  
-		
 }

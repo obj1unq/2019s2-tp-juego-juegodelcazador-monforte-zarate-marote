@@ -126,5 +126,5 @@ object cazador {
 		return hp == 0
 	}
 	
-	method perdiste() { game.say(self, "El mal seguirá latente") }
+	method perdiste() { game.say(self, "El mal seguirá latente") }	
 }

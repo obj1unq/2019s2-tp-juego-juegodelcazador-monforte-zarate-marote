@@ -21,7 +21,7 @@ program VampiresHunter {
 	keyboard.down().onPressDo{ cazador.mover(cazador.position().down(1), abajo)}
 	keyboard.left().onPressDo{ cazador.mover(cazador.position().left(1), izquierda)}
 	keyboard.right().onPressDo{ cazador.mover(cazador.position().right(1), derecha)}
-	keyboard.c().onPressDo({ tablero.cambioDeEscenario(game.colliders(cazador).first())})// este comando creo qe debería ser dirigidos al .game
+	keyboard.c().onPressDo({ game.whenCollideDo(cazador, {puerta => primerEscenario.cambioDeEscenario(cazador,puerta)})})
     keyboard.e().onPressDo({ cazador.recoger(game.colliders(cazador).first())})
     keyboard.a().onPressDo({ cazador.ataqueA()})
     //keyboard.r().onPressDo({ cazador.activarProteccion() })
@@ -34,11 +34,11 @@ program VampiresHunter {
  	
  	primerEscenario.iniciar()
   
-  /* 
+ 
     //////////////CARTEL CONTADOR DE PUNTOS/////////////////////////////
  	var vidas = new GraficaParaCartel("CartelVidas.png",game.at(0, 13))
  	game.addVisual(vidas)
-   */
+   
    
  	//  COMIENZA
 	game.start()

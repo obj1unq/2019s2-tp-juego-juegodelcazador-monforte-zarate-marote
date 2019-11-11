@@ -5,8 +5,20 @@ import armas.*
 import cazador.*
 import protecciones.*
 
-object primerEscenario {
+class Escenario {
+	///----------------------------------------------------------
+    ///---------------------- CAMBIO DE NIVEL -------------------
+    ///----------------------------------------------------------
 	
+	method cambioDeEscenario(cazador,puerta) {
+		 // parametros para respetar polimorfismo
+		   game.clear()
+		   segundoEscenario.iniciar()
+	}	
+}
+
+object primerEscenario inherits Escenario{
+	const id = 1
 	method iniciar() {
 		
 	game.ground("camino.png")	
@@ -25,7 +37,7 @@ object primerEscenario {
     	                     (4->0),(4->3),(4->5),(4->6),(4->7),(4->11),
     	                     (5->0),(5->1),(5->6),(5->9),(5->10),(5->11),
     	                     (6->0),(6->1),(6->2),(6->3),(6->4),(6->6),(6->7),(6->9),(6->11),
-    	                     (7->0),(7->4),(7->11),
+    	                     (7->0),(7->4),(7->6),(7->11),
     	                     (8->0),(8->2),(8->6),(8->7),(8->8),(8->9),(8->11),
     	                     (9->0),(9->2),(9->3),(9->4),(9->6),(9->9),(9->11),
     	                     (10->0),(10->4),(10->5),(10->6),(10->8),(10->9),(10->11),
@@ -94,8 +106,8 @@ object primerEscenario {
     }
 }
 
-object segundoEscenario {
-    
+object segundoEscenario inherits Escenario{
+    const id = 2
     method iniciar() {
     	
     game.ground("pasto3.png")	
