@@ -76,8 +76,6 @@ class Hoja {
 	method position(){
 		return game.at(parteDelMarcador.posicionInicial().x()+numeroDeHoja, parteDelMarcador.posicionInicial().y())
 	}
-	method chocasteConPacman(pacman, fantasmas) {}
-	method chocarCon(alguien){}
 	method image() {
 		return parteDelMarcador.entrada().toString().charAt(numeroDeHoja - 1)+".png"
 	}	
