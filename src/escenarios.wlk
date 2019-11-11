@@ -5,19 +5,9 @@ import armas.*
 import cazador.*
 import protecciones.*
 
-class Escenario {
-	///----------------------------------------------------------
-    ///---------------------- CAMBIO DE NIVEL -------------------
-    ///----------------------------------------------------------
-	
-	method cambioDeEscenario(cazador,puerta) {
-		 // parametros para respetar polimorfismo
-		   game.clear()
-		   segundoEscenario.iniciar()
-	}	
-}
 
-object primerEscenario inherits Escenario{
+
+object primerEscenario {
 	const id = 1
 	method iniciar() {
 		
@@ -104,9 +94,15 @@ object primerEscenario inherits Escenario{
     	if (not fantasma.estaVivo())
         game.addVisualIn(fantasmaBoss,(11->11))
     }
+    
+    method cambioDeEscenario(cazador,puerta) {
+		 // parametros para respetar polimorfismo
+		   game.clear()
+		   segundoEscenario.iniciar()
+	}	
 }
 
-object segundoEscenario inherits Escenario{
+object segundoEscenario {
     const id = 2
     method iniciar() {
     	
