@@ -16,7 +16,7 @@ object cazador {
 	var property tiempoProtegido
 	var property itemEquipado
 	var property cantFlechas = 0
-	var property cantFal = 0
+	var property cantSal = 0
 	var property cantBalas = 0
 
 

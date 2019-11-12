@@ -11,7 +11,6 @@ object primerEscenario {
 	method iniciar() {
 		
 	game.ground("camino.png")	
-	
 	// CASTILLO	
 		
 	game.addVisualIn(castillo, game.at(2,12))	
@@ -46,17 +45,17 @@ object primerEscenario {
      
     // Fantasmas
     
-    var fantasma1 = new Fantasma(position = (3->1), hp = 1)
-    var fantasma2 = new Fantasma(position = (3->4), hp = 1)
-    var fantasma3 = new Fantasma(position = (9->1), hp = 1)
-    var fantasma4 = new Fantasma(position = (7->5), hp = 1)
-    var fantasma5 = new Fantasma(position = (2->10), hp = 1)
-    var fantasma6 = new Fantasma(position = (8->10), hp = 1)
-    var fantasma7 = new Fantasma(position = (11->7), hp = 1)
-    var fantasma8 = new Fantasma(position = (19->1), hp = 1)
-    var fantasma9 = new Fantasma(position = (5->8), hp = 1)
-    var fantasma10 = new Fantasma(position = (15->3), hp = 1)
-    var fantasma11 = new Fantasma(position = (16->8), hp = 1)
+    var fantasma1 = new Fantasma(position = game.at(3, 1), hp = 1)
+    var fantasma2 = new Fantasma(position = game.at(3, 4), hp = 1)
+    var fantasma3 = new Fantasma(position = game.at(9, 1), hp = 1)
+    var fantasma4 = new Fantasma(position = game.at(7, 5), hp = 1)
+    var fantasma5 = new Fantasma(position = game.at(2, 10), hp = 1)
+    var fantasma6 = new Fantasma(position = game.at(8, 10), hp = 1)
+    var fantasma7 = new Fantasma(position = game.at(11, 7), hp = 1)
+    var fantasma8 = new Fantasma(position = game.at(19, 1), hp = 1)
+    var fantasma9 = new Fantasma(position = game.at(5, 8), hp = 1)
+    var fantasma10 = new Fantasma(position = game.at(15, 3), hp = 1)
+    var fantasma11 = new Fantasma(position = game.at(16, 8), hp = 1)
     
     const fantasmas = [fantasma1,fantasma2,fantasma3,fantasma4,fantasma5,
     	               fantasma6,fantasma7,fantasma8,fantasma9,fantasma10,
@@ -64,7 +63,7 @@ object primerEscenario {
     
     fantasmas.forEach({fantasma => 
     	game.addVisual(fantasma)
-    	//fantasma.patrullar()
+    	fantasma.patrullar()
     }) 
     
     const sales = [ new Sal(position = (1->1)),new Sal(position = (1->3)),new Sal(position = (15->1)),

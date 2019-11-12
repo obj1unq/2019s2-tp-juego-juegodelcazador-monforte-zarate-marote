@@ -45,6 +45,7 @@ object ballesta inherits ArmaADistancia {
 	var alcance = 5
 	var property id = 1
 	
+	method municionQueUsa() = cazador.cantFlechas()
 }
 
 object pistolaDePlata inherits ArmaADistancia {

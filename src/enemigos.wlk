@@ -3,25 +3,23 @@ import armas.*
 import wollok.game.*
 import cosasExtras.*
 import protecciones.*
+import direcciones.*
+import wollok.game.*
 
 class Enemigo inherits NoColisionable {
 	var hp
 	//var property imagen = orientacion.imagenDelPersonaje()
 	var property position 
-	//var property orientacion = derecha
+	var property orientacion = derecha
  	 
     method hp() = hp
 
 	method muere() { 
 		hp = 0
+	self.desaparecer()
 	}
 	
-	method recibirAtaqueCon(objeto) {	
-		//objeto.dispararA(self)
-		hp = hp - objeto.danio()
-		self.estaVivo()
-		self.desaparecer()		
-	}
+	method recibirAtaqueCon(arma)	
 	
 	method estaVivo() = hp > 0
 	
@@ -37,28 +35,54 @@ class Enemigo inherits NoColisionable {
 		// Genera un pared en el tablero.
 		game.addVisualIn(self, posicion)	
 	}
+///----------------------------------------------------------
+///---------------------- MOVIMIENTO ------------------------
+///----------------------------------------------------------
+	method mover(nuevaPosicion, dir) {
+		// Puede mover si no hay un obj no colisionable en direccion dir
+		if (self.estaVivo() and self.puedeMoverAl(dir)) {
+			self.position(nuevaPosicion)
+		}else{orientacion = orientacion.opuesto()}
+	}
+
+	method puedeMoverAl(dir) {
+		// Puede mover si no hay ningun obj en direccion dir o si el obj es colisionable
+		// Todos los obj entienden el mensaje esColisionable()
+		return game.getObjectsIn(dir.posicionAl(self)).isEmpty() or game.getObjectsIn(dir.posicionAl(self)).all{ obj => obj.esColisionable() }
+	}
+
+	method colisionarCon(enemigo) {
+	// Respeta el polimorfismo.
+	}
+	
 }
 
 object dracula inherits Enemigo{ 
     const property image = "dracula.png"
-	const property atk = 4
-		
-	override method hp() = 10	
-		
-    //method moverse(nuevaPosicion) {}
+	const property atk = 4	
+	//posee 10 de vida
+    
     
     method malherido() {
     	return hp == 1
     }
+    
+    override method recibirAtaqueCon(arma){
+    	hp -= arma.danio()
+    }
+    
+    
+    
 }
 	
 class Bruja inherits Enemigo{ 
 	const property image = "bruja.png" 
 	const property atk = 2
-
-    override method hp() = 5
-    
-	//method moverse(nuevaPosicion) {}
+    // posee 5 de vida
+    override method recibirAtaqueCon(arma){
+    	hp -= arma.danio()
+    }
+	
 }
 
 class Fantasma inherits Enemigo{
@@ -68,17 +92,16 @@ class Fantasma inherits Enemigo{
 	override method hp() = 1
 	
 	override method recibirAtaqueCon(objeto) {
-		if(objeto == sal) {
+	//	if(objeto == sal) {
 		   self.muere() 
-	   }else{
+	  // }else{
 	   	   self.atacar()
-	   }
+	   //}
 	}
 	
-	//method moverse(nuevaPosicion) {}
 	
 	method patrullar(){
-		game.onTick(300, "fantasmaMoving", { => cazador.position().y(0.randomUpTo(2)) })	
+		game.onTick(600, "fantasmaMoving", { => self.mover(orientacion.posicionAl(self), orientacion) })	
 	}
 }
 
@@ -88,12 +111,13 @@ object fantasmaBoss inherits Enemigo {
 	const property cantSalQueAfecta = 5
 	
 	override method recibirAtaqueCon(objeto) {
-		if(objeto == sal) {
+		//if(objeto.puedeMatarFantasma()) {
 		   self.muere() 
-	   }else{
+	   //}else{
 	   	   self.atacar()
-	   }
+	  // }
 	}
+
 }
 
 
@@ -103,7 +127,9 @@ class Murcielago inherits Enemigo{
 
     override method hp() = 1
     
-  //method moverse(nuevaPosicion) {} 	
+  override method recibirAtaqueCon(arma){
+    	hp -= arma.danio()
+    }	
 }
 const murcielago = new Murcielago()
 
