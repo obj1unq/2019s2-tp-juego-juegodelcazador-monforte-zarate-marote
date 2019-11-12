@@ -8,20 +8,21 @@ import direcciones.*
 import protecciones.*
 import config.*
 
-program VampiresHunter {
+program MonsterHunter {
  	
  	//  GAME
- 	game.title("Vampire Hunter") //Hay que elegir el nombre
+ 	game.title("Monster Hunter")
 	game.height(14)
 	game.width(22)
 	
- 	//  CONFIG	
- 	config.teclado()
- 	config.cartel()
-
  	//  VISUALES
  	primerEscenario.iniciar()
 
+ 	//  CONFIG	
+ 	config.teclado()
+ 	config.cartel()
+ 	
+ 	
  	//  COMIENZA
 	game.start()
 }

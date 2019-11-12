@@ -31,8 +31,13 @@ object cazador {
 	// self.distribuirMunicion()		 			
 	}
 
-	method cantDe(unArma) {
-		return inventario.count({ arma => arma == unArma })
+    method soltar() {
+    	game.addVisualIn(inventario.head(), position)
+    	inventario.remove(inventario.head())	
+    }
+
+	method cantDe(unObjeto) {
+		return inventario.count({ objeto => objeto == unObjeto })
 	}
 
 	method recogerVida() {
@@ -68,6 +73,7 @@ object cazador {
 	 * 	 game.onTick(100, "Cuenta regresiva protección",{ => self.descontarTiempoDeProteccion()})
 	 * 	 // se tiene que ir descontando el tiempo
 	 }*/
+	 
 	method descontarTiempoDeProteccion() {
 		if (tiempoProtegido == 0) {
 			game.removeTickEvent("Cuenta regresiva protección")

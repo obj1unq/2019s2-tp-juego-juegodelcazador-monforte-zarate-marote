@@ -32,8 +32,12 @@ class Enemigo inherits NoColisionable {
     }
     
     method crear(posicion) {
-		// Genera un pared en el tablero.
+		// Genera un enemigo en el tablero.
 		game.addVisualIn(self, posicion)	
+	}
+	
+	method colisionarCon() {
+		
 	}
 ///----------------------------------------------------------
 ///---------------------- MOVIMIENTO ------------------------
@@ -51,9 +55,7 @@ class Enemigo inherits NoColisionable {
 		return game.getObjectsIn(dir.posicionAl(self)).isEmpty() or game.getObjectsIn(dir.posicionAl(self)).all{ obj => obj.esColisionable() }
 	}
 
-	method colisionarCon(enemigo) {
-	// Respeta el polimorfismo.
-	}
+	
 	
 }
 
@@ -86,19 +88,16 @@ class Bruja inherits Enemigo{
 }
 
 class Fantasma inherits Enemigo{
-	const property image = "fantasma.png"
+	const property image = "fantasmaDerecha.png"
 	const property atk = 1
 	
 	override method hp() = 1
 	
-	override method recibirAtaqueCon(objeto) {
-	//	if(objeto == sal) {
-		   self.muere() 
-	  // }else{
-	   	   self.atacar()
-	   //}
-	}
+	override method recibirAtaqueCon(objeto) {}
 	
+	method colisionarCon(sal) {
+	   self.desaparecer()
+	}
 	
 	method patrullar(){
 		game.onTick(600, "fantasmaMoving", { => self.mover(orientacion.posicionAl(self), orientacion) })	

@@ -16,10 +16,10 @@ object config {
 	keyboard.left().onPressDo{ cazador.mover(cazador.position().left(1), izquierda)}
 	keyboard.right().onPressDo{ cazador.mover(cazador.position().right(1), derecha)}
 	keyboard.c().onPressDo({ game.sound("hauntingpiano.mp3")})
-		//game.whenCollideDo(cazador, {puerta => primerEscenario.cambioDeEscenario(cazador,puerta)})})
-    keyboard.e().onPressDo({ cazador.recoger(game.colliders(cazador).first())})
+    //game.whenCollideDo(cazador, {puerta => primerEscenario.cambioDeEscenario(cazador,puerta)})})
+    keyboard.r().onPressDo({ cazador.recoger(game.colliders(cazador).first())})
+    keyboard.e().onPressDo({ cazador.soltar()})
     keyboard.a().onPressDo({ cazador.ataqueA()})
-    //keyboard.r().onPressDo({ cazador.activarProteccion() })
 	keyboard.num1().onPressDo({ cazador.equipar(ballesta, "ballesta") })
     keyboard.num2().onPressDo({ cazador.equipar(estacaYMartillo, "estaca y el martillo") })
     keyboard.num3().onPressDo({ cazador.equipar(pistolaDePlata, "pistola de plata") })

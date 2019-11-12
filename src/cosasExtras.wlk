@@ -26,7 +26,7 @@ object puerta inherits Colisionable {
 
 class Pared inherits NoColisionable {
 	const property position
-	const property image = "laberinto2.png"
+	const property image = "fondoNegro.jpg"
 	
 	method crear(posicion) {
 		// Genera un pared en el tablero.
