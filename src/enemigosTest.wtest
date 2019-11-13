@@ -1,8 +1,8 @@
 import wollok.game.*
 import enemigos.*
-import cazador.*
+import personaje.*
 import armas.*
-import escenarios.*
+import niveles.*
 
 describe "Test de enemigos spawn y borrado" {
 	

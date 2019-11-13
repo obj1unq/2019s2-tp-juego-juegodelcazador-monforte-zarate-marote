@@ -1,4 +1,4 @@
-import cazador.*
+import personaje.*
 import cosasExtras.*
 import enemigos.*
 import wollok.game.*
@@ -10,6 +10,12 @@ class Arma inherits Colisionable {
     method colisionarCon(cazador) { 
 		game.removeVisual(self)
 	}
+	
+	method colisionandoCon(fantasma) {}
+	
+	method esArrojado() {}
+	
+	method puedeSoltarse() = false
 }
 
 object estacaYMartillo inherits Arma {
@@ -60,12 +66,21 @@ class Sal inherits Proyectil {
 	var property image = "sal.png"
 	var alcance = 1
 	var property id = 4
+	
 	method imagenDeProyectil(){
 		image = "salExplosion.png"
 	}
 	
+	override method puedeSoltarse() = true
+	
+	override method esArrojado() {
+	   game.addVisualIn(self, cazador.position())	
+	}
+	
+	override method colisionandoCon(fantasma) {
+		fantasma.muere()
+	}
 }
-const sal = new Sal()
 
 class Proyectil inherits Municion{
 	
@@ -115,6 +130,10 @@ class Municion inherits ArmaADistancia{
 	method esUsadaEn(arma) {
     	arma.dispararConMunicion()  	
     }
+    
+    method crear(posicion) {
+		game.addVisualIn(self, posicion)
+	}
 	
 }
 

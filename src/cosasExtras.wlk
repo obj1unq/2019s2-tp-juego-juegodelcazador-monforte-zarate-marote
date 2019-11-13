@@ -1,4 +1,4 @@
-import cazador.*
+import personaje.*
 import wollok.game.*
 import direcciones.*
 
@@ -26,10 +26,12 @@ object puerta inherits Colisionable {
 
 class Pared inherits NoColisionable {
 	const property position
-	const property image = "fondoNegro.jpg"
+	var property image
 	
-	method crear(posicion) {
-		// Genera un pared en el tablero.
+	
+	method crear(posicion,imagen) {	
+		// Genera una pared en el tablero.
+		image = imagen
 		game.addVisualIn(self, posicion)
 	}
 }

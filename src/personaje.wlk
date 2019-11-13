@@ -1,7 +1,7 @@
 import enemigos.*
 import cosasExtras.*
 import armas.*
-import escenarios.*
+import niveles.*
 import wollok.game.*
 import protecciones.*
 import direcciones.*
@@ -11,7 +11,7 @@ object cazador {
 	const property inventario = []
 	var property hp = 10
 	var property orientacion = arriba
-	var property position = game.at(14, 0)
+	var property position = game.at(14, 1)
 	// var previousPosition = position
 	var property tiempoProtegido
 	var property itemEquipado
@@ -31,9 +31,12 @@ object cazador {
 	// self.distribuirMunicion()		 			
 	}
 
-    method soltar() {
-    	game.addVisualIn(inventario.head(), position)
-    	inventario.remove(inventario.head())	
+     method soltar() {
+    	const objeto = inventario.head()
+    	if(objeto.puedeSoltarse()) {
+    	    objeto.esArrojado()
+            inventario.remove(inventario.head())	
+    	} 		
     }
 
 	method cantDe(unObjeto) {

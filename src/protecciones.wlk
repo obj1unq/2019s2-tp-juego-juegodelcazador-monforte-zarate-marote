@@ -1,5 +1,5 @@
 import wollok.game.*
-import cazador.*
+import personaje.*
 import cosasExtras.*
 import enemigos.*
 

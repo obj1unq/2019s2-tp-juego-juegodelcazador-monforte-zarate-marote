@@ -1,4 +1,4 @@
-import cazador.*
+import personaje.*
 import armas.*
 import wollok.game.*
 import cosasExtras.*
@@ -16,7 +16,8 @@ class Enemigo inherits NoColisionable {
 
 	method muere() { 
 		hp = 0
-	self.desaparecer()
+		game.schedule(100, game.say(self, "RIP"))
+	    self.desaparecer()
 	}
 	
 	method recibirAtaqueCon(arma)	
@@ -37,8 +38,11 @@ class Enemigo inherits NoColisionable {
 	}
 	
 	method colisionarCon() {
-		
 	}
+	
+	method colisionandoCon(objeto) { }
+	
+	
 ///----------------------------------------------------------
 ///---------------------- MOVIMIENTO ------------------------
 ///----------------------------------------------------------
@@ -94,6 +98,10 @@ class Fantasma inherits Enemigo{
 	override method hp() = 1
 	
 	override method recibirAtaqueCon(objeto) {}
+	
+	override method colisionandoCon(objeto) {
+	    objeto.colisionandoCon(self)   
+	}
 	
 	method colisionarCon(sal) {
 	   self.desaparecer()
