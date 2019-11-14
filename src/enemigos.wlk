@@ -6,9 +6,8 @@ import protecciones.*
 import direcciones.*
 import wollok.game.*
 
-class Enemigo inherits NoColisionable {
+class Enemigo inherits Colisionable {
 	var hp
-	//var property imagen = orientacion.imagenDelPersonaje()
 	var property position 
 	var property orientacion = derecha
  	 
@@ -32,20 +31,19 @@ class Enemigo inherits NoColisionable {
     	cazador.recibirAtaque(self)
     }
     
-    method crear(posicion) {
+    method crear(posicion, imagen) {
 		// Genera un enemigo en el tablero.
 		game.addVisualIn(self, posicion)	
 	}
 	
-	method colisionarCon() {
-	}
+	method colisionarCon(sal) {}
 	
 	method colisionandoCon(objeto) { }
-	
 	
 ///----------------------------------------------------------
 ///---------------------- MOVIMIENTO ------------------------
 ///----------------------------------------------------------
+	
 	method mover(nuevaPosicion, dir) {
 		// Puede mover si no hay un obj no colisionable en direccion dir
 		if (self.estaVivo() and self.puedeMoverAl(dir)) {
@@ -58,9 +56,6 @@ class Enemigo inherits NoColisionable {
 		// Todos los obj entienden el mensaje esColisionable()
 		return game.getObjectsIn(dir.posicionAl(self)).isEmpty() or game.getObjectsIn(dir.posicionAl(self)).all{ obj => obj.esColisionable() }
 	}
-
-	
-	
 }
 
 object dracula inherits Enemigo{ 
@@ -68,23 +63,21 @@ object dracula inherits Enemigo{
 	const property atk = 4	
 	//posee 10 de vida
     
-    
     method malherido() {
     	return hp == 1
     }
     
+    override method hp() = 5
+    
     override method recibirAtaqueCon(arma){
     	hp -= arma.danio()
     }
-    
-    
-    
+       
 }
 	
 class Bruja inherits Enemigo{ 
 	const property image = "bruja.png" 
 	const property atk = 2
-    // posee 5 de vida
     override method recibirAtaqueCon(arma){
     	hp -= arma.danio()
     }
@@ -95,15 +88,13 @@ class Fantasma inherits Enemigo{
 	const property image = "fantasmaDerecha.png"
 	const property atk = 1
 	
-	override method hp() = 1
-	
 	override method recibirAtaqueCon(objeto) {}
 	
 	override method colisionandoCon(objeto) {
 	    objeto.colisionandoCon(self)   
 	}
 	
-	method colisionarCon(sal) {
+	override method colisionarCon(sal) {
 	   self.desaparecer()
 	}
 	
@@ -136,7 +127,10 @@ class Murcielago inherits Enemigo{
     
   override method recibirAtaqueCon(arma){
     	hp -= arma.danio()
-    }	
+    }
+    
+    method patrullar(){
+		game.onTick(500, "murcielagoMoving", { => self.mover(orientacion.posicionAl(self), orientacion) })	
+	}	
 }
-const murcielago = new Murcielago()
 

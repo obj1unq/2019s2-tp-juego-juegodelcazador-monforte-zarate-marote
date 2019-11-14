@@ -89,7 +89,7 @@ object nivel1 {
     method activacioDeBoss(cazador) {
     	const fantasma = new Fantasma(position = (8->10), hp = 1)
     	if (not fantasma.estaVivo())
-        game.addVisualIn(fantasmaBoss,(11->11))
+        game.addVisualIn(fantasmaBoss,game.at(11,11))
     }
     
     method cambioDeEscenario(cazador,puerta) {
@@ -130,7 +130,28 @@ object nivel2 {
     	                     (21->0),(21->1),(21->2),(21->3),(21->4),(21->5),(21->6),(21->7),(21->8),(21->9),(21->10),(21->11),(21->12),(21->13)]
                             
     posicionesPared.forEach({posicion => new Pared().crear(posicion, "muroCastillo1.jpg")})
+    
+    //Murcielagos
      
+    var murcielago1 = new Murcielago(position = game.at(4, 6), hp = 1)
+    var murcielago2 = new Murcielago(position = game.at(3, 10), hp = 1)
+    var murcielago3 = new Murcielago(position = game.at(8, 2), hp = 1)
+    var murcielago4 = new Murcielago(position = game.at(7, 5), hp = 1)
+    var murcielago5 = new Murcielago(position = game.at(10, 8), hp = 1)
+    var murcielago6 = new Murcielago(position = game.at(12, 11), hp = 1)
+    var murcielago7 = new Murcielago(position = game.at(15, 9), hp = 1)
+    var murcielago8 = new Murcielago(position = game.at(18, 12), hp = 1)
+    var murcielago9 = new Murcielago(position = game.at(13, 4), hp = 1)
+    var murcielago10 = new Murcielago(position = game.at(17, 2), hp = 1)
+    
+    const murcielagos = [murcielago1,murcielago2,murcielago3,murcielago4,murcielago5,
+    	               murcielago6,murcielago7,murcielago8,murcielago9,murcielago10]
+    
+    murcielagos.forEach({murcielago => 
+    	game.addVisual(murcielago)
+    	murcielago.patrullar()
+    }) 
+    
     
     game.addVisual(cazador)
     }

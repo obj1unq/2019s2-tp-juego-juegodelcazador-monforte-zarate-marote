@@ -16,6 +16,11 @@ class Arma inherits Colisionable {
 	method esArrojado() {}
 	
 	method puedeSoltarse() = false
+	
+	method crear(posicion, imagen) {
+		// Genera un enemigo en el tablero.
+		game.addVisualIn(self, posicion)	
+	}
 }
 
 object estacaYMartillo inherits Arma {

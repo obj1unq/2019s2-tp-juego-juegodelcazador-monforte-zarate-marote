@@ -9,14 +9,13 @@ import direcciones.*
 object cazador {
 
 	const property inventario = []
-	var property hp = 10
+	var property hp = 5
 	var property orientacion = arriba
 	var property position = game.at(14, 1)
 	// var previousPosition = position
 	var property tiempoProtegido
 	var property itemEquipado
 	var property cantFlechas = 0
-	var property cantSal = 0
 	var property cantBalas = 0
 
 
@@ -26,7 +25,8 @@ object cazador {
 ///---------------------- LOOTEO ------------------------
 ///----------------------------------------------------------
 	method recoger(objeto) {
-		if (objeto.esColisionable()) inventario.add(objeto)
+		if (objeto.esColisionable()) 
+		inventario.add(objeto)
 		objeto.colisionarCon(self)
 	// self.distribuirMunicion()		 			
 	}
@@ -54,7 +54,7 @@ object cazador {
 	method equipar(objeto, nombre) {
 		if (self.tiene(objeto) or inventario.contains({ obj => obj.id() == 4 })) {
 			itemEquipado = self.encontrarObjetoEnBolsa(objeto)
-			game.addVisualIn(objeto, (21 -> 0))
+			game.addVisualIn(objeto, game.at(21,0))
 		} else {
 			game.say(self, "No posees la " + nombre)
 		}
@@ -71,22 +71,6 @@ object cazador {
 		hp -= enemigo.atk()
 	}
 
-	/*method tiempoDeProteccionConAjo() {
-	 * 	 tiempoProtegido += (ajo.tiempoQueProteje() * self.cantDe(ajo))
-	 * 	 game.onTick(100, "Cuenta regresiva protección",{ => self.descontarTiempoDeProteccion()})
-	 * 	 // se tiene que ir descontando el tiempo
-	 }*/
-	 
-	method descontarTiempoDeProteccion() {
-		if (tiempoProtegido == 0) {
-			game.removeTickEvent("Cuenta regresiva protección")
-			game.removeVisual("ajoProteccion.png")
-		} else {
-			game.addVisualIn("ajoProteccion.png", (10 -> 10))
-			tiempoProtegido -= 1
-		}
-	}
-
 	method ataqueA() {
 		// Ataque solo funciona con un enemigo en orientacion 
 		self.enemigo().recibirAtaqueCon(itemEquipado)
@@ -98,7 +82,7 @@ object cazador {
 ///---------------------- MOVIMIENTO ------------------------
 ///----------------------------------------------------------
 	method mover(nuevaPosicion, dir) {
-		// Puede mover si no hay un obj no colisionable en direccion dir
+		// Puede mover si no hay un objeto no colisionable en direccion dir
 		orientacion = dir
 		if (self.estaVivo() and self.puedeMoverAl(dir)) {
 			self.position(nuevaPosicion)
@@ -112,24 +96,14 @@ object cazador {
 	}
 
 	method colisionarCon(enemigo) {
-	// Respeta el polimorfismo.
+	   // Respeta el polimorfismo.
 	}
 
-	method estaVivo() {
-		return hp > 0
-	}
+	method estaVivo() = hp > 0
 
-	method ganaElJuego() {
-		return not dracula.estaVivo()
-	}
+	method ganaElJuego() = not dracula.estaVivo()
 
-	method muere() {
-		return hp == 0
-	}
+	method muere() { return  hp == 0 }
 
-	method perdiste() {
-		game.say(self, "El mal seguirá latente")
-	}
-
+	method perdiste() { game.say(self, "El mal seguirá latente") }
 }
-
