@@ -4,6 +4,7 @@ import enemigos.*
 import armas.*
 import personaje.*
 import protecciones.*
+import Municion.*
 
 
 object nivel1 {
@@ -152,6 +153,9 @@ object nivel2 {
     	murcielago.patrullar()
     }) 
     
+    const flechas = [new Flechas(position = (14->2))]
+    
+    flechas.forEach({flecha => game.addVisual(flecha)})
     
     game.addVisual(cazador)
     }

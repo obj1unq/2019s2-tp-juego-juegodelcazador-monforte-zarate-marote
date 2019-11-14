@@ -32,6 +32,8 @@ object abajo inherits Direccion {
 	override method posicionAl(jugador) = jugador.position().down(1)
 	
 	method opuesto() = arriba
+	
+	method escribir(culo) = culo
 }
 
 object arriba inherits Direccion { 

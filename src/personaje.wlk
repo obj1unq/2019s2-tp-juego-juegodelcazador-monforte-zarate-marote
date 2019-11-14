@@ -5,20 +5,20 @@ import niveles.*
 import wollok.game.*
 import protecciones.*
 import direcciones.*
+import Municion.*
 
-object cazador {
-
+object cazador inherits Colisionable {
 	const property inventario = []
 	var property hp = 5
 	var property orientacion = arriba
 	var property position = game.at(14, 1)
 	// var previousPosition = position
 	var property tiempoProtegido
-	var property itemEquipado
+	var property itemEquipado = ballesta
 	var property cantFlechas = 0
 	var property cantBalas = 0
 
-
+	
 	method image() = orientacion.imagenDelPersonaje() // orientacion.imagenDelPersonaje()
 
 ///----------------------------------------------------------
@@ -31,7 +31,7 @@ object cazador {
 	// self.distribuirMunicion()		 			
 	}
 
-     method soltar() {
+    method soltar() {
     	const objeto = inventario.head()
     	if(objeto.puedeSoltarse()) {
     	    objeto.esArrojado()
@@ -72,8 +72,11 @@ object cazador {
 	}
 
 	method ataqueA() {
-		// Ataque solo funciona con un enemigo en orientacion 
+		if (itemEquipado.esArmaADistancia()){
+			itemEquipado.disparar(itemEquipado, self.position(), orientacion)
+		}else{
 		self.enemigo().recibirAtaqueCon(itemEquipado)
+		}
 	}
 
 	method enemigo() = game.getObjectsIn(orientacion.posicionAl(self)).head()

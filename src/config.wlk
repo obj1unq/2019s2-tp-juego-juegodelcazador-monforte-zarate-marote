@@ -15,7 +15,7 @@ object config {
 	keyboard.down().onPressDo{ cazador.mover(cazador.position().down(1), abajo)}
 	keyboard.left().onPressDo{ cazador.mover(cazador.position().left(1), izquierda)}
 	keyboard.right().onPressDo{ cazador.mover(cazador.position().right(1), derecha)}
-	keyboard.c().onPressDo({ game.sound("hauntingpiano.mp3")})
+	keyboard.c().onPressDo({ game.sound("hauntingpiano.mp3")})//solo para probara sonido
     keyboard.r().onPressDo({ cazador.recoger(game.colliders(cazador).first())})
     keyboard.e().onPressDo({ cazador.soltar()})
     keyboard.a().onPressDo({ cazador.ataqueA()})

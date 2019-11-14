@@ -98,6 +98,21 @@ class Fantasma inherits Enemigo{
 	   self.desaparecer()
 	}
 	
+	override method mover(nuevaPosicion, dir) {
+		// Puede mover si no hay un obj no colisionable en direccion dir
+		if (self.estaVivo() and self.puedeMoverAl(dir)) {
+			self.position(nuevaPosicion)
+			self.morirSiHaySal()
+		}else{orientacion = orientacion.opuesto()}
+	}
+	
+	method morirSiHaySal(){
+		if (game.colliders(self).contains({item => item.esSal()})){
+			self.muere()
+		}
+	}
+	
+	
 	method patrullar(){
 		game.onTick(600, "fantasmaMoving", { => self.mover(orientacion.posicionAl(self), orientacion) })	
 	}
