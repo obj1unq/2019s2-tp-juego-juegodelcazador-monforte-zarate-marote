@@ -1,13 +1,27 @@
 import personaje.*
 import wollok.game.*
 import direcciones.*
+import enemigos.*
 
 class NoColisionable {
 	method esColisionable() = false
+	
+	method esAtacable() = false
+
+    method puedeSoltarse() = false
+
+    method sePuedeAgarrar() = false
 }
+
 
 class Colisionable {
 	method esColisionable() = true
+	
+	method esAtacable() = true
+	
+	method puedeSoltarse() = true
+	
+	method sePuedeAgarrar() = false
 }
 
 object castillo inherits NoColisionable {
@@ -33,6 +47,19 @@ class Pared inherits NoColisionable {
 		// Genera una pared en el tablero.
 		image = imagen
 		game.addVisualIn(self, posicion)
+	}
+}
+
+class Trampa inherits Colisionable {
+	const property position
+	var property image = "camino1.png"
+	
+	method colisionarCon(cazador) {
+		self.activarBoosFinal()
+	}
+	
+	method activarBoosFinal() {
+		game.addVisualIn(fantasmaBoss, game.at(11,10))
 	}
 }
 

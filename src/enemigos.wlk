@@ -11,6 +11,8 @@ class Enemigo inherits Colisionable {
 	var property position 
 	var property orientacion = derecha
  	 
+ 	override method puedeSoltarse() = false 
+ 	 
     method hp() = hp
 
 	method muere() { 
@@ -19,24 +21,24 @@ class Enemigo inherits Colisionable {
 	    self.desaparecer()
 	}
 	
-	method recibirAtaqueCon(arma)	
-	
 	method estaVivo() = hp > 0
 	
 	method desaparecer() {
 		game.removeVisual(self)
 	}
 
+    method recibirAtaqueCon(arma){
+    	hp -= arma.danio()
+    }
+
     method atacar() { 
-    	cazador.recibirAtaque(self)
+    	cazador.colisionarCon(self)
     }
     
     method crear(posicion, imagen) {
 		// Genera un enemigo en el tablero.
 		game.addVisualIn(self, posicion)	
 	}
-	
-	method colisionarCon(sal) {}
 	
 	method colisionandoCon(objeto) { }
 	
@@ -68,10 +70,6 @@ object dracula inherits Enemigo{
     }
     
     override method hp() = 5
-    
-    override method recibirAtaqueCon(arma){
-    	hp -= arma.danio()
-    }
        
 }
 	
@@ -81,7 +79,6 @@ class Bruja inherits Enemigo{
     override method recibirAtaqueCon(arma){
     	hp -= arma.danio()
     }
-	
 }
 
 class Fantasma inherits Enemigo{
@@ -90,11 +87,7 @@ class Fantasma inherits Enemigo{
 	
 	override method recibirAtaqueCon(objeto) {}
 	
-	override method colisionandoCon(objeto) {
-	    objeto.colisionandoCon(self)   
-	}
-	
-	override method colisionarCon(sal) {
+	override method colisionandoCon(sal) {
 	   self.desaparecer()
 	}
 	
@@ -111,8 +104,7 @@ class Fantasma inherits Enemigo{
 			self.muere()
 		}
 	}
-	
-	
+		
 	method patrullar(){
 		game.onTick(600, "fantasmaMoving", { => self.mover(orientacion.posicionAl(self), orientacion) })	
 	}
@@ -133,16 +125,11 @@ object fantasmaBoss inherits Enemigo {
 
 }
 
-
 class Murcielago inherits Enemigo{
 	const property image = "murcielago.png"
 	const property atk = 1
 
     override method hp() = 1
-    
-  override method recibirAtaqueCon(arma){
-    	hp -= arma.danio()
-    }
     
     method patrullar(){
 		game.onTick(500, "murcielagoMoving", { => self.mover(orientacion.posicionAl(self), orientacion) })	

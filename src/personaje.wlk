@@ -12,8 +12,6 @@ object cazador inherits Colisionable {
 	var property hp = 5
 	var property orientacion = arriba
 	var property position = game.at(14, 1)
-	// var previousPosition = position
-	var property tiempoProtegido
 	var property itemEquipado = ballesta
 	var property cantFlechas = 0
 	var property cantBalas = 0
@@ -25,7 +23,7 @@ object cazador inherits Colisionable {
 ///---------------------- LOOTEO ------------------------
 ///----------------------------------------------------------
 	method recoger(objeto) {
-		if (objeto.esColisionable()) 
+		if (objeto.esColisionable() && objeto.sePuedeAgarrar()) 
 		inventario.add(objeto)
 		objeto.colisionarCon(self)
 	// self.distribuirMunicion()		 			
@@ -99,7 +97,7 @@ object cazador inherits Colisionable {
 	}
 
 	method colisionarCon(enemigo) {
-	   // Respeta el polimorfismo.
+	    hp = hp -1 
 	}
 
 	method estaVivo() = hp > 0

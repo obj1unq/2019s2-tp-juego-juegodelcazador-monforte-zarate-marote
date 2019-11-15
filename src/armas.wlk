@@ -10,14 +10,18 @@ class Arma inherits Colisionable {
     method colisionarCon(cazador) { 
 		game.removeVisual(self)
 	}
+
+    override method puedeSoltarse()= false
+	
+	override method sePuedeAgarrar() = true
+	
+	override method esAtacable() = false 
 	
 	method esMunicion() = false
 	
 	method colisionandoCon(fantasma) {}
 	
 	method esArrojado() {}
-	
-	method puedeSoltarse() = false
 	
 	method crear(posicion, imagen) {
 		// Genera un enemigo en el tablero.

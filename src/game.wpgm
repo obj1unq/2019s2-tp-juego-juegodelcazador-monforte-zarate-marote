@@ -17,7 +17,7 @@ program MonstersHunter {
 	game.width(22)
 	
  	//  VISUALES
- 	nivel2.iniciar()
+ 	nivel1.iniciar()
 
  	//  CONFIG	
  	config.teclado()
