@@ -29,9 +29,13 @@ class Arma inherits Colisionable {
 	}
 	method esArmaADistancia() = false
 	
-	method esSal() = false
+	method esBallesta() = false
+	
+	method esPistola() = false
 	
 	method esDisparablePor(arma) = false
+	
+	method nombre() = ""
 }
 
 object estacaYMartillo inherits Arma {
@@ -44,32 +48,25 @@ object estacaYMartillo inherits Arma {
     	   cazador.atacarACon(dracula, self) 
     }*/
     
-
+	override method nombre() = "estaca y el martillo"
 }
 
 class ArmaADistancia inherits Arma{
-	var property municiones = 1
 	
 	method agregar(municion) {
 		if (municion.esColisionable())
 		    municiones = (municiones + municion.cant()).min(15)
 	}
 	
-	/*method dispararA(enemigo) {
-		if (municiones > 0) {
-			self.esUsadaCon(enemigo)
-			municiones -= 1
-		}else{game.say(cazador,"¡No tengo mas municiones!")}
-	}*/
 	
 	override method esArmaADistancia() = true
 	
 	method disparar(arma, pos, dir) {
 		//if (cazador.cantFlechas() > 0 and cazador.tiene(arma)){
 		(cazador.inventario().find({obj => obj.esMunicion() && obj.esDisparablePor(arma)})).buscaObjetivo(pos, dir)
-		//cazador.restarMunicion(arma)
+		cazador.restarMunicion(arma)
 		//}else{
-			cazador.error("No poseo balas")
+			cazador.error("¡No tengo mas municiones!")
 		//}
 	}
 	
@@ -86,6 +83,9 @@ object ballesta inherits ArmaADistancia {
 			cazador.error("No poseo flechas")
 		}
 	}
+	override method nombre() = "ballesta"
+	
+	override method esBallesta() = true 
 }
 
 object pistolaDePlata inherits ArmaADistancia {
@@ -99,6 +99,9 @@ object pistolaDePlata inherits ArmaADistancia {
 			cazador.error("No poseo balas")
 		}
 	}
+	override method nombre() = "pistola de plata"
+	
+	override method esPistola() = true 
 }
 
 

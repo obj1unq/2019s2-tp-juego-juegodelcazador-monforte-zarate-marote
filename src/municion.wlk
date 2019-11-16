@@ -7,6 +7,9 @@ import armas.*
 
 
 class Municion inherits ArmaADistancia{
+	/*var property sal = new Sal()
+	var flechas = new Flechas()
+	var balas = new Balas()*/
 	
 	method esUsadaEn(arma) {
     	arma.dispararConMunicion()  	
@@ -18,7 +21,9 @@ class Municion inherits ArmaADistancia{
 	
 	override method esMunicion() = true
 	
-	
+	method esBala() = false
+	method esFlecha() = false
+	method esSal() = false
 }
 
 
@@ -33,7 +38,7 @@ class Proyectil inherits Municion{
 	method imagenDeProyectil(orient)
 
 	method buscaObjetivo(pos, dir){
-		game.addVisualIn(self, pos)
+		game.addVisualIn(self, dir.posicionAl(self))
 		game.onTick(100, "Proyectil avanzando", { self.mover(pos, dir)})		
 	}
 	
@@ -60,6 +65,7 @@ class Proyectil inherits Municion{
 class Sal inherits Proyectil {
 	
 	var property image = "sal.png"
+	var property cant = 1
 	
 	override method imagenDeProyectil(orient){
 		image = orient+"salExplosion.png"
@@ -79,11 +85,14 @@ class Sal inherits Proyectil {
 	
 	override method esSal() = true 
 	
+	override method nombre() = "sal"
+	
 }
+
 
 class Balas inherits Proyectil {
 	var property image = "balas.png"
-	const property cant = 5
+	var property cant = 5
 	
 	override method alcance() = 6
 	
@@ -92,11 +101,13 @@ class Balas inherits Proyectil {
 	}
 	override method esDisparablePor(arma) = arma == pistolaDePlata
 	
+	override method esBala() = true
+	
 }
 
 class Flechas inherits Proyectil {
 	var property image = "flechas.png"
-	const property cant = 3
+	var property cant = 10
 	
 	override method alcance() = 4
 	
@@ -104,4 +115,6 @@ class Flechas inherits Proyectil {
 		image = orient+"imagenDeFlechaVolando.png"
 	}
 	override method esDisparablePor(arma) = arma == ballesta
+	
+	override method esFlecha() = true
 }

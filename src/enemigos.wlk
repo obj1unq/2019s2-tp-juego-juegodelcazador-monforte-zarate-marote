@@ -5,14 +5,17 @@ import cosasExtras.*
 import protecciones.*
 import direcciones.*
 import wollok.game.*
-
+import municion.*
+/* */
 class Enemigo inherits Colisionable {
 	var hp
 	var property position 
 	var property orientacion = derecha
  	 
  	override method puedeSoltarse() = false 
- 	 
+ 	
+ 	override method esAtacable() = true
+    
     method hp() = hp
 
 	method muere() { 
@@ -91,20 +94,19 @@ class Fantasma inherits Enemigo{
 	   self.desaparecer()
 	}
 	
-	override method mover(nuevaPosicion, dir) {
-		// Puede mover si no hay un obj no colisionable en direccion dir
-		if (self.estaVivo() and self.puedeMoverAl(dir)) {
-			self.position(nuevaPosicion)
-			self.morirSiHaySal()
-		}else{orientacion = orientacion.opuesto()}
-	}
-	
-	method morirSiHaySal(){
+	 method morirSiHaySal(){
 		if (game.colliders(self).contains({item => item.esSal()})){
 			self.muere()
 		}
 	}
-		
+	 override method mover(nuevaPosicion, dir){
+		// Puede mover si no hay un obj no colisionable en direccion dir
+		if (self.estaVivo() and self.puedeMoverAl(dir)) {
+			self.position(nuevaPosicion)
+			//self.morirSiHaySal()
+		}else{orientacion = orientacion.opuesto()}
+	}	
+	
 	method patrullar(){
 		game.onTick(600, "fantasmaMoving", { => self.mover(orientacion.posicionAl(self), orientacion) })	
 	}

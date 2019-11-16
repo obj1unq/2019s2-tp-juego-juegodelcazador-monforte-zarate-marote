@@ -5,18 +5,17 @@ import niveles.*
 import wollok.game.*
 import protecciones.*
 import direcciones.*
-import Municion.*
+import municion.*
 
 object cazador inherits Colisionable {
-	const property inventario = []
+	const property inventario = [ballesta]
 	var property hp = 5
 	var property orientacion = arriba
 	var property position = game.at(14, 1)
 	var property itemEquipado = ballesta
 	var property cantFlechas = 0
 	var property cantBalas = 0
-
-	
+	var property cantSal = 0
 	method image() = orientacion.imagenDelPersonaje() // orientacion.imagenDelPersonaje()
 
 ///----------------------------------------------------------
@@ -26,9 +25,27 @@ object cazador inherits Colisionable {
 		if (objeto.esColisionable() && objeto.sePuedeAgarrar()) 
 		inventario.add(objeto)
 		objeto.colisionarCon(self)
-	// self.distribuirMunicion()		 			
+	    self.convertirAMunicion(objeto)		 			
 	}
 
+	method convertirAMunicion(objeto){
+		if(objeto.esMunicion())
+			self.convertir(objeto)
+	}
+	
+	method convertir(objeto){
+		if(objeto.esBala()){
+			cantBalas += objeto.cant()
+			inventario.remove(objeto)
+		}else if (objeto.esFlecha()){
+			cantFlechas += objeto.cant()
+			inventario.remove(objeto)
+		}else{
+			cantSal += objeto.cant()
+			inventario.remove(objeto)
+		}
+	}
+	
     method soltar() {
     	const objeto = inventario.head()
     	if(objeto.puedeSoltarse()) {
@@ -49,17 +66,17 @@ object cazador inherits Colisionable {
 		return inventario.contains(objeto)
 	}
 
-	method equipar(objeto, nombre) {
-		if (self.tiene(objeto) or inventario.contains({ obj => obj.id() == 4 })) {
+	method equipar(objeto) {
+		if (self.tiene(objeto) or objeto.esSal()) {
 			itemEquipado = self.encontrarObjetoEnBolsa(objeto)
 			game.addVisualIn(objeto, game.at(21,0))
 		} else {
-			game.say(self, "No posees la " + nombre)
+			game.say(self, "No posees la " + objeto.nombre())
 		}
 	}
 
 	method encontrarObjetoEnBolsa(objeto) {
-		return inventario.find({ obj => obj.id() == objeto.id() })
+		return inventario.find({ obj => obj.nombre() == objeto.nombre() })
 	}
 
 ///----------------------------------------------------------
@@ -70,15 +87,43 @@ object cazador inherits Colisionable {
 	}
 
 	method ataqueA() {
-		if (itemEquipado.esArmaADistancia()){
+		//if (itemEquipado.esArmaADistancia()){
 			itemEquipado.disparar(itemEquipado, self.position(), orientacion)
-		}else{
-		self.enemigo().recibirAtaqueCon(itemEquipado)
-		}
+		//}else{
+		//self.enemigo().recibirAtaqueCon(itemEquipado)
+		//}
 	}
 
 	method enemigo() = game.getObjectsIn(orientacion.posicionAl(self)).head()
 
+	method restarMunicion(arma){
+		if(arma.esBallesta()){
+			self.restarFlechas()
+		}else if(arma.esPistola()){
+			self.restarBalas()
+		}else{
+			self.restarSal()
+		}
+	}
+	
+	method restarFlechas(){
+		cantFlechas -= 1
+	}
+	
+	method restarBalas(){
+		cantBalas -= 1
+	}
+	
+	method restarSal(){
+		cantSal -= 1
+	}
+	
+	method trampaDeSal(){
+		if (cantSal > 0){
+			new Sal().crear(self.position(), "sal.png")
+			cantSal -= 1
+		}
+	}
 ///----------------------------------------------------------
 ///---------------------- MOVIMIENTO ------------------------
 ///----------------------------------------------------------

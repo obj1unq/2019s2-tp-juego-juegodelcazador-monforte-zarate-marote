@@ -11,17 +11,29 @@ class NoColisionable {
     method puedeSoltarse() = false
 
     method sePuedeAgarrar() = false
+    
+    method crear(posicion,imagen) {	
+		// Genera una pared en el tablero.
+		image = imagen
+		game.addVisualIn(self, posicion)
+	}
 }
 
 
 class Colisionable {
 	method esColisionable() = true
 	
-	method esAtacable() = true
+	method esAtacable() = false
 	
 	method puedeSoltarse() = true
 	
 	method sePuedeAgarrar() = false
+	
+	method crear(posicion,imagen) {	
+		// Genera una pared en el tablero.
+		image = imagen
+		game.addVisualIn(self, posicion)
+	}
 }
 
 object castillo inherits NoColisionable {
@@ -42,8 +54,7 @@ class Pared inherits NoColisionable {
 	const property position
 	var property image
 	
-	
-	method crear(posicion,imagen) {	
+	override method crear(posicion,imagen) {	
 		// Genera una pared en el tablero.
 		image = imagen
 		game.addVisualIn(self, posicion)
