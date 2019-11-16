@@ -8,12 +8,12 @@ import direcciones.*
 import municion.*
 
 object cazador inherits Colisionable {
-	const property inventario = [ballesta]
+	const property inventario = []
 	var property hp = 5
 	var property orientacion = arriba
 	var property position = game.at(14, 1)
-	var property itemEquipado = ballesta
-	var property cantFlechas = 1
+	var property itemEquipado 
+	var property cantFlechas = 0
 	var property cantBalas = 0
 	var property cantSal = 0
 	method nombre() = "cazador"
@@ -38,13 +38,13 @@ object cazador inherits Colisionable {
 	method convertir(objeto){
 		if(objeto.esBala()){
 			cantBalas = (cantBalas + objeto.cant()).min(15)
-			
+			inventario.remove(objeto)
 		}else if (objeto.esFlecha()){
 			cantFlechas = (cantFlechas + objeto.cant()).min(15)
-			
+			inventario.remove(objeto)
 		}else{
 			cantSal = cantSal + objeto.cant()
-			
+			inventario.remove(objeto)
 		}
 	}
 	

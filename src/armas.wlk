@@ -32,7 +32,6 @@ class Arma inherits Colisionable {
 	method esPistola() = false
 	
 	method nombre()
-	method esFlecha() = false
 }
 
 object estacaYMartillo inherits Arma {
@@ -51,7 +50,7 @@ class ArmaADistancia inherits Arma{
 	
 	override method esArmaADistancia() = true
 	method atacar(arma, pos, dir) {
-		arma.disparar(arma.tipoDeMunicion(pos), pos, dir)
+		arma.disparar(arma.tipoDeMunicion(dir), pos, dir)
 	}
 	
 }
@@ -62,13 +61,12 @@ object ballesta inherits ArmaADistancia {
 
 
 	method disparar(municion, pos, dir){
-		game.addVisualIn(municion, dir.posicionAl(municion))
-		game.onTick(100, "Proyectil avanzando", {municion.mover(municion.position.up(1), dir)})		
+		game.onTick(100, "Proyectil avanzando", {municion.mover(municion.positionAl(municion), dir)})		
 	}
 	
-	method tipoDeMunicion(pos){ 
+	method tipoDeMunicion(dir){ 
 		return if (cazador.cantFlechas() > 0){
-		 cazador.inventario().find({obj => obj.esFlecha()})
+		 	new Flecha().crear(dir.posicionAl(self))
 		}else{
 		 cazador.error("No poseo flechas")
 		}
