@@ -4,7 +4,7 @@ import enemigos.*
 import armas.*
 import personaje.*
 import protecciones.*
-import Municion.*
+import municion.*
 
 
 object nivel1 {
@@ -43,8 +43,9 @@ object nivel1 {
                             
     posicionesPared.forEach({posicion => new Pared().crear(posicion, "fondoNegro.jpg")})
     
-    game.addVisualIn(new Trampa(), game.at(9,10))
-      
+    var trampa1 = new Trampa(position = game.at(9,10)) 
+    game.addVisual(trampa1)
+    //game.onCollideDo(trampa1, {trampa1.activarBoss()})
      
     // Fantasmas
     
@@ -81,7 +82,8 @@ object nivel1 {
     const flechas = [new Flechas(position = game.at(19,3)),new Flechas(position = game.at(15,5))]
     
     flechas.forEach({flecha => game.addVisual(flecha)})
-     
+    
+    var flecha = new Flecha() 
     //Personaje principal
      
 	game.addVisual(cazador)

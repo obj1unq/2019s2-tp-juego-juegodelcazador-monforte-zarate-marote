@@ -22,6 +22,7 @@ class Enemigo inherits Colisionable {
 		hp = 0
 		game.schedule(100, game.say(self, "RIP"))
 	    self.desaparecer()
+	    game.removeVisual(self)
 	}
 	
 	method estaVivo() = hp > 0
@@ -43,7 +44,9 @@ class Enemigo inherits Colisionable {
 		game.addVisualIn(self, posicion)	
 	}
 	
-	method colisionandoCon(objeto) { }
+	method colisionandoCon(objeto) { 
+		
+	}
 	
 ///----------------------------------------------------------
 ///---------------------- MOVIMIENTO ------------------------
@@ -51,6 +54,7 @@ class Enemigo inherits Colisionable {
 	
 	method mover(nuevaPosicion, dir) {
 		// Puede mover si no hay un obj no colisionable en direccion dir
+		orientacion = dir
 		if (self.estaVivo() and self.puedeMoverAl(dir)) {
 			self.position(nuevaPosicion)
 		}else{orientacion = orientacion.opuesto()}
@@ -85,8 +89,10 @@ class Bruja inherits Enemigo{
 }
 
 class Fantasma inherits Enemigo{
-	const property image = "fantasmaDerecha.png"
 	const property atk = 1
+	method esSal() = false
+	method image() = orientacion.imagenDelPersonaje(self.nombre())
+	method nombre() = "fantasma"
 	
 	override method recibirAtaqueCon(objeto) {}
 	
@@ -95,7 +101,7 @@ class Fantasma inherits Enemigo{
 	}
 	
 	 method morirSiHaySal(){
-		if (game.colliders(self).contains({item => item.esSal()})){
+		if(game.getObjectsIn(self.position()).any({obj => obj.esSal()})){
 			self.muere()
 		}
 	}
@@ -124,6 +130,9 @@ object fantasmaBoss inherits Enemigo {
 	   	   self.atacar()
 	  // }
 	}
+	//override method patrullar(){
+	//	game.onTick(600, "bossMoving", { => self.mover(orientacion.posicionAl(self), orientacion) })
+	//}
 
 }
 

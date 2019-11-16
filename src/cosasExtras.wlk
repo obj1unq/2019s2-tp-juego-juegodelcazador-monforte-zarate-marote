@@ -4,6 +4,7 @@ import direcciones.*
 import enemigos.*
 
 class NoColisionable {
+	
 	method esColisionable() = false
 	
 	method esAtacable() = false
@@ -12,15 +13,11 @@ class NoColisionable {
 
     method sePuedeAgarrar() = false
     
-    method crear(posicion,imagen) {	
-		// Genera una pared en el tablero.
-		image = imagen
-		game.addVisualIn(self, posicion)
-	}
 }
 
 
 class Colisionable {
+	
 	method esColisionable() = true
 	
 	method esAtacable() = false
@@ -29,11 +26,6 @@ class Colisionable {
 	
 	method sePuedeAgarrar() = false
 	
-	method crear(posicion,imagen) {	
-		// Genera una pared en el tablero.
-		image = imagen
-		game.addVisualIn(self, posicion)
-	}
 }
 
 object castillo inherits NoColisionable {
@@ -66,11 +58,11 @@ class Trampa inherits Colisionable {
 	var property image = "camino1.png"
 	
 	method colisionarCon(cazador) {
-		self.activarBoosFinal()
+		return self.activarBossFinal()
 	}
 	
-	method activarBoosFinal() {
-		game.addVisualIn(fantasmaBoss, game.at(11,10))
+	method activarBossFinal() {
+		return game.addVisualIn(fantasmaBoss, game.at(11,10))
 	}
 }
 

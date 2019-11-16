@@ -2,14 +2,13 @@ import wollok.game.*
 
 
 class Direccion {
-	var property imagen = self.imagenDelPersonaje()
 	method posicionAl(jugador)  //Usado para comprobar los objetos que existen en esa direccion (relativa al jugador)
-	method imagenDelPersonaje()	//Usado junto con el metodo personaje.puedeMoverAl(dir)
+	method imagenDelPersonaje(nombre)	//Usado junto con el metodo personaje.puedeMoverAl(dir)
 }
 
 object izquierda inherits Direccion { 
 
-	override method imagenDelPersonaje() = "cazadorLeft.png"
+	override method imagenDelPersonaje(nombre) = nombre + "Left.png"
 
 	override method posicionAl(jugador) = jugador.position().left(1)
 	
@@ -18,7 +17,7 @@ object izquierda inherits Direccion {
 
 object derecha inherits Direccion { 
 	
-	override method imagenDelPersonaje()= "cazadorRight.png" 
+	override method imagenDelPersonaje(nombre)= nombre + "Right.png" 
 
 	override method posicionAl(jugador) = jugador.position().right(1)
 
@@ -27,18 +26,17 @@ object derecha inherits Direccion {
 
 object abajo inherits Direccion { 
 	
-	override method imagenDelPersonaje()= "cazadorDown.png"
+	override method imagenDelPersonaje(nombre)= nombre + "Down.png"
 
 	override method posicionAl(jugador) = jugador.position().down(1)
 	
 	method opuesto() = arriba
 	
-	method escribir(culo) = culo
 }
 
 object arriba inherits Direccion { 
 	
-	override method imagenDelPersonaje()= "cazadorUp.png"
+	override method imagenDelPersonaje(nombre)= nombre + "Up.png"
 	
 	override method posicionAl(jugador) = jugador.position().up(1)
 	

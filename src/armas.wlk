@@ -2,6 +2,8 @@ import personaje.*
 import cosasExtras.*
 import enemigos.*
 import wollok.game.*
+import municion.*
+import niveles.*
 
 class Arma inherits Colisionable {
 	
@@ -23,25 +25,19 @@ class Arma inherits Colisionable {
 	
 	method esArrojado() {}
 	
-	method crear(posicion, imagen) {
-		// Genera un enemigo en el tablero.
-		game.addVisualIn(self, posicion)	
-	}
 	method esArmaADistancia() = false
 	
 	method esBallesta() = false
 	
 	method esPistola() = false
 	
-	method esDisparablePor(arma) = false
-	
-	method nombre() = ""
+	method nombre()
+	method esFlecha() = false
 }
 
 object estacaYMartillo inherits Arma {
 	const property image = "estacaYMartillo.png" 
     var property danio = 1
-    
     var property id = 2
   /*   override method esUsadaCon(enemigo){ 
         if (dracula.malherido())
@@ -53,21 +49,9 @@ object estacaYMartillo inherits Arma {
 
 class ArmaADistancia inherits Arma{
 	
-	method agregar(municion) {
-		if (municion.esColisionable())
-		    municiones = (municiones + municion.cant()).min(15)
-	}
-	
-	
 	override method esArmaADistancia() = true
-	
-	method disparar(arma, pos, dir) {
-		//if (cazador.cantFlechas() > 0 and cazador.tiene(arma)){
-		(cazador.inventario().find({obj => obj.esMunicion() && obj.esDisparablePor(arma)})).buscaObjetivo(pos, dir)
-		cazador.restarMunicion(arma)
-		//}else{
-			cazador.error("¡No tengo mas municiones!")
-		//}
+	method atacar(arma, pos, dir) {
+		arma.disparar(arma.tipoDeMunicion(pos), pos, dir)
 	}
 	
 }
@@ -75,13 +59,20 @@ class ArmaADistancia inherits Arma{
 object ballesta inherits ArmaADistancia {
 	const property image = "ballesta.png" 
 	var property danio = 2	
+
+
+	method disparar(municion, pos, dir){
+		game.addVisualIn(municion, dir.posicionAl(municion))
+		game.onTick(100, "Proyectil avanzando", {municion.mover(municion.position.up(1), dir)})		
+	}
 	
-	method tipoDeMunicion(){
-		if (cazador.cantFlechas() > 0){
-		cazador.inventario().find({obj => obj.esMunicion() && obj.disparablePor(self)})
+	method tipoDeMunicion(pos){ 
+		return if (cazador.cantFlechas() > 0){
+		 cazador.inventario().find({obj => obj.esFlecha()})
 		}else{
-			cazador.error("No poseo flechas")
+		 cazador.error("No poseo flechas")
 		}
+		
 	}
 	override method nombre() = "ballesta"
 	
@@ -94,7 +85,7 @@ object pistolaDePlata inherits ArmaADistancia {
 	
 	method tipoDeMunicion(){
 		if (cazador.cantBalas() > 0){
-		cazador.inventario().find({obj => obj.esMunicion() && obj.disparablePor(self)})
+	
 		}else{
 			cazador.error("No poseo balas")
 		}
@@ -102,6 +93,7 @@ object pistolaDePlata inherits ArmaADistancia {
 	override method nombre() = "pistola de plata"
 	
 	override method esPistola() = true 
+	
 }
 
 
