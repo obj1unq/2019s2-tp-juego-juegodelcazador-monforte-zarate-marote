@@ -35,13 +35,13 @@ object cazador inherits Colisionable {
 	
 	method convertir(objeto){
 		if(objeto.esBala()){
-			cantBalas += objeto.cant()
+			cantBalas = (cantBalas + objeto.cant()).min(15)
 			inventario.remove(objeto)
 		}else if (objeto.esFlecha()){
-			cantFlechas += objeto.cant()
+			cantFlechas = (cantFlechas + objeto.cant()).min(15)
 			inventario.remove(objeto)
 		}else{
-			cantSal += objeto.cant()
+			cantSal = (cantSal + objeto.cant()).min(15)
 			inventario.remove(objeto)
 		}
 	}
@@ -107,21 +107,21 @@ object cazador inherits Colisionable {
 	}
 	
 	method restarFlechas(){
-		cantFlechas -= 1
+		cantFlechas = (cantFlechas - 1).max(0)
 	}
 	
 	method restarBalas(){
-		cantBalas -= 1
+		cantBalas = (cantBalas - 1).max(0)
 	}
 	
 	method restarSal(){
-		cantSal -= 1
+		cantSal = (cantSal - 1).max(0)
 	}
 	
 	method trampaDeSal(){
 		if (cantSal > 0){
 			new Sal().crear(self.position(), "sal.png")
-			cantSal -= 1
+			self.restarSal()
 		}
 	}
 ///----------------------------------------------------------
