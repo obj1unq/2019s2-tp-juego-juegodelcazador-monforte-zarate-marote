@@ -8,6 +8,8 @@ class NoColisionable {
 	method esColisionable() = false
 	
 	method esAtacable() = false
+	
+	method esMunicion() = false
 
     method puedeSoltarse() = false
 
@@ -15,8 +17,9 @@ class NoColisionable {
     
 }
 
-
 class Colisionable {
+	
+	method esMunicion() = false
 	
 	method esColisionable() = true
 	
@@ -26,44 +29,6 @@ class Colisionable {
 	
 	method sePuedeAgarrar() = false
 	
-}
-
-object castillo inherits NoColisionable {
-	const property image = "castillo.png"
-	const property position = 0
-}
-
-object puerta inherits Colisionable {
-    const property image = "puerta.png"
-	const property position = 0
-
-    method colisionarCon(cazador) { 
-		//implementar
-	}
-}
-
-class Pared inherits NoColisionable {
-	const property position
-	var property image
-	
-	override method crear(posicion,imagen) {	
-		// Genera una pared en el tablero.
-		image = imagen
-		game.addVisualIn(self, posicion)
-	}
-}
-
-class Trampa inherits Colisionable {
-	const property position
-	var property image = "camino1.png"
-	
-	method colisionarCon(cazador) {
-		return self.activarBossFinal()
-	}
-	
-	method activarBossFinal() {
-		return game.addVisualIn(fantasmaBoss, game.at(11,10))
-	}
 }
 
 class GraficaParaCartel {

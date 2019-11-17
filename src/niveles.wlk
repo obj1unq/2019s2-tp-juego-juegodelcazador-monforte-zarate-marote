@@ -5,16 +5,18 @@ import armas.*
 import personaje.*
 import protecciones.*
 import municion.*
-
+import config.*
+import objetosVisuales.*
 
 object nivel1 {
 	method iniciar() {
-		
-	game.ground("camino.png")	
+	   game.clear()
+	   game.boardGround("fondoAzul.jpg")	
+	
 	// CASTILLO	
 		
-	game.addVisualIn(castillo, game.at(2,12))	
-	game.addVisualIn(puerta, game.at(11,12))
+	   game.addVisualIn(castillo, game.at(2,12))	
+	   game.addVisualIn(puerta, game.at(11,12))
 		
 	/// LABERINTO
 
@@ -32,7 +34,7 @@ object nivel1 {
     	                     (11->0),(11->1),(11->2),(11->6),(11->8),
     	                     (12->0),(12->4),(12->6),(12->8),(12->9),(12->11),
     	                     (13->0),(13->2),(13->3),(13->4),(13->9),(13->10),(13->11),
-    	                     (14->2),(14->4),(14->5),(14->6),(14->7),(14->11),
+    	                     (14->0),(14->2),(14->4),(14->5),(14->6),(14->7),(14->11),
     	                     (15->0),(15->2),(15->4),(15->6),(15->7),(15->9),(15->11),
     	                     (16->0),(16->1),(16->2),(16->9),(16->11),
     	                     (17->0),(17->2),(17->4),(17->5),(17->6),(17->7),(17->9),(17->10),(17->11),
@@ -41,64 +43,51 @@ object nivel1 {
     	                     (20->0),(20->8),(20->11),
     	                     (21->0),(21->1),(21->2),(21->3),(21->4),(21->5),(21->6),(21->7),(21->8),(21->9),(21->10),(21->11)]
                             
-    posicionesPared.forEach({posicion => new Pared().crear(posicion, "fondoNegro.jpg")})
-    
-    var trampa1 = new Trampa(position = game.at(9,10)) 
-    game.addVisual(trampa1)
-    //game.onCollideDo(trampa1, {trampa1.activarBoss()})
+    posicionesPared.forEach({posicion => new Pared().crear(posicion, "laberinto1.png")})
      
     // Fantasmas
     
-    var fantasma1 = new Fantasma(position = game.at(3, 1), hp = 1)
     var fantasma2 = new Fantasma(position = game.at(3, 4), hp = 1)
-    var fantasma3 = new Fantasma(position = game.at(9, 1), hp = 1)
-    var fantasma4 = new Fantasma(position = game.at(7, 5), hp = 1)
-    var fantasma5 = new Fantasma(position = game.at(2, 10), hp = 1)
-    var fantasma6 = new Fantasma(position = game.at(8, 10), hp = 1)
-    var fantasma7 = new Fantasma(position = game.at(11, 7), hp = 1)
-    var fantasma8 = new Fantasma(position = game.at(19, 1), hp = 1)
-    var fantasma9 = new Fantasma(position = game.at(5, 8), hp = 1)
-    var fantasma10 = new Fantasma(position = game.at(15, 3), hp = 1)
-    var fantasma11 = new Fantasma(position = game.at(16, 8), hp = 1)
+    var fantasma3 = new Fantasma(position = game.at(7, 1), hp = 1)
+    var fantasma4 = new Fantasma(position = game.at(2, 10), hp = 1)
+    var fantasma5 = new Fantasma(position = game.at(11, 7), hp = 1)
+    var fantasma7 = new Fantasma(position = game.at(16, 8), hp = 1)
     
-    const fantasmas = [fantasma1,fantasma2,fantasma3,fantasma4,fantasma5,
-    	               fantasma6,fantasma7,fantasma8,fantasma9,fantasma10,
-    	               fantasma11]
+    const fantasmas = [fantasma2,fantasma3,fantasma4,fantasma5,fantasma7]
     
     fantasmas.forEach({fantasma => 
     	game.addVisual(fantasma)
     	fantasma.patrullar()
     }) 
     
-    const sales = [ new Sal(position = (1->1)),new Sal(position = (1->3)),new Sal(position = (15->1)),
-    	            new Sal(position = (17->1)),new Sal(position = (17->3)),new Sal(position = (9->8))]
+    const sales = [ new Sal(position = game.at(17,1)),new Sal(position = game.at(18,1)),new Sal(position = game.at(19,1)),
+    	            new Sal(position = game.at(20,1)),new Sal(position = game.at(20,2))]
     	             
     sales.forEach({sal => game.addVisual(sal)}) 
      
-    const vidas = [new Vida(position = game.at(5,7)),new Vida(position = game.at(20,10))] 
+    const vidas = [new Vida(position = game.at(1,1)),new Vida(position = game.at(18,5))] 
     
     vidas.forEach({vida => game.addVisual(vida)})
      
-    const flechas = [new Flechas(position = game.at(19,3)),new Flechas(position = game.at(15,5))]
+    const flechas = [new Flecha(position = game.at(1,3)),new Flecha(position = game.at(14,3)),new Flecha(position = game.at(16,10))]
     
     flechas.forEach({flecha => game.addVisual(flecha)})
-    
-    var flecha = new Flecha() 
-    //Personaje principal
-     
+
 	game.addVisual(cazador)
+	
+	//  CONFIG	
+ 	config.teclado()
+	config.cartel()
+	
 }    
     method cambioDeEscenario(cazador,puerta) {
-		 // parametros para respetar polimorfismo
-		   game.clear()
-		   nivel2.iniciar()
 	}	
 }
 
 object nivel2 {
     method iniciar() {
     	
-    game.boardGround("textura1.jpg")	
+    game.ground("camino2.jpg")	
     
     /// LABERINTO
 
@@ -129,30 +118,39 @@ object nivel2 {
     
     //Murcielagos
      
-    var murcielago1 = new Murcielago(position = game.at(4, 6), hp = 1)
-    var murcielago2 = new Murcielago(position = game.at(3, 10), hp = 1)
-    var murcielago3 = new Murcielago(position = game.at(8, 2), hp = 1)
-    var murcielago4 = new Murcielago(position = game.at(7, 5), hp = 1)
-    var murcielago5 = new Murcielago(position = game.at(10, 8), hp = 1)
-    var murcielago6 = new Murcielago(position = game.at(12, 11), hp = 1)
-    var murcielago7 = new Murcielago(position = game.at(15, 9), hp = 1)
-    var murcielago8 = new Murcielago(position = game.at(18, 12), hp = 1)
-    var murcielago9 = new Murcielago(position = game.at(13, 4), hp = 1)
-    var murcielago10 = new Murcielago(position = game.at(17, 2), hp = 1)
+    var bruja1 = new Bruja(position = game.at(7, 2), hp = 1)
+    var bruja2 = new Bruja(position = game.at(2, 6), hp = 1)
+    var bruja3 = new Bruja(position = game.at(13, 4), hp = 1)
+    var bruja4 = new Bruja(position = game.at(6, 8), hp = 1)
+    var bruja5 = new Bruja(position = game.at(17, 12), hp = 1)
     
-    const murcielagos = [murcielago1,murcielago2,murcielago3,murcielago4,murcielago5,
-    	               murcielago6,murcielago7,murcielago8,murcielago9,murcielago10]
+    const brujas = [bruja1,bruja2,bruja3,bruja4,bruja5]
     
-    murcielagos.forEach({murcielago => 
-    	game.addVisual(murcielago)
-    	murcielago.patrullar()
+    brujas.forEach({bruja => 
+    	game.addVisual(bruja)
+    	bruja.patrullar()
     }) 
     
-    const flechas = [new Flechas(position = game.at(14,2))]
+    const flechas = [new Flecha(position = game.at(3,1)),new Flecha(position = game.at(19,6))]
     
     flechas.forEach({flecha => game.addVisual(flecha)})
     
+    const vidas = [new Vida(position = game.at(11,1)),new Vida(position = game.at(16,7))] 
+    
+    vidas.forEach({vida => game.addVisual(vida)})
+    
+    const balas = [new Bala(position = game.at(1,10)),new Bala(position = game.at(19,4))]
+    
+    balas.forEach({bala => game.addVisual(bala)})
+    
+    game.addVisualIn(ballesta, game.at(14,5))
+    
     game.addVisual(cazador)
+    
+    //  CONFIG	
+ 	config.teclado()
+	config.cartel()
+	
     }
 }
 

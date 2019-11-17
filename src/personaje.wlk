@@ -6,28 +6,33 @@ import wollok.game.*
 import protecciones.*
 import direcciones.*
 import municion.*
+import menu.*
+import objetosVisuales.*
 
 object cazador inherits Colisionable {
 	const property inventario = []
-	var property hp = 5
-	var property orientacion = arriba
-	var property position = game.at(14, 1)
+	var property hp = 1
+	var property orientacion = izquierda
+	var property position = game.at(15, 1)
 	var property itemEquipado 
 	var property cantFlechas = 0
 	var property cantBalas = 0
 	var property cantSal = 0
+	
 	method nombre() = "cazador"
+	
 	method image() = orientacion.imagenDelPersonaje(self.nombre()) // orientacion.imagenDelPersonaje()
 
-///----------------------------------------------------------
 ///---------------------- LOOTEO ------------------------
-///----------------------------------------------------------
+
 	method recoger(objeto) {
-		if (objeto.esColisionable() && objeto.sePuedeAgarrar()){ 
-		inventario.add(objeto)
-		objeto.colisionarCon(self)
-	    self.convertirAMunicion(objeto)}
-	   	else{self.error("No hay nada para recoger")}
+		if (not game.getObjectsIn(position).isEmpty() or objeto.sePuedeAgarrar()){ 
+		    inventario.add(objeto)
+		    objeto.colisionarCon(self)
+	        self.convertirAMunicion(objeto)
+	    } else {
+	    	game.say(self, "No hay nada para recoger")
+	    }
 	}
 
 	method convertirAMunicion(objeto){
@@ -47,7 +52,6 @@ object cazador inherits Colisionable {
 			inventario.remove(objeto)
 		}
 	}
-	
 	
     method soltar() {
     	const objeto = inventario.head()
@@ -78,11 +82,10 @@ object cazador inherits Colisionable {
 		return inventario.find({ obj => obj.nombre() == objeto.nombre() })
 	}
 
-///----------------------------------------------------------
 ///---------------------- INTERACCIÓN -----------------------
-///----------------------------------------------------------
+
 	method recibirAtaque(enemigo) {
-		hp -= enemigo.atk()
+		hp = hp -1
 	}
 
 	method ataqueA() {
@@ -140,7 +143,8 @@ object cazador inherits Colisionable {
 	}
 
 	method colisionarCon(enemigo) {
-	    hp = hp -1 
+	     self.recibirAtaque(enemigo)
+	     self.perdiste()
 	}
 
 	method estaVivo() = hp > 0
@@ -149,5 +153,9 @@ object cazador inherits Colisionable {
 
 	method muere() { return  hp == 0 }
 
-	method perdiste() { game.say(self, "El mal seguirá latente") }
+	method perdiste() { 
+		game.say(self, "El mal seguirá latente")
+		game.addVisual(gameOver)
+		//game.schedule(3000, {game.stop()})		
+	}
 }

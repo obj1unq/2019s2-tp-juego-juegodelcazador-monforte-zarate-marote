@@ -22,7 +22,6 @@ class Enemigo inherits Colisionable {
 		hp = 0
 		game.schedule(100, game.say(self, "RIP"))
 	    self.desaparecer()
-	    game.removeVisual(self)
 	}
 	
 	method estaVivo() = hp > 0
@@ -48,9 +47,7 @@ class Enemigo inherits Colisionable {
 		
 	}
 	
-///----------------------------------------------------------
 ///---------------------- MOVIMIENTO ------------------------
-///----------------------------------------------------------
 	
 	method mover(nuevaPosicion, dir) {
 		// Puede mover si no hay un obj no colisionable en direccion dir
@@ -76,16 +73,18 @@ object dracula inherits Enemigo{
     	return hp == 1
     }
     
-    override method hp() = 5
-       
+    override method hp() = 5   
 }
 	
 class Bruja inherits Enemigo{ 
 	const property image = "bruja.png" 
-	const property atk = 2
     override method recibirAtaqueCon(arma){
     	hp -= arma.danio()
     }
+    
+    method patrullar(){
+		game.onTick(500, "brujaMoving", { => self.mover(orientacion.posicionAl(self), orientacion) })	
+	}
 }
 
 class Fantasma inherits Enemigo{
@@ -100,28 +99,28 @@ class Fantasma inherits Enemigo{
 	   self.desaparecer()
 	}
 	
-	 method morirSiHaySal(){
-		if(game.getObjectsIn(self.position()).any({obj => obj.esSal()})){
+	 method morirSiEsSal(objeto){
+		if(game.getObjectsIn(self.position()).esSal()){
 			self.muere()
 		}
 	}
 	 override method mover(nuevaPosicion, dir){
 		// Puede mover si no hay un obj no colisionable en direccion dir
-		if (self.estaVivo() and self.puedeMoverAl(dir)) {
+		if (self.puedeMoverAl(dir)) {
 			self.position(nuevaPosicion)
 			//self.morirSiHaySal()
 		}else{orientacion = orientacion.opuesto()}
 	}	
 	
+	
 	method patrullar(){
-		game.onTick(600, "fantasmaMoving", { => self.mover(orientacion.posicionAl(self), orientacion) })	
+		game.onTick(500, "fantasmaMoving", { => self.mover(orientacion.posicionAl(self), orientacion) })	
 	}
 }
 
 object fantasmaBoss inherits Enemigo {
 	const property image = "fantasma2.png"
-	const property atk = 3
-	const property cantSalQueAfecta = 5
+	const property atk = 2
 	
 	override method recibirAtaqueCon(objeto) {
 		//if(objeto.puedeMatarFantasma()) {
@@ -130,9 +129,11 @@ object fantasmaBoss inherits Enemigo {
 	   	   self.atacar()
 	  // }
 	}
-	//override method patrullar(){
-	//	game.onTick(600, "bossMoving", { => self.mover(orientacion.posicionAl(self), orientacion) })
-	//}
+	
+	override method mover(nuevaPosicion, dir){
+		position = game.at(cazador.position().x(),cazador.position().y())
+		//self.morirSiHaySal()
+	}	
 
 }
 

@@ -8,22 +8,19 @@ import direcciones.*
 import protecciones.*
 import config.*
 import municion.*
+import menu.*
 
 program MonstersHunter {
- 	
+	
  	//  GAME
  	game.title("Monsters Hunter")
 	game.height(14)
 	game.width(22)
-	
+
  	//  VISUALES
  	nivel1.iniciar()
 
- 	//  CONFIG	
- 	config.teclado()
- 	config.cartel()
- 	
- 	
  	//  COMIENZA
 	game.start()
+	 	
 }

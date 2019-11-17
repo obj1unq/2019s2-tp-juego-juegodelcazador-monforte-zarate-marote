@@ -6,7 +6,6 @@ import municion.*
 import niveles.*
 
 class Arma inherits Colisionable {
-	
 	var property position
     
     method colisionarCon(cazador) { 
@@ -18,8 +17,6 @@ class Arma inherits Colisionable {
 	override method sePuedeAgarrar() = true
 	
 	override method esAtacable() = false 
-	
-	method esMunicion() = false
 	
 	method colisionandoCon(fantasma) {}
 	
@@ -51,8 +48,7 @@ class ArmaADistancia inherits Arma{
 	override method esArmaADistancia() = true
 	method atacar(arma, pos, dir) {
 		arma.disparar(arma.tipoDeMunicion(dir), pos, dir)
-	}
-	
+	}	
 }
 
 object ballesta inherits ArmaADistancia {
@@ -68,7 +64,7 @@ object ballesta inherits ArmaADistancia {
 		return if (cazador.cantFlechas() > 0){
 		 	new Flecha().crear(dir.posicionAl(self))
 		}else{
-		 cazador.error("No poseo flechas")
+		 game.say(cazador,"No poseo flechas")
 		}
 		
 	}
@@ -85,7 +81,7 @@ object pistolaDePlata inherits ArmaADistancia {
 		if (cazador.cantBalas() > 0){
 	
 		}else{
-			cazador.error("No poseo balas")
+			game.say(cazador,"No poseo balas")
 		}
 	}
 	override method nombre() = "pistola de plata"
@@ -93,7 +89,3 @@ object pistolaDePlata inherits ArmaADistancia {
 	override method esPistola() = true 
 	
 }
-
-
-
-

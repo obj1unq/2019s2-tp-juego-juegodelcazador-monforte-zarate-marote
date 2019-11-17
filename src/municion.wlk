@@ -4,8 +4,6 @@ import enemigos.*
 import wollok.game.*
 import armas.*
 
-
-
 class Municion inherits ArmaADistancia{
 	
 	method esUsadaEn(arma) {
@@ -14,14 +12,16 @@ class Municion inherits ArmaADistancia{
     
 	override method esMunicion() = true
 	
+	override method sePuedeAgarrar() = true
+	
 	method esBala() = false
 	method esFlecha() = false
 	method esSal() = false
 }
 
-
 class Proyectil inherits Municion{
 	var property orientacion = cazador.orientacion()
+	var property cant = 1
 	
 	var alcance = self.alcance()
 	method alcance()
@@ -51,9 +51,7 @@ class Proyectil inherits Municion{
 } 
 
 class Sal inherits Proyectil {
-	
 	var property image = "sal.png"
-	var property cant = 1
 	
 	override method alcance() = 1
 	
@@ -74,8 +72,7 @@ class Sal inherits Proyectil {
 }
 
 
-class Balas inherits Proyectil {
-	var property cant = 5
+class Bala inherits Proyectil {
 	
 	method image() = orientacion.imagenDelPersonaje(self.nombre())
 	
@@ -87,19 +84,14 @@ class Balas inherits Proyectil {
 	
 }
 
-class Flechas inherits Proyectil {
-	var property cant = 10
+class Flecha inherits Proyectil {
 	
 	method image() = orientacion.imagenDelPersonaje(self.nombre())
 	
-	override method nombre() = "flechas"
+	override method nombre() = "flecha"
 	
 	override method alcance() = 4
 	
 	override method esFlecha() = true
 	
-}
-
-class Flecha inherits Flechas{
-	override method image() = "bala.png"
 }
