@@ -6,7 +6,7 @@ import protecciones.*
 import direcciones.*
 import wollok.game.*
 import municion.*
-/* */
+
 class Enemigo inherits Colisionable {
 	var hp
 	var property position 
@@ -33,9 +33,13 @@ class Enemigo inherits Colisionable {
     method recibirAtaqueCon(arma){
     	hp -= arma.danio()
     }
-
-    method atacar() { 
-    	cazador.colisionarCon(self)
+    
+    method colisionarCon(cazador) {
+    	cazador.recibirAtaque(self)
+    }
+    
+    method atacar() {
+    	
     }
     
     method crear(posicion, imagen) {
@@ -72,8 +76,11 @@ object dracula inherits Enemigo{
     method malherido() {
     	return hp == 1
     }
-    
     override method hp() = 5   
+    
+    override method mover(nuevaPosicion, dir) {
+		 position = game.at(cazador.position().x(),cazador.position().y())
+	}
 }
 	
 class Bruja inherits Enemigo{ 
@@ -85,6 +92,8 @@ class Bruja inherits Enemigo{
     method patrullar(){
 		game.onTick(500, "brujaMoving", { => self.mover(orientacion.posicionAl(self), orientacion) })	
 	}
+	
+	override method atacar() {}
 }
 
 class Fantasma inherits Enemigo{
@@ -104,6 +113,9 @@ class Fantasma inherits Enemigo{
 			self.muere()
 		}
 	}
+	
+	override method atacar() {}
+	
 	 override method mover(nuevaPosicion, dir){
 		// Puede mover si no hay un obj no colisionable en direccion dir
 		if (self.puedeMoverAl(dir)) {
@@ -111,7 +123,6 @@ class Fantasma inherits Enemigo{
 			//self.morirSiHaySal()
 		}else{orientacion = orientacion.opuesto()}
 	}	
-	
 	
 	method patrullar(){
 		game.onTick(500, "fantasmaMoving", { => self.mover(orientacion.posicionAl(self), orientacion) })	
@@ -130,6 +141,7 @@ object fantasmaBoss inherits Enemigo {
 	  // }
 	}
 	
+	
 	override method mover(nuevaPosicion, dir){
 		position = game.at(cazador.position().x(),cazador.position().y())
 		//self.morirSiHaySal()
@@ -146,5 +158,7 @@ class Murcielago inherits Enemigo{
     method patrullar(){
 		game.onTick(500, "murcielagoMoving", { => self.mover(orientacion.posicionAl(self), orientacion) })	
 	}	
+	
+	override method atacar() {}
 }
 
