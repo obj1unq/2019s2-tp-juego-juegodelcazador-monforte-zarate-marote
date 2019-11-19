@@ -18,7 +18,7 @@ program MonstersHunter {
 	game.width(22)
 
  	//  VISUALES
- 	nivel3.iniciar()
+ 	nivel1.iniciar()
 
  	//  COMIENZA
 	game.start()

@@ -29,6 +29,15 @@ class Colisionable {
 	
 	method sePuedeAgarrar() = false
 	
+	method esVida() = false
+	
+	method esCazador() = false
+	
+	method esSal() = false
+	
+	method desaparecer() {
+		game.removeVisual(self)
+	}
 }
 
 class GraficaParaCartel {

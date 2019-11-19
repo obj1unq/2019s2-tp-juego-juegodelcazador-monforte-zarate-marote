@@ -16,7 +16,8 @@ class Municion inherits ArmaADistancia{
 	
 	method esBala() = false
 	method esFlecha() = false
-	method esSal() = false
+	
+	method colisionasteCon(fantasma) {}
 }
 
 class Proyectil inherits Municion{
@@ -59,10 +60,6 @@ class Sal inherits Proyectil {
 	
 	override method esArrojado() {
 	   game.addVisualIn(self, cazador.position())	
-	}
-	
-	override method colisionandoCon(fantasma) {
-		fantasma.muere()
 	}
 	
 	override method esSal() = true 

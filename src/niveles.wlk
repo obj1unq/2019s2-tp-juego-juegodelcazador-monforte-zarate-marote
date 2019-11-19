@@ -80,7 +80,7 @@ object nivel1 {
 	config.cartel()
 
     //colisiones
-    game.whenCollideDo(cazador, {objeto => objeto.colisionasteCon(cazador)}) 
+    //game.whenCollideDo(cazador, {objeto => objeto.colisionasteCon(cazador)}) 
 
 }    
   	

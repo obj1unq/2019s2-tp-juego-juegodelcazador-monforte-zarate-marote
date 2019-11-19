@@ -19,11 +19,15 @@ class Ajo inherits Proteccion {
 	method tiempoQueProteje(){
 		return 10
 	}
+	override method sePuedeAgarrar() = true
 }
 const ajo = new Ajo()
 
 
 class Vida inherits Proteccion {
 	const property image = "hp.png"	
+	
+	override method esVida() = true
+	override method sePuedeAgarrar() = true
 }
 const vida = new Vida()

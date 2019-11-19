@@ -11,7 +11,7 @@ import objetosVisuales.*
 
 object cazador inherits Colisionable {
 	const property inventario = []
-	var property hp = 1
+	var property hp = 10
 	var property orientacion = izquierda
 	var property position = game.at(15, 1)
 	var property itemEquipado 
@@ -21,18 +21,27 @@ object cazador inherits Colisionable {
 	
 	method nombre() = "cazador"
 	
+	override method esCazador() = true
+	
 	method image() = orientacion.imagenDelPersonaje(self.nombre()) // orientacion.imagenDelPersonaje()
 
 ///---------------------- LOOTEO ------------------------
 
 	method recoger(objeto) {
-		if (not game.getObjectsIn(position).isEmpty() or objeto.sePuedeAgarrar()){ 
+		if (not game.getObjectsIn(position).isEmpty() and objeto.sePuedeAgarrar()){ 
 		    inventario.add(objeto)
 		    objeto.colisionarCon(self)
-	        self.convertirAMunicion(objeto)
+	        self.convertirAMunicion(objeto) 
+	        self.tomarSiEsVida(objeto)
 	    } else {
 	    	game.say(self, "No hay nada para recoger")
 	    }
+	}
+	
+	method tomarSiEsVida(obj){
+		if(obj.esVida())
+			self.curarse()
+		
 	}
 
 	method convertirAMunicion(objeto){
@@ -42,10 +51,10 @@ object cazador inherits Colisionable {
 	
 	method convertir(objeto){
 		if(objeto.esBala()){
-			cantBalas = (cantBalas + objeto.cant()).min(15)
+			cantBalas = (cantBalas + 1).min(15)//objeto.cant()).min(15)
 			inventario.remove(objeto)
 		}else if (objeto.esFlecha()){
-			cantFlechas = (cantFlechas + objeto.cant()).min(15)
+			cantFlechas = (cantFlechas + 1).min(15)//objeto.cant()).min(15)
 			inventario.remove(objeto)
 		}else{
 			cantSal = cantSal + objeto.cant()
@@ -61,7 +70,7 @@ object cazador inherits Colisionable {
     	} 		
     }
 
-	method recogerVida() {
+	method curarse() {
 		hp = (hp + 1).min(10)
 	}
 
@@ -84,10 +93,16 @@ object cazador inherits Colisionable {
 
 ///---------------------- INTERACCIÓN -----------------------
 
-	method recibirAtaque(enemigo) {
-		hp = hp -1
+	method recibirAtaque(atak) {
+		hp = (hp - atak).min(0)
+		self.comprobarVida()
 	}
 
+	method comprobarVida(){
+		if (hp == 0){
+			self.perdiste()
+		}
+	}
 	method ataqueA() {
 		if (itemEquipado.esArmaADistancia()){
 			itemEquipado.atacar(itemEquipado, self.position(), orientacion)
@@ -156,6 +171,6 @@ object cazador inherits Colisionable {
 	method perdiste() { 
 		game.say(self, "El mal seguirá latente")
 		game.addVisual(gameOver)
-		//game.schedule(3000, {game.stop()})		
+		game.schedule(8000, {game.stop()})		
 	}
 }

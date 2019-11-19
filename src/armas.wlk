@@ -18,7 +18,7 @@ class Arma inherits Colisionable {
 	
 	override method esAtacable() = false 
 	
-	method colisionandoCon(fantasma) {}
+	method colisionandoCon(asd) {}
 	
 	method esArrojado() {}
 	
@@ -29,6 +29,8 @@ class Arma inherits Colisionable {
 	method esPistola() = false
 	
 	method nombre()
+	
+	
 }
 
 object estacaYMartillo inherits Arma {

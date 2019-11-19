@@ -4,63 +4,67 @@ import enemigos.*
 import armas.*
 import cosasExtras.*
 import protecciones.*
+import municion.*
+
 
 describe "cazador" {
 	
 const sal = new Sal()
-const ajo = new Ajo()
 const fantasma = new Fantasma(position = 17->3, hp =1)
 const bruja = new Bruja(position = 15->0,  hp =1)
 const murcielago = new Murcielago(position = 17->0,  hp =1)
 	
 	fixture{
 		game.addVisual(ballesta)
+		game.addVisual(pistolaDePlata)
+		game.addVisual(estacaYMartillo)
 		game.height(14)
-		game.width(22)	
+		game.width(22)
+			
 	}
 	
 	test "Cazador recoge armas" {
     cazador.recoger(ballesta)
     cazador.recoger(pistolaDePlata)
     cazador.recoger(estacaYMartillo)
-	assert.equals([ballesta, pistolaDePlata, estacaYMartillo], cazador.inventario())  
-}
+	assert.that(cazador.inventario().contains({[ballesta, pistolaDePlata, estacaYMartillo]}))  
+	}
 
     test "Cazador recoge sal" {
       cazador.recoger(sal)
-	  assert.that(cazador.inventario().contains(sal))  
+	  assert.equals(1, cazador.cantSal())  
 }
 
-    test "Tiempo de protreccion por ajo" {
+    /*test "Tiempo de protreccion por ajo" {
        cazador.recoger(ajo)
 	   assert.equals(10, cazador.tiempoProtegido()) 
-}
+}*/
    
-    test "Cantidad de ballesta en inventario" {
+   /* test "Cantidad de ballesta en inventario" {
        cazador.recoger(ajo)
        cazador.recoger(ajo)
        cazador.recoger(ajo)
        assert.equals(3,cazador.cantDe(ajo))
-    }
+    }*/
     
     test "Cazador recoge vida" {
        cazador.hp(2)	
-       cazador.recogerVida()
+       cazador.curarse()
        assert.equals(3, cazador.hp())	
     }
 
     test "Recibe ataque de fantasma" {
-       cazador.recibirAtaque(fantasma)
+       cazador.recibirAtaque(fantasma.atk())
        assert.equals(9, cazador.hp())	
     }
     
     test "Recibe ataque de murcielago" {
-       cazador.recibirAtaque(murcielago)
+       cazador.recibirAtaque(murcielago.atk())
        assert.equals(9, cazador.hp())	
     }
     
     test "Recibe ataque de bruja" {
-       cazador.recibirAtaque(bruja)
+       cazador.recibirAtaque(bruja.atk())
        assert.equals(8, cazador.hp())	
     }
     

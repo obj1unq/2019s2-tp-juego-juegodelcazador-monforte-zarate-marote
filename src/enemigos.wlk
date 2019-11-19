@@ -25,17 +25,13 @@ class Enemigo inherits Colisionable {
 	}
 	
 	method estaVivo() = hp > 0
-	
-	method desaparecer() {
-		game.removeVisual(self)
-	}
 
     method recibirAtaqueCon(arma){
     	hp -= arma.danio()
     }
     
-    method colisionarCon(cazador) {
-    	cazador.recibirAtaque(self)
+    method colisionasteCon(cazador) {
+    	cazador.recibirAtaque(self.atk())
     }
     
     method atacar() {
@@ -84,6 +80,7 @@ object dracula inherits Enemigo{
 }
 	
 class Bruja inherits Enemigo{ 
+	const property atk = 3
 	const property image = "bruja.png" 
     override method recibirAtaqueCon(arma){
     	hp -= arma.danio()
@@ -104,14 +101,13 @@ class Fantasma inherits Enemigo{
 	
 	override method recibirAtaqueCon(objeto) {}
 	
-	override method colisionandoCon(sal) {
+	method morirSiEsSal(){
+	   if(game.getObjectsIn(self.position()).any({obj => obj.esSal()})){
 	   self.desaparecer()
-	}
-	
-	 method morirSiEsSal(objeto){
-		if(game.getObjectsIn(self.position()).esSal()){
-			self.muere()
-		}
+	   game.getObjectsIn(self.position()).find({obj => obj.esSal()}).desaparecer()
+	   }else if(game.getObjectsIn(self.position()).any({obj => obj.esCazador()})){
+		cazador.recibirAtaque(atk)
+		}else{}
 	}
 	
 	override method atacar() {}
@@ -120,7 +116,7 @@ class Fantasma inherits Enemigo{
 		// Puede mover si no hay un obj no colisionable en direccion dir
 		if (self.puedeMoverAl(dir)) {
 			self.position(nuevaPosicion)
-			//self.morirSiHaySal()
+			self.morirSiEsSal()
 		}else{orientacion = orientacion.opuesto()}
 	}	
 	
@@ -131,7 +127,7 @@ class Fantasma inherits Enemigo{
 
 object fantasmaBoss inherits Enemigo {
 	const property image = "fantasma2.png"
-	const property atk = 2
+	const property atk = 4
 	
 	override method recibirAtaqueCon(objeto) {
 		//if(objeto.puedeMatarFantasma()) {
