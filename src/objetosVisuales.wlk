@@ -122,6 +122,6 @@ object teclaA {
 }
 
 object gameOver {
-    const property position = game.at(11,8)
+    const property position = game.center()
 	const property image = "gameOver.png"	
 }

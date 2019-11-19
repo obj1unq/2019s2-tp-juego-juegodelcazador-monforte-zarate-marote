@@ -57,8 +57,8 @@ object nivel1 {
     
     fantasmas.forEach({fantasma => 
     	game.addVisual(fantasma)
-    	fantasma.patrullar()
-    }) 
+    	fantasma.patrullar()}
+    	) 
     
     const sales = [ new Sal(position = game.at(17,1)),new Sal(position = game.at(18,1)),new Sal(position = game.at(19,1)),
     	            new Sal(position = game.at(20,1)),new Sal(position = game.at(20,2))]
@@ -74,7 +74,6 @@ object nivel1 {
     flechas.forEach({flecha => game.addVisual(flecha)})
 
 	game.addVisual(cazador)
-	
 	//  CONFIG	
  	config.teclado()
 	config.cartel()

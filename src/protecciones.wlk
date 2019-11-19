@@ -30,4 +30,3 @@ class Vida inherits Proteccion {
 	override method esVida() = true
 	override method sePuedeAgarrar() = true
 }
-const vida = new Vida()

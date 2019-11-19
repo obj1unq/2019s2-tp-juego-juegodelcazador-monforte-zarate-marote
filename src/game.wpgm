@@ -14,7 +14,7 @@ program MonstersHunter {
 	
  	//  GAME
  	game.title("Monsters Hunter")
-	game.height(14)
+	game.height(16)
 	game.width(22)
 
  	//  VISUALES

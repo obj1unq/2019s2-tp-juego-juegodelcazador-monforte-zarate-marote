@@ -8,8 +8,6 @@ class NoColisionable {
 	method esColisionable() = false
 	
 	method esAtacable() = false
-	
-	method esMunicion() = false
 
     method puedeSoltarse() = false
 
@@ -68,6 +66,16 @@ class Cartel inherits Colisionable{
 			hojas.add(new Hoja(self,self.hojasNecesarias()))
 			game.addVisual(hojas.get(self.hojasNecesarias() -1))
 		}
+	}
+}
+
+class Encabezado {
+	var property image  
+	var property position 
+	
+	constructor (imagen, posicion){
+		image = imagen
+		position = posicion
 	}
 }
 

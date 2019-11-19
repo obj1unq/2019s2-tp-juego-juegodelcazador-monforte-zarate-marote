@@ -33,6 +33,7 @@ object cazador inherits Colisionable {
 		    objeto.colisionarCon(self)
 	        self.convertirAMunicion(objeto) 
 	        self.tomarSiEsVida(objeto)
+	        self.buscarEspacioLibre(objeto, game.at(0,15))
 	    } else {
 	    	game.say(self, "No hay nada para recoger")
 	    }
@@ -81,11 +82,18 @@ object cazador inherits Colisionable {
 	method equipar(objeto) {
 		if (self.tiene(objeto)) {
 			itemEquipado = self.encontrarObjetoEnBolsa(objeto)
-			game.addVisualIn(objeto, game.at(21,0))
 		} else {
 			game.say(self, "No posees la " + objeto.nombre())
 		}
 	}
+	
+	method buscarEspacioLibre(obj, pos){
+		if(game.getObjectsIn(pos).isEmpty()or game.getObjectsIn(pos).contains(obj)){
+			game.addVisualIn(obj, pos)
+		}else{self.buscarEspacioLibre(obj, pos.right(1))
+		}
+	}
+	
 
 	method encontrarObjetoEnBolsa(objeto) {
 		return inventario.find({ obj => obj.nombre() == objeto.nombre() })
@@ -169,7 +177,8 @@ object cazador inherits Colisionable {
 	method muere() { return  hp == 0 }
 
 	method perdiste() { 
-		game.say(self, "El mal seguirá latente")
+		game.say(self, "EL MAL SEGUIRA LATENTE")
+		game.sound("moriste.mp3")
 		game.addVisual(gameOver)
 		game.schedule(8000, {game.stop()})		
 	}

@@ -95,11 +95,9 @@ class Bruja inherits Enemigo{
 
 class Fantasma inherits Enemigo{
 	const property atk = 1
-	method esSal() = false
+	
 	method image() = orientacion.imagenDelPersonaje(self.nombre())
 	method nombre() = "fantasma"
-	
-	override method recibirAtaqueCon(objeto) {}
 	
 	method morirSiEsSal(){
 	   if(game.getObjectsIn(self.position()).any({obj => obj.esSal()})){
@@ -117,6 +115,7 @@ class Fantasma inherits Enemigo{
 		if (self.puedeMoverAl(dir)) {
 			self.position(nuevaPosicion)
 			self.morirSiEsSal()
+			
 		}else{orientacion = orientacion.opuesto()}
 	}	
 	

@@ -25,7 +25,8 @@ object config {
 	}
         //////////////CARTEL CONTADOR DE PUNTOS/////////////////////////////
     method cartel(){ 
- 	game.addVisual(new GraficaParaCartel("CartelVidas.png",game.at(0, 13)))
+ 	game.addVisual(new GraficaParaCartel("CartelVidas.png",game.at(0, 14)))
+ 	game.addVisual(new Encabezado("encabezado.png", game.at(-1, 15)))
  	game.errorReporter(cazador)
  	}
  }
