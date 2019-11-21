@@ -11,7 +11,7 @@ import objetosVisuales.*
 
 object cazador inherits Colisionable {
 	const property inventario = []
-	var property hp = 10
+	var property hp = 1
 	var property orientacion = izquierda
 	var property position = game.at(15, 1)
 	var property itemEquipado 
@@ -72,7 +72,7 @@ object cazador inherits Colisionable {
     }
 
 	method curarse() {
-		hp = (hp + 1).min(10)
+		hp = (hp + 1).min(5)
 	}
 
 	method tiene(objeto) {
@@ -101,8 +101,8 @@ object cazador inherits Colisionable {
 
 ///---------------------- INTERACCIÓN -----------------------
 
-	method recibirAtaque(atak) {
-		hp = (hp - atak).min(0)
+	method recibirAtaque() {
+		hp = (hp - 1).min(0)
 		self.comprobarVida()
 	}
 
@@ -166,7 +166,7 @@ object cazador inherits Colisionable {
 	}
 
 	method colisionarCon(enemigo) {
-	     self.recibirAtaque(enemigo)
+	     self.recibirAtaque()  /// esto esta dos veces (enemigos)
 	     self.perdiste()
 	}
 
@@ -180,6 +180,6 @@ object cazador inherits Colisionable {
 		game.say(self, "EL MAL SEGUIRA LATENTE")
 		game.sound("moriste.mp3")
 		game.addVisual(gameOver)
-		game.schedule(8000, {game.stop()})		
+		game.schedule(4000, {game.stop()})		
 	}
 }

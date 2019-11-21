@@ -1,6 +1,7 @@
 import wollok.game.*
 import cosasExtras.*
 import enemigos.*
+import niveles.*
 
 object castillo inherits NoColisionable {
 	const property image = "castillo.png"
@@ -8,11 +9,23 @@ object castillo inherits NoColisionable {
 }
 
 object puerta inherits Colisionable {
-    const property image = "puerta.png"
+    var property image = "puerta.png"
 	const property position = 0
 
-    method colisionarCon(cazador) { 
-		//implementar
+    method colisionarCon(cazador) {}
+
+    method colisionasteCon(cazador, nivel) { 
+		self.cambioDeEscenario(nivel)
+	}
+	
+	method cambioDeEscenario(nivel) {
+		game.schedule(2000, { nivel.iniciar()})
+	}
+	
+	method crear(posicion,imagen) {	
+		// Genera una puerta en el tablero.
+		image = imagen
+		game.addVisualIn(self, posicion)
 	}
 }
 
@@ -122,6 +135,6 @@ object teclaA {
 }
 
 object gameOver {
-    const property position = game.center()
+    const property position = game.at(8,6)
 	const property image = "gameOver.png"	
 }

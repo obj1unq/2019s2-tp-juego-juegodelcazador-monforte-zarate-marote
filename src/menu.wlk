@@ -27,6 +27,7 @@ object pantallaDeCarga {
 
 object configuracionTeclado {	
 	method iniciar() {
+		//game.clear()
 		game.boardGround("fondoAzul.jpg")
 		game.addVisual(teclaUp)
 		game.addVisual(teclaDown)

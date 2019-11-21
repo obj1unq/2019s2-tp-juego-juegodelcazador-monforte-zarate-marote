@@ -20,8 +20,11 @@ class Enemigo inherits Colisionable {
 
 	method muere() { 
 		hp = 0
-		game.schedule(100, game.say(self, "RIP"))
+		game.say(self, "RIP")
+		game.sound("fantasmaMuere.wav")
 	    self.desaparecer()
+	    //game.schedule(2000, self.desaparecer())
+	    
 	}
 	
 	method estaVivo() = hp > 0
@@ -31,7 +34,7 @@ class Enemigo inherits Colisionable {
     }
     
     method colisionasteCon(cazador) {
-    	cazador.recibirAtaque(self.atk())
+    	cazador.recibirAtaque()
     }
     
     method atacar() {
@@ -104,7 +107,7 @@ class Fantasma inherits Enemigo{
 	   self.desaparecer()
 	   game.getObjectsIn(self.position()).find({obj => obj.esSal()}).desaparecer()
 	   }else if(game.getObjectsIn(self.position()).any({obj => obj.esCazador()})){
-		cazador.recibirAtaque(atk)
+		cazador.recibirAtaque()
 		}else{}
 	}
 	

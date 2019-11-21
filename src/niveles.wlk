@@ -10,13 +10,13 @@ import objetosVisuales.*
 
 object nivel1 {
 	method iniciar() {
-	   game.clear()
+	   //game.clear()
 	   game.boardGround("fondoAzul.jpg")	
 	
 	// CASTILLO	
 		
-	   game.addVisualIn(castillo, game.at(2,12))	
-	   game.addVisualIn(puerta, game.at(11,12))
+	   game.addVisualIn(castillo, game.at(2,12))
+	   puerta.crear(game.at(11,12), "puerta.png")
 		
 	/// LABERINTO
 
@@ -55,10 +55,10 @@ object nivel1 {
     
     const fantasmas = [fantasma2,fantasma3,fantasma4,fantasma5,fantasma7]
     
-    fantasmas.forEach({fantasma => 
-    	game.addVisual(fantasma)
-    	fantasma.patrullar()}
-    	) 
+    //fantasmas.forEach({fantasma => 
+    	//game.addVisual(fantasma)
+    	//fantasma.patrullar()}
+    	//) 
     
     const sales = [ new Sal(position = game.at(17,1)),new Sal(position = game.at(18,1)),new Sal(position = game.at(19,1)),
     	            new Sal(position = game.at(20,1)),new Sal(position = game.at(20,2))]
@@ -79,35 +79,37 @@ object nivel1 {
 	config.cartel()
 
     //colisiones
-    //game.whenCollideDo(cazador, {objeto => objeto.colisionasteCon(cazador)}) 
-
+    game.onCollideDo(cazador, {puerta => puerta.colisionasteCon(cazador, nivel2)}) 
+    game.onCollideDo(cazador, {obstaculo => obstaculo.colisionarCon(cazador)})
 }    
   	
 }
 
 object nivel2 {
     method iniciar() {
-    	
-    game.ground("camino2.jpg")	
+    game.clear()	
+    game.boardGround("textura1.jpg")	
     
     /// LABERINTO
 
-    const posicionesPared = [(0->0),(0->1),(0->2),(0->3),(0->4),(0->5),(0->6),(0->7),(0->8),(0->9),(0->10),(0->11),
-    	                     (1->0),(1->8),(1->11),
-    	                     (2->0),(2->8),(2->11),
-    	                     (3->0),(3->3),(3->4),(3->5),(3->8),(3->11),
-    	                     (4->0),(4->1),(4->2),(4->3),(4->7),(4->8),(4->9),(4->11),
-    	                     (5->0),(5->3),(5->7),(5->11),
-    	                     (6->0),(6->3),(6->11),
-    	                     (7->0),(7->7),(7->11),
-    	                     (8->0),(8->3),(8->4),(8->6),(8->7),(8->9),(8->10),(8->11),(8->12),(8->13),
-    	                     (9->0),(9->3),(9->7),(9->10),(9->12),(9->13),
+    puerta.crear(game.at(15,2), "puerta.png")
+
+    const posicionesPared = [(0->0),(0->1),(0->2),(0->3),(0->4),(0->5),(0->6),(0->7),(0->8),(0->9),(0->10),(0->11),(0->12),(0->13),
+    	                     (1->0),(1->8),(1->11),(1->13),
+    	                     (2->0),(2->8),(2->11),(2->13),
+    	                     (3->0),(3->3),(3->4),(3->5),(3->8),(3->11),(3->13),
+    	                     (4->0),(4->1),(4->2),(4->3),(4->7),(4->8),(4->9),(4->10),(4->11),(4->13),
+    	                     (5->0),(5->3),(5->7),(5->13),
+    	                     (6->0),(6->3),(6->13),
+    	                     (7->0),(7->7),(7->10),(7->13),
+    	                     (8->0),(8->3),(8->4),(8->6),(8->7),(8->9),(8->10),(8->12),(8->13),
+    	                     (9->0),(9->3),(9->7),(9->10),(9->13),
     	                     (10->0),(10->3),(10->7),(10->10),(10->13),
     	                     (11->0),(11->3),(11->7),(11->10),(11->13),
      	                     (12->0),(12->1),(12->2),(12->3),(12->7),(12->10),(12->13),
     	                     (13->0),(13->3),(13->5),(13->6),(13->7),(13->8),(13->10),(13->12),(13->13),
     	                     (14->0),(14->3),(14->6),(14->10),(14->13),
-    	                     (15->0),(15->2),(15->3),(15->6),(15->10),(15->13),
+    	                     (15->0),(15->3),(15->6),(15->10),(15->13),
     	                     (16->0),(16->3),(16->6),(16->10),(16->11),(16->13),
     	                     (17->0),(17->6),(17->10),(17->13),
     	                     (18->0),(18->3),(18->4),(18->5),(18->6),(18->7),(18->8),(18->10),(18->13),
@@ -124,15 +126,17 @@ object nivel2 {
     var bruja3 = new Bruja(position = game.at(13, 4), hp = 1)
     var bruja4 = new Bruja(position = game.at(6, 8), hp = 1)
     var bruja5 = new Bruja(position = game.at(17, 12), hp = 1)
+    var bruja6 = new Bruja(position = game.at(4, 12), hp = 1)
     
-    const brujas = [bruja1,bruja2,bruja3,bruja4,bruja5]
+    const brujas = [bruja1,bruja2,bruja3,bruja4,bruja5,bruja6]
     
-    brujas.forEach({bruja => 
-    	game.addVisual(bruja)
-    	bruja.patrullar()
-    }) 
+    //brujas.forEach({bruja => 
+    	//game.addVisual(bruja)
+    	//bruja.patrullar()
+    //}) 
     
-    const flechas = [new Flecha(position = game.at(3,1)),new Flecha(position = game.at(19,6))]
+    const flechas = [new Flecha(position = game.at(3,1)),new Flecha(position = game.at(15,11)),
+    	             new Flecha(position = game.at(13,9))]
     
     flechas.forEach({flecha => game.addVisual(flecha)})
     
@@ -152,12 +156,16 @@ object nivel2 {
  	config.teclado()
 	config.cartel()
 	
+	//colisiones
+    game.onCollideDo(cazador, {puerta => puerta.colisionasteCon(cazador, nivel3)}) 
+    game.onCollideDo(cazador, {obstaculo => obstaculo.colisionarCon(cazador)})
+	
     }
 }
 
 object nivel3 {
     method iniciar() {
-    	
+    game.clear()	
     game.boardGround("textura2.jpg")	
     
     /// LABERINTO
