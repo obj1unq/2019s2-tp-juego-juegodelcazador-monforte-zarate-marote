@@ -165,7 +165,7 @@ object nivel2 {
 
 object nivel3 {
     method iniciar() {
-    game.clear()	
+    //game.clear()	
     game.boardGround("textura2.jpg")	
     
     /// LABERINTO

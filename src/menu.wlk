@@ -4,7 +4,7 @@ import objetosVisuales.*
 
 object menu {
      method iniciar() {
-        game.boardGround("fondoAzul.jpg")
+        game.boardGround("menuInicial.jpg")
         game.addVisual(iniciarJuego)
         game.addVisual(configuracion)
         game.addVisual(salirJuego)
@@ -19,16 +19,17 @@ object menu {
 object pantallaDeCarga {
 	method iniciar() {
 		//game.clear()
-		game.boardGround("fondoAzul.jpg")
+		game.boardGround("pantallaCarga.jpg")
 		game.addVisualIn(cargaDelJuego, game.at(8,7))
-		game.schedule(3000, {nivel1.iniciar()})
+		//game.schedule(3000, {nivel1.iniciar()})
+		
 	}
 }
 
 object configuracionTeclado {	
 	method iniciar() {
 		//game.clear()
-		game.boardGround("fondoAzul.jpg")
+		game.boardGround("pantallaControles.jpg")
 		game.addVisual(teclaUp)
 		game.addVisual(teclaDown)
 		game.addVisual(teclaLeft)
@@ -41,6 +42,7 @@ object configuracionTeclado {
 		game.addVisual(teclaS)
 		game.addVisual(teclaE)
 		game.addVisual(teclaA)
+		game.addVisual(volverAlMenu)
 		
 	   // Teclado en Configuraciones
 	   //keyboard.q().onPressDo(menu.iniciar())

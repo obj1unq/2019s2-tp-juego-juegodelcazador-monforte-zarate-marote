@@ -57,21 +57,26 @@ class Trampa inherits Colisionable {
 
 object iniciarJuego {
 	const property position = game.at(2,4)
-	const property image = "iniciarJuego.png"	
+	const property image = "jugar.png"	
 }
 
 object configuracion {
     const property position = game.at(2,3)
-    const property image = "configuracion.png"	
+    const property image = "botonConfig.png"	
 }
 
 object salirJuego {
 	const property position = game.at(2,2)
-	const property image = "salirJuego.png"	
+	const property image = "botonSalir.png"	
 }
 
 object cargaDelJuego {
     const property image = "cargando2.png"	
+}
+
+object volverAlMenu {
+	const property position = game.at(17,1)
+    const property image = "volverAlMenu.png"	
 }
 
 object teclaDown {
