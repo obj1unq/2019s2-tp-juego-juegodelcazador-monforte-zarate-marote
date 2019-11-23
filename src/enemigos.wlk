@@ -51,7 +51,7 @@ class Enemigo inherits Colisionable {
 	}
 	
 	method crearMurcielago(posicion) {
-		var murci = new Murcielago(position = posicion, hp = 1)
+		var murci = new Murcielago(orientacion = arriba, position = posicion, hp = 1)
 		game.addVisual(murci)
 		murci.patrullar()
 	}
@@ -74,12 +74,14 @@ class Enemigo inherits Colisionable {
 	}
 }
 
-object dracula inherits Enemigo{ 
+object dracula { 
     const property image = "dracula.png"
-	const property atk = 4	
-	//posee 10 de vida
+	const property atk = 4
+	var property position = game.at(11,10)
+	var hp = 10
+    var previousPosition = position
     
-    override method atk() {
+    method atk() {
     	game.say(self, ["La sangre me otorga más PODER!",
     					"EL MAL PREVALECERÁ!",
     					"NO PUEDES CONTRA MI INSECTO!"].anyOne())
@@ -92,13 +94,63 @@ object dracula inherits Enemigo{
     }
     
     method malherido() {
-    	return hp == 1
+    	return hp < 5
     }
-    override method hp() = 5   
+    method hp() = hp   
     
-    override method mover(nuevaPosicion, dir) {
-		 position = game.at(cazador.position().x(),cazador.position().y())
+    method estaVivo() = hp > 0
+	
+	method elVerdaderoDesafio(){
+		game.onTick(500, "sedDeSangre", { => self.cazarOSerCazado()})
 	}
+	
+	
+	method cazarOSerCazado(){
+		if (!self.malherido()){
+			self.acercarse()
+		}else{
+			self.huir()
+		}
+		
+	}
+	method acercarse(){
+		
+		var otraPosicion = cazador.position()
+		var newX = position.x() + if(otraPosicion.x() > position.x()) 1 else -1
+		var newY = position.y() +  if(otraPosicion.y() > position.y()) 1 else -1
+		
+		//EVITAR QUE SE POSICIONEN FUERA DEL TABLERO
+		
+		newX = newX.max(0).min(game.width() - 1)
+		newY = newY.max(0).min(game.height() - 1)
+		
+		previousPosition = position
+		position = game.at(newX, newY)
+		
+	}
+
+	
+	method huir(){
+		var otraPosicion = cazador.position()
+		var newX = position.x() + if(otraPosicion.x() > position.x()) -1 else 1
+		var newY = position.y() +  if(otraPosicion.y() > position.y()) -1 else 1
+		
+
+		newX = newX.max(0).min(game.width() - 1)
+		newY = newY.max(0).min(game.height() - 1)
+		
+		previousPosition = position
+		position = game.at(newX, newY)
+		
+		
+	}
+	
+	method colisionarCon(cazador){
+		cazador.recibirAtaque(self.atk())
+	}
+	
+	
+	
 }
 	
 class Bruja inherits Enemigo{ 
@@ -125,12 +177,10 @@ class Fantasma inherits Enemigo{
 	override method atk() = atk
 	
 	method morirSiEsSal(){
-	   if(game.getObjectsIn(self.position()).any({obj => obj.esSal()})){
+	   if(game.getObjectsIn(self.position()).any({obj => obj.esSal()}))
 	   self.desaparecer()
 	   game.getObjectsIn(self.position()).find({obj => obj.esSal()}).desaparecer()
-	   }//else if(game.getObjectsIn(self.position()).any({obj => obj.esCazador()})){
-		//cazador.recibirAtaque()
-		else{}
+	   
 	}
 	
 	 override method mover(nuevaPosicion, dir){
@@ -165,14 +215,6 @@ object fantasmaBoss inherits Fantasma {
 	}
 	
 	method todaviaResiste() = resistenciaALaSal > 0 
-	
-	/*override method recibirAtaqueCon(objeto) {
-		//if(objeto.puedeMatarFantasma()) {
-		   self.muere() 
-	   //}else{
-	   	   self.morirSiEsSal()
-	  // }
-	}*/
 	
 	override method mover(nuevaPosicion, dir){
 		position = game.at(cazador.position().x(),cazador.position().y())

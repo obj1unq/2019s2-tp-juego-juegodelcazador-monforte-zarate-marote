@@ -117,7 +117,7 @@ object cazador inherits Colisionable {
 	}
 
 	method comprobarVida(){
-		if (hp == 0){
+		if (hp == 0 && !game.hasVisual(gameOver)){
 			self.perdiste()
 		}
 	}

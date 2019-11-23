@@ -187,7 +187,7 @@ object nivel1 inherits Nivel{
      
     // Fantasmas
     const fantasmasPos = [game.at(3, 4), game.at(7, 1), game.at(2, 10),  game.at(11, 7),  game.at(16, 8)]
-    //fantasmasPos.forEach({pos => new Fantasma().crearFantasma(pos)})
+    fantasmasPos.forEach({pos => new Fantasma().crearFantasma(pos)})
     
     // Sales
     const sales = [ new Sal(position = game.at(17,1)),new Sal(position = game.at(18,1)),new Sal(position = game.at(19,1)),
@@ -280,10 +280,11 @@ object nivel3 inherits Nivel{
     override method cargar() {
 		game.clear()
 		game.boardGround("textura2.jpg")
+		game.onTick(18000, "dracula song", {self.sound()})
 		super()	
 	}
     
-    override method sound() = game.sound("NivelFinal.mp3")
+    override method sound() = game.sound("draculaSong.mp3")
     
     override method visuales() {
     
@@ -332,6 +333,8 @@ object nivel3 inherits Nivel{
     
     game.addVisualIn(pistolaDePlata, game.at(20,1))
     
-    game.addVisualIn(dracula, game.at(11,10))    
+    game.addVisual(dracula)
+    
+    dracula.elVerdaderoDesafio()    
     }	
 }
