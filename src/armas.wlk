@@ -64,7 +64,6 @@ object ballesta inherits ArmaADistancia {
 	method tipoDeMunicion(pos, dir){ 
 		return if (cazador.cantFlechas() > 0){
 		 	flecha.avanzarYSpawnear(pos, dir)
-		 	return flecha
 		}else{
 		 game.error("No poseo flechas")
 		}
@@ -76,12 +75,13 @@ object ballesta inherits ArmaADistancia {
 }
 
 object flecha inherits Flecha{
-	var property image = "flechaLeft.png"
-	
+	override method image() = "flechaLeft.png" 
 	override method position() = position
+	
 	method avanzarYSpawnear(pos, dir){
 		position = dir.unaPosicionA(pos)
 		game.addVisualIn(self, position)
+		return self
 	}
 	
 }

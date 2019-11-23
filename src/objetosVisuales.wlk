@@ -14,7 +14,7 @@ object puerta inherits Colisionable {
 
     method colisionarCon(cazador) {}
 
-    method colisionasteCon(cazador, nivel) { 
+    override method colisionasteCon(cazador, nivel) { 
 		self.cambioDeEscenario(nivel)
 	}
 	

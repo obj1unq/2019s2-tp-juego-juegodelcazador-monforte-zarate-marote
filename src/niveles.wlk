@@ -25,7 +25,9 @@ class Nivel {
 			objeto => objeto.colisionarCon(cazador)
 		})
 	}
-
+	
+	method sound()
+	
 	method controles() {
 		
 	  keyboard.up().onPressDo{ cazador.mover(cazador.position().up(1), arriba)}
@@ -65,13 +67,21 @@ class Nivel {
 object nivel1 inherits Nivel{
 	
 	override method siguienteNivel(){
+		game.sound("aperturaPuerta.mp3")
 		game.onCollideDo(cazador, {puerta => puerta.cambioDeEscenario(nivel2)})
+		game.schedule(2000, { game.sound("cierrePuerta.mp3") })
+		game.schedule(4000, { nivel2.sound() })
 	}
 	
 	override method cargar() {
 		game.clear()
 		game.boardGround("fondoAzul.jpg")
+		
 		super()
+	}
+	
+	override method sound(){
+		game.sound("Nivel1.mp3")
 	}
 	
 	override method visuales() {
@@ -138,7 +148,10 @@ object nivel1 inherits Nivel{
 object nivel2 inherits Nivel{
     
     override method siguienteNivel(){
-      game.onCollideDo(cazador, {puerta => puerta.cambioDeEscenario(nivel3)})
+      	game.sound("aperturaPuerta.mp3")
+		game.onCollideDo(cazador, {puerta => puerta.cambioDeEscenario(nivel3)})
+		game.schedule(2000, { game.sound("cierrePuerta.mp3") })
+		game.schedule(4000, { nivel3.sound() })
 	}
     
     override method cargar() {
@@ -147,6 +160,9 @@ object nivel2 inherits Nivel{
 		super()	
 	}
     
+    override method sound(){
+		game.sound("Nivel2.mp3")
+	}
     override method visuales() {
     /// LABERINTO
 
@@ -221,6 +237,9 @@ object nivel3 inherits Nivel{
 		super()	
 	}
     
+    override method sound(){
+		game.sound("NivelFinal.mp3")
+	}
     override method visuales() {
     
     /// LABERINTO

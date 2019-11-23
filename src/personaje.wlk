@@ -176,9 +176,14 @@ object cazador inherits Colisionable {
 		orientacion = dir
 		if (self.estaVivo() and self.puedeMoverAl(dir)) {
 			self.position(nuevaPosicion)
+			self.sonidoDePasos()
+			
 		}
 	}
-
+	
+	method sonidoDePasos(){
+		game.sound(["paso1.mp3","paso2.mp3","paso3.mp3","paso4.mp3", "paso5.mp3"].anyOne())
+	}
 	method puedeMoverAl(dir) {
 		// Puede mover si no hay ningun obj en direccion dir o si el obj es colisionable
 		// Todos los obj entienden el mensaje esColisionable()

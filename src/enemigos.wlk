@@ -153,14 +153,13 @@ object fantasmaBoss inherits Fantasma {
 	
 	method todaviaResiste() = resistenciaALaSal > 0 
 	
-	override method recibirAtaqueCon(objeto) {
+	/*override method recibirAtaqueCon(objeto) {
 		//if(objeto.puedeMatarFantasma()) {
 		   self.muere() 
 	   //}else{
 	   	   self.morirSiEsSal()
 	  // }
-	}
-	
+	}*/
 	
 	override method mover(nuevaPosicion, dir){
 		position = game.at(cazador.position().x(),cazador.position().y())
@@ -179,6 +178,6 @@ class Murcielago inherits Enemigo{
 		game.onTick(500, "murcielagoMoving", { => self.mover(orientacion.posicionAl(self), orientacion) })	
 	}	
 	
-	override method atacar() {}
+	override method atk() = atk
 }
 
