@@ -3,14 +3,16 @@ import personaje.*
 import cosasExtras.*
 import enemigos.*
 
+
 class Proteccion inherits Colisionable{
 	const property position
 
     method colisionarCon(cazador) { 
-		game.removeVisual(self)
+	//	cazador.recoger(self)
 	}
-	
 	override method sePuedeAgarrar() = true
+	
+	
 }
 
 class Ajo inherits Proteccion {

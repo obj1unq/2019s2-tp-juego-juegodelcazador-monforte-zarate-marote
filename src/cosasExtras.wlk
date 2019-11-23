@@ -36,6 +36,8 @@ class Colisionable {
 	method desaparecer() {
 		game.removeVisual(self)
 	}
+	
+	method colisionasteCon(ob1, obj2) {}
 }
 
 class GraficaParaCartel {
@@ -69,7 +71,7 @@ class Cartel inherits Colisionable{
 	}
 }
 
-class Encabezado {
+/*class Encabezado {
 	var property image  
 	var property position 
 	
@@ -77,7 +79,7 @@ class Encabezado {
 		image = imagen
 		position = posicion
 	}
-}
+}*/
 
 class Hoja {
 	var parteDelMarcador

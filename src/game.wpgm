@@ -6,7 +6,6 @@ import cosasExtras.*
 import niveles.*
 import direcciones.*
 import protecciones.*
-import config.*
 import municion.*
 import menu.*
 

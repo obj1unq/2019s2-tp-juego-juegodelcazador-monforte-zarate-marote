@@ -18,6 +18,7 @@ class Municion inherits ArmaADistancia{
 	method esFlecha() = false
 	
 	method colisionasteCon(fantasma) {}
+	
 }
 
 class Proyectil inherits Municion{
@@ -83,7 +84,7 @@ class Bala inherits Proyectil {
 
 class Flecha inherits Proyectil {
 	
-	method image() = orientacion.imagenDelPersonaje(self.nombre())
+	method image() = "flechas.png"
 	
 	override method nombre() = "flecha"
 	

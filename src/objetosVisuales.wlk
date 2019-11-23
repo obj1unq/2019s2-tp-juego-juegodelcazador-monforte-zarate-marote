@@ -53,6 +53,12 @@ class Trampa inherits Colisionable {
 	}
 }
 
+object encabezado{
+	var property image = "encabezado.png" 
+	var property position = (-1 -> 15)
+
+}
+
 // OBJETOS DE MENU
 
 object iniciarJuego {

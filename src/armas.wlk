@@ -8,8 +8,8 @@ import niveles.*
 class Arma inherits Colisionable {
 	var property position
     
-    method colisionarCon(cazador) { 
-		game.removeVisual(self)
+   method colisionarCon(cazador) { 
+		//cazador.recoger(self)
 	}
 
     override method puedeSoltarse()= false
@@ -17,8 +17,6 @@ class Arma inherits Colisionable {
 	override method sePuedeAgarrar() = true
 	
 	override method esAtacable() = false 
-	
-	method colisionandoCon(asd) {}
 	
 	method esArrojado() {}
 	
@@ -49,7 +47,8 @@ class ArmaADistancia inherits Arma{
 	
 	override method esArmaADistancia() = true
 	method atacar(arma, pos, dir) {
-		arma.disparar(arma.tipoDeMunicion(dir), pos, dir)
+		arma.tipoDeMunicion(pos, dir)
+		arma.disparar(flecha, pos, dir)
 	}	
 }
 
@@ -59,20 +58,32 @@ object ballesta inherits ArmaADistancia {
 
 
 	method disparar(municion, pos, dir){
-		game.onTick(100, "Proyectil avanzando", {municion.mover(municion.positionAl(municion), dir)})		
+		game.onTick(100, "Proyectil avanzando", {municion.mover(municion.position(), dir)})		
 	}
 	
-	method tipoDeMunicion(dir){ 
+	method tipoDeMunicion(pos, dir){ 
 		return if (cazador.cantFlechas() > 0){
-		 	new Flecha().crear(dir.posicionAl(self))
+		 	flecha.avanzarYSpawnear(pos, dir)
+		 	return flecha
 		}else{
-		 game.say(cazador,"No poseo flechas")
+		 game.error("No poseo flechas")
 		}
 		
 	}
 	override method nombre() = "ballesta"
 	
 	override method esBallesta() = true 
+}
+
+object flecha inherits Flecha{
+	var property image = "flechaLeft.png"
+	
+	override method position() = position
+	method avanzarYSpawnear(pos, dir){
+		position = dir.unaPosicionA(pos)
+		game.addVisualIn(self, position)
+	}
+	
 }
 
 object pistolaDePlata inherits ArmaADistancia {

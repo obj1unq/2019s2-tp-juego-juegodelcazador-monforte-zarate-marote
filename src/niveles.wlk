@@ -5,7 +5,6 @@ import armas.*
 import personaje.*
 import protecciones.*
 import municion.*
-import config.*
 import objetosVisuales.*
 import direcciones.*
 
@@ -15,6 +14,7 @@ class Nivel {
 		self.controles()
 		self.visuales()
 		self.cazador()
+		self.cartel()
 	}
 
 	method cazador() {
@@ -33,7 +33,7 @@ class Nivel {
 	  keyboard.left().onPressDo{ cazador.mover(cazador.position().left(1), izquierda)}
 	  keyboard.right().onPressDo{ cazador.mover(cazador.position().right(1), derecha)}
 	  keyboard.t().onPressDo({ cazador.trampaDeSal()})
-      keyboard.r().onPressDo({ cazador.recoger(game.colliders(cazador).first())})
+      keyboard.r().onPressDo({ cazador.recoger()})
       keyboard.e().onPressDo({ cazador.soltar()})
       keyboard.a().onPressDo({ cazador.ataqueA()})
 	  keyboard.num1().onPressDo({ cazador.equipar(ballesta) })
@@ -53,6 +53,12 @@ class Nivel {
 			game.clear()
 		})
 	}
+	
+	method cartel(){ 
+ 		game.addVisual(new GraficaParaCartel("CartelVidas.png",game.at(0, 14)))
+ 		game.addVisual(encabezado)
+ 		game.errorReporter(cazador)
+ 	}
 
 }
 

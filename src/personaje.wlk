@@ -10,12 +10,12 @@ import menu.*
 import objetosVisuales.*
 
 object cazador inherits Colisionable {
-	const property inventario = []
+	const property inventario = [ballesta]
 	var property hp = 1
 	var property orientacion = izquierda
 	var property position = game.at(15, 1)
 	var property itemEquipado 
-	var property cantFlechas = 0
+	var property cantFlechas = 1
 	var property cantBalas = 0
 	var property cantSal = 0
 	
@@ -27,22 +27,37 @@ object cazador inherits Colisionable {
 
 ///---------------------- LOOTEO ------------------------
 
-	method recoger(objeto) {
-		if (not game.getObjectsIn(position).isEmpty() and objeto.sePuedeAgarrar()){ 
+	method recoger() {
+		if (not game.getObjectsIn(position).isEmpty()){ 
+		var objeto = game.colliders(self).first()
+		if (objeto.sePuedeAgarrar()){ 
 		    inventario.add(objeto)
-		    objeto.colisionarCon(self)
+		   	game.removeVisual(objeto)
 	        self.convertirAMunicion(objeto) 
 	        self.tomarSiEsVida(objeto)
-	        self.buscarEspacioLibre(objeto, game.at(0,15))
+	        self.colocarObjetoEnEncabezado(objeto)
 	    } else {
 	    	game.say(self, "No hay nada para recoger")
 	    }
+	  }
+	 }
+	
+	method colocarObjetoEnEncabezado(obj){
+		if((!obj.esVida() and !obj.esMunicion()) or (obj.esSal()))
+		self.buscarEspacioLibre(obj, game.at(0,15))
 	}
 	
+	method buscarEspacioLibre(obj, pos){
+		if(game.getObjectsIn(pos).isEmpty() or 
+		   game.getObjectsIn(pos).first() == obj){
+			game.addVisualIn(obj, pos)
+		}else{self.buscarEspacioLibre(obj, pos.right(1))
+		}
+	}
 	method tomarSiEsVida(obj){
 		if(obj.esVida())
 			self.curarse()
-		
+			inventario.remove(obj)
 	}
 
 	method convertirAMunicion(objeto){
@@ -87,12 +102,7 @@ object cazador inherits Colisionable {
 		}
 	}
 	
-	method buscarEspacioLibre(obj, pos){
-		if(game.getObjectsIn(pos).isEmpty()or game.getObjectsIn(pos).contains(obj)){
-			game.addVisualIn(obj, pos)
-		}else{self.buscarEspacioLibre(obj, pos.right(1))
-		}
-	}
+
 	
 
 	method encontrarObjetoEnBolsa(objeto) {
@@ -101,8 +111,8 @@ object cazador inherits Colisionable {
 
 ///---------------------- INTERACCIÓN -----------------------
 
-	method recibirAtaque() {
-		hp = (hp - 1).min(0)
+	method recibirAtaque(atk) {
+		hp = (hp - atk).min(0)
 		self.comprobarVida()
 	}
 
@@ -146,6 +156,16 @@ object cazador inherits Colisionable {
 		if (cantSal > 0){
 			new Sal().crear(self.position())
 			self.restarSal()
+			self.removerSalDeEncabezado(game.at(0, 15))
+		}
+	}
+	method removerSalDeEncabezado(pos){
+		if(!game.getObjectsIn(pos).isEmpty() and
+			game.getObjectsIn(pos).head().esSal()){
+			game.removeVisual(game.getObjectsIn(pos).head())
+		}
+		else{
+			self.removerSalDeEncabezado(pos.right(1))		
 		}
 	}
 ///----------------------------------------------------------
@@ -165,9 +185,9 @@ object cazador inherits Colisionable {
 		return game.getObjectsIn(dir.posicionAl(self)).isEmpty() or game.getObjectsIn(dir.posicionAl(self)).all{ obj => obj.esColisionable() }
 	}
 
-	method colisionarCon(enemigo) {
-	     self.recibirAtaque()  /// esto esta dos veces (enemigos)
-	     self.perdiste()
+	method colisionarCon(objeto) {
+	    // self.recoger(objeto)  //
+	     
 	}
 
 	method estaVivo() = hp > 0
