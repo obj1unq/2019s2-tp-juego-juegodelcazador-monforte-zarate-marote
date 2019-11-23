@@ -11,7 +11,6 @@ import objetosVisuales.*
 
 object cazador inherits Colisionable {
 	const property inventario = [ballesta]
-	var property hp = 1
 	var property orientacion = izquierda
 	var property position = game.at(15, 1)
 	var property itemEquipado 
@@ -34,7 +33,6 @@ object cazador inherits Colisionable {
 		    inventario.add(objeto)
 		   	game.removeVisual(objeto)
 	        self.convertirAMunicion(objeto) 
-	        self.tomarSiEsVida(objeto)
 	        self.colocarObjetoEnEncabezado(objeto)
 	    } else {
 	    	game.say(self, "No hay nada para recoger")
@@ -53,11 +51,6 @@ object cazador inherits Colisionable {
 			game.addVisualIn(obj, pos)
 		}else{self.buscarEspacioLibre(obj, pos.right(1))
 		}
-	}
-	method tomarSiEsVida(obj){
-		if(obj.esVida())
-			self.curarse()
-			inventario.remove(obj)
 	}
 
 	method convertirAMunicion(objeto){
@@ -86,10 +79,6 @@ object cazador inherits Colisionable {
     	} 		
     }
 
-	method curarse() {
-		hp = (hp + 1).min(5)
-	}
-
 	method tiene(objeto) {
 		return inventario.contains(objeto)
 	}
@@ -101,9 +90,6 @@ object cazador inherits Colisionable {
 			game.say(self, "No posees la " + objeto.nombre())
 		}
 	}
-	
-
-	
 
 	method encontrarObjetoEnBolsa(objeto) {
 		return inventario.find({ obj => obj.nombre() == objeto.nombre() })
@@ -112,15 +98,22 @@ object cazador inherits Colisionable {
 ///---------------------- INTERACCIÓN -----------------------
 
 	method recibirAtaque(atk) {
-		hp = (hp - atk).max(0)
 		self.comprobarVida()
 	}
 
 	method comprobarVida(){
-		if (hp == 0 && !game.hasVisual(gameOver)){
+		if(vidasDeJuego.contador() > 1) {
+			self.reiniciarUbicacion()
+			vidasDeJuego.descontar()
+		} else { 
 			self.perdiste()
 		}
+	}	
+	
+	method reiniciarUbicacion() {
+	     position = game.at(15,1)	
 	}
+	
 	method ataqueA() {
 		if (itemEquipado.esArmaADistancia()){
 			itemEquipado.atacar(itemEquipado, self.position(), orientacion)
@@ -159,6 +152,7 @@ object cazador inherits Colisionable {
 			self.removerSalDeEncabezado(game.at(0, 15))
 		}
 	}
+	
 	method removerSalDeEncabezado(pos){
 		if(!game.getObjectsIn(pos).isEmpty() and
 			game.getObjectsIn(pos).head().esSal()){
@@ -168,16 +162,15 @@ object cazador inherits Colisionable {
 			self.removerSalDeEncabezado(pos.right(1))		
 		}
 	}
-///----------------------------------------------------------
+
 ///---------------------- MOVIMIENTO ------------------------
-///----------------------------------------------------------
+
 	method mover(nuevaPosicion, dir) {
 		// Puede mover si no hay un objeto no colisionable en direccion dir
 		orientacion = dir
-		if (self.estaVivo() and self.puedeMoverAl(dir)) {
+		if (self.puedeMoverAl(dir)) {
 			self.position(nuevaPosicion)
-			self.sonidoDePasos()
-			
+			self.sonidoDePasos()			
 		}
 	}
 	
@@ -191,15 +184,10 @@ object cazador inherits Colisionable {
 	}
 
 	method colisionarCon(objeto) {
-	    // self.recoger(objeto)  //
-	     
+	    // self.recoger(objeto)    
 	}
 
-	method estaVivo() = hp > 0
-
 	method ganaElJuego() = not dracula.estaVivo()
-
-	method muere() { return  hp == 0 }
 
 	method perdiste() { 
 		game.say(self, "EL MAL SEGUIRA LATENTE")
