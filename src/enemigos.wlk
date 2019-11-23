@@ -38,9 +38,22 @@ class Enemigo inherits Colisionable {
     }
     method atk()
     
-    method crear(posicion, imagen) {
-		// Genera un enemigo en el tablero.
-		game.addVisualIn(self, posicion)	
+    method crearFantasma(posicion) {
+		var fantasmin = new Fantasma(position = posicion, hp = 1)
+		game.addVisual(fantasmin)
+		fantasmin.patrullar()
+	}
+	
+	method crearBruja(posicion) {
+		var bruji = new Bruja(position = posicion, hp = 1)
+		game.addVisual(bruji)
+		bruji.patrullar()
+	}
+	
+	method crearMurcielago(posicion) {
+		var murci = new Murcielago(position = posicion, hp = 1)
+		game.addVisual(murci)
+		murci.patrullar()
 	}
 	
 	
@@ -112,9 +125,9 @@ class Fantasma inherits Enemigo{
 	override method atk() = atk
 	
 	method morirSiEsSal(){
-	   if(game.colliders(self).any({obj => obj.esSal()})){
+	   if(game.getObjectsIn(self.position()).any({obj => obj.esSal()})){
 	   self.desaparecer()
-	   //game.getObjectsIn(self.position()).find({obj => obj.esSal()}).desaparecer()
+	   game.getObjectsIn(self.position()).find({obj => obj.esSal()}).desaparecer()
 	   }//else if(game.getObjectsIn(self.position()).any({obj => obj.esCazador()})){
 		//cazador.recibirAtaque()
 		else{}

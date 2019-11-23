@@ -12,4 +12,5 @@ Integrantes:
 
 #### Descripción e instrucciones
 
-(completar)
+
+Te encomendaron en una misión

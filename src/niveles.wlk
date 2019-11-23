@@ -7,6 +7,7 @@ import protecciones.*
 import municion.*
 import objetosVisuales.*
 import direcciones.*
+import menu.*
 
 class Nivel {
 
@@ -64,25 +65,94 @@ class Nivel {
 
 }
 
+object menu inherits Nivel{
+	
+	override method cargar() {
+		self.controles()
+		self.visuales()
+	}
+	
+	override method siguienteNivel(){
+		self.siguienteNivel(nivel1)
+	}
+	
+	method siguienteNivel(nivel) {
+		game.sound("risaMalvada.mp3")
+		game.schedule(2000, { nivel.cargar()} )
+		game.schedule(4000, { nivel.sound() })
+	}
+	
+	override method visuales(){
+		game.boardGround("menuInicial.jpg")
+        game.addVisual(iniciarJuego)
+        game.addVisual(configuracion)
+        game.addVisual(salirJuego)
+     
+	}
+	
+	override method controles(){
+		//Configuracion de teclado en menu. 
+        keyboard.enter().onPressDo({self.siguienteNivel()})
+        keyboard.space().onPressDo({configuracionTeclado.iniciar()})
+       	keyboard.control().onPressDo({game.boardGround("fondoAzul.jpg")})
+        keyboard.q().onPressDo({game.stop()})	
+	}
+	
+	override method sound(){}
+	
+	
+}
+
+object pantallaDeCarga {
+	method iniciar() {
+		game.clear()
+		game.boardGround("pantallaCarga.jpg")
+		game.addVisualIn(cargaDelJuego, game.at(8,7))
+		game.schedule(3000, {nivel1.cargar()})		
+	}
+}
+
+object configuracionTeclado {	
+	method iniciar() {
+		game.clear()
+		game.boardGround("pantallaControles.jpg")
+		game.addVisual(teclaUp)
+		game.addVisual(teclaDown)
+		game.addVisual(teclaLeft)
+		game.addVisual(teclaRight)
+        game.addVisual(tecla1)
+		game.addVisual(tecla2)
+		game.addVisual(tecla3)
+		game.addVisual(tecla4)
+		game.addVisual(teclaR)
+		game.addVisual(teclaS)
+		game.addVisual(teclaE)
+		game.addVisual(teclaA)
+		game.addVisual(volverAlMenu)
+		
+	   // Teclado en Configuraciones
+	   //keyboard.q().onPressDo(menu.iniciar())
+		
+	}
+}
+
 object nivel1 inherits Nivel{
 	
 	override method siguienteNivel(){
 		game.sound("aperturaPuerta.mp3")
 		game.onCollideDo(cazador, {puerta => puerta.cambioDeEscenario(nivel2)})
 		game.schedule(2000, { game.sound("cierrePuerta.mp3") })
-		game.schedule(4000, { nivel2.sound() })
+		game.onTick(4000, "nivel 1 musica", {game.sound("Nivel1.mp3") })
 	}
 	
 	override method cargar() {
 		game.clear()
-		game.boardGround("fondoAzul.jpg")
+		game.ground("fondoAzul.jpg")
 		
 		super()
 	}
 	
-	override method sound(){
-		game.sound("Nivel1.mp3")
-	}
+	override method sound() = game.sound("Nivel1.mp3")
 	
 	override method visuales() {
 	   // CASTILLO	
@@ -116,31 +186,20 @@ object nivel1 inherits Nivel{
     posicionesPared.forEach({posicion => new Pared().crear(posicion, "laberinto1.png")})
      
     // Fantasmas
+    const fantasmasPos = [game.at(3, 4), game.at(7, 1), game.at(2, 10),  game.at(11, 7),  game.at(16, 8)]
+    //fantasmasPos.forEach({pos => new Fantasma().crearFantasma(pos)})
     
-    var fantasma2 = new Fantasma(position = game.at(3, 4), hp = 1)
-    var fantasma3 = new Fantasma(position = game.at(7, 1), hp = 1)
-    var fantasma4 = new Fantasma(position = game.at(2, 10), hp = 1)
-    var fantasma5 = new Fantasma(position = game.at(11, 7), hp = 1)
-    var fantasma7 = new Fantasma(position = game.at(16, 8), hp = 1)
-    
-    const fantasmas = [fantasma2,fantasma3,fantasma4,fantasma5,fantasma7]
-    
-    //fantasmas.forEach({fantasma => 
-    	//game.addVisual(fantasma)
-    	//fantasma.patrullar()
-    	//}) 
-    
+    // Sales
     const sales = [ new Sal(position = game.at(17,1)),new Sal(position = game.at(18,1)),new Sal(position = game.at(19,1)),
-    	            new Sal(position = game.at(20,1)),new Sal(position = game.at(20,2))]
-    	             
+    	            new Sal(position = game.at(20,1)),new Sal(position = game.at(20,2))]           
     sales.forEach({sal => game.addVisual(sal)}) 
      
+    // Vidas
     const vidas = [new Vida(position = game.at(1,1)),new Vida(position = game.at(18,5))] 
-    
     vidas.forEach({vida => game.addVisual(vida)})
      
+    // Flechas
     const flechas = [new Flecha(position = game.at(1,3)),new Flecha(position = game.at(14,3)),new Flecha(position = game.at(16,10))]
-    
     flechas.forEach({flecha => game.addVisual(flecha)}) 	
     }
 }
@@ -160,9 +219,8 @@ object nivel2 inherits Nivel{
 		super()	
 	}
     
-    override method sound(){
-		game.sound("Nivel2.mp3")
-	}
+    override method sound() = game.sound("Nivel2.mp3")
+	
     override method visuales() {
     /// LABERINTO
 
@@ -194,20 +252,8 @@ object nivel2 inherits Nivel{
     posicionesPared.forEach({posicion => new Pared().crear(posicion, "muroCastillo1.jpg")})
     
     //Brujas
-     
-    var bruja1 = new Bruja(position = game.at(7, 2), hp = 1)
-    var bruja2 = new Bruja(position = game.at(2, 6), hp = 1)
-    var bruja3 = new Bruja(position = game.at(13, 4), hp = 1)
-    var bruja4 = new Bruja(position = game.at(6, 8), hp = 1)
-    var bruja5 = new Bruja(position = game.at(17, 12), hp = 1)
-    var bruja6 = new Bruja(position = game.at(4, 12), hp = 1)
-    
-    const brujas = [bruja1,bruja2,bruja3,bruja4,bruja5,bruja6]
-    
-    brujas.forEach({bruja => 
-    	game.addVisual(bruja)
-    	bruja.patrullar()
-    }) 
+    const brujasPos = [game.at(7, 2), game.at(2, 6), game.at(13, 4), game.at(6, 8), game.at(17, 12), game.at(4, 12)]
+	brujasPos.forEach({pos => new Bruja().crearBruja(pos)})
     
     const flechas = [new Flecha(position = game.at(3,1)),new Flecha(position = game.at(15,11)),
     	             new Flecha(position = game.at(13,9))]
@@ -237,9 +283,8 @@ object nivel3 inherits Nivel{
 		super()	
 	}
     
-    override method sound(){
-		game.sound("NivelFinal.mp3")
-	}
+    override method sound() = game.sound("NivelFinal.mp3")
+    
     override method visuales() {
     
     /// LABERINTO
@@ -269,21 +314,10 @@ object nivel3 inherits Nivel{
     posicionesPared.forEach({posicion => new Pared().crear(posicion, "muroCastillo1.jpg")})
        
     //Murcielagos
-     
-    var murcielago1 = new Murcielago(position = game.at(7, 2), hp = 1)
-    var murcielago2 = new Murcielago(position = game.at(16, 1), hp = 1)
-    var murcielago3 = new Murcielago(position = game.at(11, 5), hp = 1)
-    var murcielago4 = new Murcielago(position = game.at(3, 7), hp = 1)
-    var murcielago5 = new Murcielago(position = game.at(17, 6), hp = 1)
-    var murcielago6 = new Murcielago(position = game.at(14, 12), hp = 1)
-    var murcielago7 = new Murcielago(position = game.at(12, 8), hp = 1)
+    const murcielagosPos = [game.at(7, 2), game.at(16, 1), game.at(11, 5), game.at(3, 7), game.at(17, 6), game.at(14, 12), game.at(12, 8)]
+	 
+	murcielagosPos.forEach({pos => new Murcielago().crearMurcielago(pos)})
 
-    
-    const murcielagos = [murcielago1,murcielago2,murcielago3,murcielago4,murcielago5,murcielago6,murcielago7]
-    
-    murcielagos.forEach({murcielago => 
-    	game.addVisual(murcielago)
-    	murcielago.patrullar() }) 
     
     const vidas = [new Vida(position = game.at(3,10)),new Vida(position = game.at(18,9))] 
     

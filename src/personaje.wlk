@@ -112,7 +112,7 @@ object cazador inherits Colisionable {
 ///---------------------- INTERACCIÓN -----------------------
 
 	method recibirAtaque(atk) {
-		hp = (hp - atk).min(0)
+		hp = (hp - atk).max(0)
 		self.comprobarVida()
 	}
 
