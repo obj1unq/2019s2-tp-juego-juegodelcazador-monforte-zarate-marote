@@ -7,19 +7,73 @@ import protecciones.*
 import municion.*
 import config.*
 import objetosVisuales.*
+import direcciones.*
 
-object nivel1 {
-	method iniciar() {
-	   //game.clear()
-	   game.boardGround("fondoAzul.jpg")	
-	
-	// CASTILLO	
+class Nivel {
+
+	method cargar() {
+		self.controles()
+		self.visuales()
+		self.cazador()
+	}
+
+	method cazador() {
+		// Personaje
+		game.addVisual(cazador)
+		// Colisiones 
+		game.whenCollideDo(cazador, { 
+			objeto => objeto.colisionarCon(cazador)
+		})
+	}
+
+	method controles() {
 		
+	  keyboard.up().onPressDo{ cazador.mover(cazador.position().up(1), arriba)}
+	  keyboard.down().onPressDo{ cazador.mover(cazador.position().down(1), abajo)}
+	  keyboard.left().onPressDo{ cazador.mover(cazador.position().left(1), izquierda)}
+	  keyboard.right().onPressDo{ cazador.mover(cazador.position().right(1), derecha)}
+	  keyboard.t().onPressDo({ cazador.trampaDeSal()})
+      keyboard.r().onPressDo({ cazador.recoger(game.colliders(cazador).first())})
+      keyboard.e().onPressDo({ cazador.soltar()})
+      keyboard.a().onPressDo({ cazador.ataqueA()})
+	  keyboard.num1().onPressDo({ cazador.equipar(ballesta) })
+      keyboard.num2().onPressDo({ cazador.equipar(estacaYMartillo) })
+      keyboard.num3().onPressDo({ cazador.equipar(pistolaDePlata) })
+      keyboard.space().onPressDo({ self.siguienteNivel()})
+	}
+
+	method visuales()  // cada nivel maneja su propio visuales / fondo, enemigos y objetos
+
+	method ganaste(){} 
+	 
+	method siguienteNivel()
+	
+	method perdiste(){
+		game.onTick(1000,"self",{
+			game.clear()
+		})
+	}
+
+}
+
+object nivel1 inherits Nivel{
+	
+	override method siguienteNivel(){
+		game.onCollideDo(cazador, {puerta => puerta.cambioDeEscenario(nivel2)})
+	}
+	
+	override method cargar() {
+		game.clear()
+		game.boardGround("fondoAzul.jpg")
+		super()
+	}
+	
+	override method visuales() {
+	   // CASTILLO	
 	   game.addVisualIn(castillo, game.at(2,12))
 	   puerta.crear(game.at(11,12), "puerta.png")
 		
-	/// LABERINTO
-
+	   /// LABERINTO
     const posicionesPared = [(0->0),(0->1),(0->2),(0->3),(0->4),(0->5),(0->6),(0->7),(0->8),(0->9),(0->10),(0->11),
     	                     (1->0),(1->2),(1->4),(1->5),(1->11),
     	                     (2->0),(2->2),(2->5),(2->7),(2->8),(2->9),(2->11),
@@ -57,8 +111,8 @@ object nivel1 {
     
     //fantasmas.forEach({fantasma => 
     	//game.addVisual(fantasma)
-    	//fantasma.patrullar()}
-    	//) 
+    	//fantasma.patrullar()
+    	//}) 
     
     const sales = [ new Sal(position = game.at(17,1)),new Sal(position = game.at(18,1)),new Sal(position = game.at(19,1)),
     	            new Sal(position = game.at(20,1)),new Sal(position = game.at(20,2))]
@@ -71,25 +125,23 @@ object nivel1 {
      
     const flechas = [new Flecha(position = game.at(1,3)),new Flecha(position = game.at(14,3)),new Flecha(position = game.at(16,10))]
     
-    flechas.forEach({flecha => game.addVisual(flecha)})
-
-	game.addVisual(cazador)
-	//  CONFIG	
- 	config.teclado()
-	config.cartel()
-
-    //colisiones
-    game.onCollideDo(cazador, {puerta => puerta.colisionasteCon(cazador, nivel2)}) 
-    game.onCollideDo(cazador, {obstaculo => obstaculo.colisionarCon(cazador)})
-}    
-  	
+    flechas.forEach({flecha => game.addVisual(flecha)}) 	
+    }
 }
 
-object nivel2 {
-    method iniciar() {
-    game.clear()	
-    game.boardGround("textura1.jpg")	
+object nivel2 inherits Nivel{
     
+    override method siguienteNivel(){
+      game.onCollideDo(cazador, {puerta => puerta.cambioDeEscenario(nivel3)})
+	}
+    
+    override method cargar() {
+		game.clear()
+		game.boardGround("textura1.jpg")
+		super()	
+	}
+    
+    override method visuales() {
     /// LABERINTO
 
     puerta.crear(game.at(15,2), "puerta.png")
@@ -130,10 +182,10 @@ object nivel2 {
     
     const brujas = [bruja1,bruja2,bruja3,bruja4,bruja5,bruja6]
     
-    //brujas.forEach({bruja => 
-    	//game.addVisual(bruja)
-    	//bruja.patrullar()
-    //}) 
+    brujas.forEach({bruja => 
+    	game.addVisual(bruja)
+    	bruja.patrullar()
+    }) 
     
     const flechas = [new Flecha(position = game.at(3,1)),new Flecha(position = game.at(15,11)),
     	             new Flecha(position = game.at(13,9))]
@@ -150,26 +202,22 @@ object nivel2 {
     
     game.addVisualIn(ballesta, game.at(14,5))
     
-    game.addVisual(cazador)
-    
-    //  CONFIG	
- 	config.teclado()
-	config.cartel()
-	
-	//colisiones
-    game.onCollideDo(cazador, {puerta => puerta.colisionasteCon(cazador, nivel3)}) 
-    game.onCollideDo(cazador, {obstaculo => obstaculo.colisionarCon(cazador)})
-	
     }
 }
 
-object nivel3 {
-    method iniciar() {
-    //game.clear()	
-    game.boardGround("textura2.jpg")	
+object nivel3 inherits Nivel{
+	
+	override method siguienteNivel() {}
+    
+    override method cargar() {
+		game.clear()
+		game.boardGround("textura2.jpg")
+		super()	
+	}
+    
+    override method visuales() {
     
     /// LABERINTO
-
     const posicionesPared = [(0->0),(0->1),(0->2),(0->3),(0->4),(0->5),(0->6),(0->7),(0->8),(0->9),(0->10),(0->11),
     	                     (1->0),(1->11),
     	                     (2->0),(2->11),
@@ -210,16 +258,14 @@ object nivel3 {
     
     murcielagos.forEach({murcielago => 
     	game.addVisual(murcielago)
-    	murcielago.patrullar()
-    }) 
+    	murcielago.patrullar() }) 
     
     const vidas = [new Vida(position = game.at(3,10)),new Vida(position = game.at(18,9))] 
     
     vidas.forEach({vida => game.addVisual(vida)})
     
     const balas = [new Bala(position = game.at(18,4)),new Bala(position = game.at(3,4)),
-    	           new Bala(position = game.at(20,12)),new Bala(position = game.at(8,12))    
-    ]
+    	           new Bala(position = game.at(20,12)),new Bala(position = game.at(8,12))]
     
     balas.forEach({bala => game.addVisual(bala)})
     
@@ -227,13 +273,6 @@ object nivel3 {
     
     game.addVisualIn(pistolaDePlata, game.at(20,1))
     
-    game.addVisualIn(dracula, game.at(11,10))
- 
-    game.addVisual(cazador)    
-    
-    //  CONFIG	
- 	config.teclado()
-	config.cartel()
-}	
-	
+    game.addVisualIn(dracula, game.at(11,10))    
+    }	
 }

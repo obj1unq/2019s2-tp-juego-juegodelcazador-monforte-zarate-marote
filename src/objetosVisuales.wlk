@@ -19,7 +19,7 @@ object puerta inherits Colisionable {
 	}
 	
 	method cambioDeEscenario(nivel) {
-		game.schedule(2000, { nivel.iniciar()})
+		game.schedule(2000, { nivel.cargar()})
 	}
 	
 	method crear(posicion,imagen) {	

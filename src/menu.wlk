@@ -21,8 +21,7 @@ object pantallaDeCarga {
 		//game.clear()
 		game.boardGround("pantallaCarga.jpg")
 		game.addVisualIn(cargaDelJuego, game.at(8,7))
-		//game.schedule(3000, {nivel1.iniciar()})
-		
+		game.schedule(3000, {nivel1.cargar()})		
 	}
 }
 
