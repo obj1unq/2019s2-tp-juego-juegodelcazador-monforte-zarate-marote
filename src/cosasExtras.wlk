@@ -29,6 +29,8 @@ class Colisionable {
 	
 	method sePuedeAgarrar() = false
 	
+	method esVida() = false
+	
 	method esCazador() = false
 	
 	method esSal() = false
@@ -39,7 +41,7 @@ class Colisionable {
 	
 	method colisionasteCon(ob1, obj2) {}
 }
-
+ 
 class GraficaParaCartel {
 	var property image
 	var property position
@@ -71,7 +73,7 @@ class Cartel inherits Colisionable{
 	}
 }
 
-/*class Encabezado {
+class Encabezado {
 	var property image  
 	var property position 
 	
@@ -79,7 +81,7 @@ class Cartel inherits Colisionable{
 		image = imagen
 		position = posicion
 	}
-}*/
+}
 
 class Hoja {
 	var parteDelMarcador

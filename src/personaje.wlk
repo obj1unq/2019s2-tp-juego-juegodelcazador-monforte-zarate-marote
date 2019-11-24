@@ -33,6 +33,7 @@ object cazador inherits Colisionable {
 		    inventario.add(objeto)
 		   	game.removeVisual(objeto)
 	        self.convertirAMunicion(objeto) 
+	        self.recogerSiEsVida(objeto)
 	        self.colocarObjetoEnEncabezado(objeto)
 	    } else {
 	    	game.say(self, "No hay nada para recoger")
@@ -41,7 +42,7 @@ object cazador inherits Colisionable {
 	 }
 	
 	method colocarObjetoEnEncabezado(obj){
-		if((!obj.esVida() and !obj.esMunicion()) or (obj.esSal()))
+		if((!obj.esMunicion()) or (obj.esSal()))
 		self.buscarEspacioLibre(obj, game.at(0,15))
 	}
 	
@@ -51,6 +52,12 @@ object cazador inherits Colisionable {
 			game.addVisualIn(obj, pos)
 		}else{self.buscarEspacioLibre(obj, pos.right(1))
 		}
+	}
+	
+	method recogerSiEsVida(obj){
+		if(obj.esVida())
+			self.agregarVida()
+			inventario.remove(obj)
 	}
 
 	method convertirAMunicion(objeto){
@@ -78,6 +85,10 @@ object cazador inherits Colisionable {
             inventario.remove(inventario.head())	
     	} 		
     }
+    
+    method agregarVida() {
+		vidasDeJuego.sumar()
+	}
 
 	method tiene(objeto) {
 		return inventario.contains(objeto)
@@ -102,10 +113,10 @@ object cazador inherits Colisionable {
 	}
 
 	method comprobarVida(){
-		if(vidasDeJuego.contador() > 1) {
+       if(vidasDeJuego.contador() > 1) {
 			self.reiniciarUbicacion()
-			vidasDeJuego.descontar()
-		} else { 
+			vidasDeJuego.descontar()			
+		  } else { 
 			self.perdiste()
 		}
 	}	
@@ -168,7 +179,7 @@ object cazador inherits Colisionable {
 	method mover(nuevaPosicion, dir) {
 		// Puede mover si no hay un objeto no colisionable en direccion dir
 		orientacion = dir
-		if (self.puedeMoverAl(dir)) {
+		if (/*self.estaVivo() and */self.puedeMoverAl(dir)) {
 			self.position(nuevaPosicion)
 			self.sonidoDePasos()			
 		}

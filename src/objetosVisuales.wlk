@@ -156,4 +156,9 @@ object vidasDeJuego {
     method descontar() { 
     	contador -= 1
     }
+    
+    method sumar() {
+        contador +=1	
+    }
+    
 }

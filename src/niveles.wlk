@@ -62,7 +62,6 @@ class Nivel {
  		game.addVisual(encabezado)
  		game.errorReporter(cazador)
  	}
-
 }
 
 object menu inherits Nivel{

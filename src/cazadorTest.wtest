@@ -6,7 +6,6 @@ import cosasExtras.*
 import protecciones.*
 import municion.*
 
-
 describe "cazador" {
 	
 const sal = new Sal()
