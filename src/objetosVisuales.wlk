@@ -66,23 +66,9 @@ object iniciarJuego {
 	const property image = "jugar.png"	
 }
 
-object configuracion {
-    const property position = game.at(2,3)
-    const property image = "botonConfig.png"	
-}
-
 object salirJuego {
 	const property position = game.at(2,2)
 	const property image = "botonSalir.png"	
-}
-
-object cargaDelJuego {
-    const property image = "cargando2.png"	
-}
-
-object volverAlMenu {
-	const property position = game.at(17,1)
-    const property image = "volverAlMenu.png"	
 }
 
 object teclaDown {
@@ -148,6 +134,17 @@ object teclaA {
 object gameOver {
     const property position = game.at(8,6)
 	const property image = "gameOver.png"	
+}
+
+object suelo {
+	const property position = 0
+	var property image
+	
+    method crear(posicion,imagen) {	
+		//parametros respetan polimorfismo
+		image = imagen
+		game.addVisualIn(self, posicion)
+	}
 }
 
 object vidasDeJuego {
