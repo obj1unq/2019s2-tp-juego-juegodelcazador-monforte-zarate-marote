@@ -147,7 +147,7 @@ object nivel1 inherits Nivel{
 	
 	override method cargar() {
 		game.clear()
-		game.ground("fondoAzul.jpg")
+		game.boardGround("fondoAzul.jpg")
 		
 		super()
 	}
@@ -155,9 +155,7 @@ object nivel1 inherits Nivel{
 	override method sound() = game.sound("Nivel1.mp3")
 	
 	override method visuales() {
-	   // CASTILLO	
-	   game.addVisualIn(castillo, game.at(2,12))
-	   puerta.crear(game.at(11,12), "puerta.png")
+	  
 		
 	   /// LABERINTO
     const posicionesPared = [(0->0),(0->1),(0->2),(0->3),(0->4),(0->5),(0->6),(0->7),(0->8),(0->9),(0->10),(0->11),
@@ -170,9 +168,9 @@ object nivel1 inherits Nivel{
     	                     (7->0),(7->4),(7->6),(7->11),
     	                     (8->0),(8->2),(8->6),(8->7),(8->8),(8->9),(8->11),
     	                     (9->0),(9->2),(9->3),(9->4),(9->6),(9->9),(9->11),
-    	                     (10->0),(10->4),(10->5),(10->6),(10->8),(10->9),(10->11),
-    	                     (11->0),(11->1),(11->2),(11->6),(11->8),
-    	                     (12->0),(12->4),(12->6),(12->8),(12->9),(12->11),
+    	                     (10->0),(10->4),(10->5),(10->6),(10->8),(10->9),(10->11),(10->12),
+    	                     (11->0),(11->1),(11->2),(11->6),(11->8),(11->13),
+    	                     (12->0),(12->4),(12->6),(12->8),(12->9),(12->11),(12->12),
     	                     (13->0),(13->2),(13->3),(13->4),(13->9),(13->10),(13->11),
     	                     (14->0),(14->2),(14->4),(14->5),(14->6),(14->7),(14->11),
     	                     (15->0),(15->2),(15->4),(15->6),(15->7),(15->9),(15->11),
@@ -184,11 +182,22 @@ object nivel1 inherits Nivel{
     	                     (21->0),(21->1),(21->2),(21->3),(21->4),(21->5),(21->6),(21->7),(21->8),(21->9),(21->10),(21->11)]
                             
     posicionesPared.forEach({posicion => new Pared().crear(posicion, "laberinto1.png")})
-     
-    // Fantasmas
-    const fantasmasPos = [game.at(3, 4), game.at(7, 1), game.at(2, 10),  game.at(11, 7),  game.at(16, 8)]
-    fantasmasPos.forEach({pos => new Fantasma().crearFantasma(pos)})
     
+    // CASTILLO	
+	game.addVisualIn(castillo, game.at(2,12))
+	puerta.crear(game.at(11,12), "puerta.png")
+	
+	// Fantasmas
+    const fantasmasPos = [game.at(3, 4), /*game.at(7, 1),game.at(2, 10),*/  game.at(11, 7),  game.at(16, 8)]
+    fantasmasPos.forEach({pos => new Fantasma().crearFantasma(pos)})
+    var fantasmaTrap = new Fantasma(position = game.at(1, 9), hp = 1, orientacion = arriba)
+    var fantasmaTrap2 = new Fantasma(position = game.at(7, 1), hp = 1)
+    game.addVisual(fantasmaTrap)
+    fantasmaTrap.patrullar()
+    game.addVisual(fantasmaTrap2)
+    fantasmaTrap2.patrullar()
+    game.onTick(10000, "activar fantasmatrap", { if(!game.hasVisual(fantasmaTrap2) and !game.hasVisual(fantasmaBoss)){fantasmaBoss.iniciarEvento()}})
+	   
     // Sales
     const sales = [ new Sal(position = game.at(17,1)),new Sal(position = game.at(18,1)),new Sal(position = game.at(19,1)),
     	            new Sal(position = game.at(20,1)),new Sal(position = game.at(20,2))]           
@@ -332,6 +341,8 @@ object nivel3 inherits Nivel{
     game.addVisualIn(estacaYMartillo, game.at(3,9))
     
     game.addVisualIn(pistolaDePlata, game.at(20,1))
+    
+    dracula.position(game.at(11, 10))
     
     game.addVisual(dracula)
     

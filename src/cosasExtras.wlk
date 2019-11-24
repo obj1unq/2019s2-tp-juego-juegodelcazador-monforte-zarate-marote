@@ -13,6 +13,8 @@ class NoColisionable {
 
     method sePuedeAgarrar() = false
     
+    method esSal() = false
+    
 }
 
 class Colisionable {

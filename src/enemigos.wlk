@@ -8,23 +8,47 @@ import wollok.game.*
 import municion.*
 
 class Enemigo inherits Colisionable {
-	var hp
 	var property position 
 	var property orientacion = derecha
- 	 
+ 	var property hp
  	override method puedeSoltarse() = false 
  	
  	override method esAtacable() = true
     
-    method hp() = hp
+	method acechar(){
+		game.onTick(1000, "persiguiendo al cazador", { => self.acercarse()})
+	}
+	
+	method acercarse(){
+		
+		var otraPosicion = cazador.position()
+		var newX = position.x() + if(otraPosicion.x() > position.x()) 1 else -1
+		var newY = position.y() + if(otraPosicion.y() > position.y()) 1 else -1
+		
+		//EVITAR QUE SE POSICIONEN FUERA DEL TABLERO
+		
+		newX = newX.max(0).min(game.width() - 1)
+		newY = newY.max(0).min(game.height() - 1)
+		
+		position = game.at(newX, newY)
+		
+	}
 
-	method muere() { 
-		hp = 0
-		game.say(self, "RIP")
-		game.sound("fantasmaMuere.wav")
-	    self.desaparecer()
-	    //game.schedule(2000, self.desaparecer())
-	    
+	method escapar(){
+		game.onTick(500, "salvese quien pueda", { => self.huir()})
+	}
+	
+	method huir(){
+		var otraPosicion = cazador.position()
+		var newX = position.x() + if(otraPosicion.x() > position.x()) -1 else 1
+		var newY = position.y() +  if(otraPosicion.y() > position.y()) -1 else 1
+		
+
+		newX = newX.max(0).min(game.width() - 1)
+		newY = newY.max(0).min(game.height() - 1)
+		
+		position = game.at(newX, newY)
+		
 	}
 	
 	method estaVivo() = hp > 0
@@ -74,14 +98,14 @@ class Enemigo inherits Colisionable {
 	}
 }
 
-object dracula { 
+object dracula inherits Enemigo{ 
     const property image = "dracula.png"
 	const property atk = 4
-	var property position = game.at(11,10)
-	var hp = 10
-    var previousPosition = position
+	var property hp = 10
     
-    method atk() {
+    override method position() = game.at(11,10)
+    
+    override method atk() {
     	game.say(self, ["La sangre me otorga más PODER!",
     					"EL MAL PREVALECERÁ!",
     					"NO PUEDES CONTRA MI INSECTO!"].anyOne())
@@ -96,9 +120,8 @@ object dracula {
     method malherido() {
     	return hp < 5
     }
-    method hp() = hp   
-    
-    method estaVivo() = hp > 0
+    override method hp() = 	10
+
 	
 	method elVerdaderoDesafio(){
 		game.onTick(500, "sedDeSangre", { => self.cazarOSerCazado()})
@@ -112,44 +135,7 @@ object dracula {
 			self.huir()
 		}
 		
-	}
-	method acercarse(){
-		
-		var otraPosicion = cazador.position()
-		var newX = position.x() + if(otraPosicion.x() > position.x()) 1 else -1
-		var newY = position.y() +  if(otraPosicion.y() > position.y()) 1 else -1
-		
-		//EVITAR QUE SE POSICIONEN FUERA DEL TABLERO
-		
-		newX = newX.max(0).min(game.width() - 1)
-		newY = newY.max(0).min(game.height() - 1)
-		
-		previousPosition = position
-		position = game.at(newX, newY)
-		
-	}
-
-	
-	method huir(){
-		var otraPosicion = cazador.position()
-		var newX = position.x() + if(otraPosicion.x() > position.x()) -1 else 1
-		var newY = position.y() +  if(otraPosicion.y() > position.y()) -1 else 1
-		
-
-		newX = newX.max(0).min(game.width() - 1)
-		newY = newY.max(0).min(game.height() - 1)
-		
-		previousPosition = position
-		position = game.at(newX, newY)
-		
-		
-	}
-	
-	method colisionarCon(cazador){
-		cazador.recibirAtaque(self.atk())
-	}
-	
-	
+	}	
 	
 }
 	
@@ -177,10 +163,16 @@ class Fantasma inherits Enemigo{
 	override method atk() = atk
 	
 	method morirSiEsSal(){
-	   if(game.getObjectsIn(self.position()).any({obj => obj.esSal()}))
+	   if(game.getObjectsIn(self.position()).any({obj => obj.esSal()})){
 	   self.desaparecer()
 	   game.getObjectsIn(self.position()).find({obj => obj.esSal()}).desaparecer()
+	   }
 	   
+	}
+	
+	override method desaparecer(){
+		super()
+		game.sound("fantasmaMuere.mp3")
 	}
 	
 	 override method mover(nuevaPosicion, dir){
@@ -198,27 +190,45 @@ class Fantasma inherits Enemigo{
 }
 
 object fantasmaBoss inherits Fantasma {
-	const property image = "fantasma2.png"
-
-	var resistenciaALaSal = 2
+	var resistenciaALaSal = 1
+	
+	override method image() = "fantasma2.png"
 	
 	override method atk() = atk + 3
 	
-	override method morirSiEsSal(){
-		self.resistirSal()
-		if(self.todaviaResiste())
-		super()
+	method iniciarEvento(){
+		self.position(game.at(11, 11))
+		game.addVisual(self)
+		self.acecharOHuir()
+	}
+		
+	method acecharOHuir(){
+		game.onTick(1000, "persiguiendo al cazador", { => 
+			if (self.todaviaResiste()){
+				self.acechar()
+			}else{
+				self.huir()
+			}	
+		})
 	}
 	
 	method resistirSal() {
-		resistenciaALaSal --
+		resistenciaALaSal--
 	}
 	
 	method todaviaResiste() = resistenciaALaSal > 0 
 	
-	override method mover(nuevaPosicion, dir){
-		position = game.at(cazador.position().x(),cazador.position().y())
-		self.morirSiEsSal()
+	
+	override method acechar(){
+		self.huirSiEsSal()
+		self.acercarse()
+	}
+	
+	method huirSiEsSal(){
+	   if(game.getObjectsIn(self.position()).any({obj => obj.esSal()})){
+	   		self.resistirSal()
+	   game.getObjectsIn(self.position()).find({obj => obj.esSal()}).desaparecer()
+	   }
 	}	
 
 }
