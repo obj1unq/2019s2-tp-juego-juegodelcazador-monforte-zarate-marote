@@ -24,11 +24,3 @@ class Ajo inherits Proteccion {
 	override method sePuedeAgarrar() = true
 }
 const ajo = new Ajo()
-
-
-class Vida inherits Proteccion {
-	const property image = "hp.png"	
-	
-	override method esVida() = true
-	override method sePuedeAgarrar() = true
-}

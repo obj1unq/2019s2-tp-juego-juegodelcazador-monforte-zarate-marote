@@ -149,3 +149,11 @@ object gameOver {
     const property position = game.at(8,6)
 	const property image = "gameOver.png"	
 }
+
+object vidasDeJuego {
+	var property contador = 3
+
+    method descontar() { 
+    	contador -= 1
+    }
+}
