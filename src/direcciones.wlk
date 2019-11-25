@@ -14,10 +14,6 @@ object izquierda inherits Direccion {
 
 	override method posicionAl(jugador) = jugador.position().left(1)
 	
-	method izq(position) {
-		position.x() -1
-	}
-	
 	method opuesto() = derecha
 	
 	override method unaPosicionA(posicion) = posicion.left(1)

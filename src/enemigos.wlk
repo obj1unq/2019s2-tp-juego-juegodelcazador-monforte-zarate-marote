@@ -13,7 +13,7 @@ class Enemigo inherits Colisionable {
  	var property hp
  	override method puedeSoltarse() = false 
  	
- 	override method esAtacable() = true
+ 	override method esEnemigo() = true
     
 	method acechar(){
 		game.onTick(1000, "persiguiendo al cazador", { => self.acercarse()})
@@ -53,8 +53,13 @@ class Enemigo inherits Colisionable {
 	
 	method estaVivo() = hp > 0
 
-    method recibirAtaqueCon(arma){
-    	hp -= arma.danio()
+    method recibirAtaque(dmg){
+    	if(self.estaVivo()){
+    		hp = (hp - dmg).max(0)
+    	}else{
+    		self.desaparecer()
+    	}
+    	
     }
     
     method colisionarCon(cazador) {
@@ -101,7 +106,6 @@ class Enemigo inherits Colisionable {
 object dracula inherits Enemigo{ 
     const property image = "dracula.png"
 	const property atk = 4
-	var property hp = 10
     
     override method position() = game.at(11,10)
     
@@ -142,10 +146,7 @@ object dracula inherits Enemigo{
 class Bruja inherits Enemigo{ 
 	const property atk = 3
 	const property image = "bruja.png" 
-    override method recibirAtaqueCon(arma){
-    	hp -= arma.danio()
-    }
-    
+   
     override method atk() = atk
     
     method patrullar(){
@@ -161,6 +162,8 @@ class Fantasma inherits Enemigo{
 	method nombre() = "fantasma"
 	
 	override method atk() = atk
+	
+	override method recibirAtaque(dmg){}
 	
 	method morirSiEsSal(){
 	   if(game.getObjectsIn(self.position()).any({obj => obj.esSal()})){
@@ -227,6 +230,8 @@ object fantasmaBoss inherits Fantasma {
 	method huirSiEsSal(){
 	   if(game.getObjectsIn(self.position()).any({obj => obj.esSal()})){
 	   		self.resistirSal()
+	   		game.say(self, "AAAHHHH QUEMAAAA")
+	   		game.schedule(3000, {game.say(cazador, "Ya no nos dará problemas")})
 	   game.getObjectsIn(self.position()).find({obj => obj.esSal()}).desaparecer()
 	   }
 	}	

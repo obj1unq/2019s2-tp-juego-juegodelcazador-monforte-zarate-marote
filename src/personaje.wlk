@@ -10,13 +10,14 @@ import menu.*
 import objetosVisuales.*
 
 object cazador inherits Colisionable {
-	const property inventario = [ballesta]
+	const property inventario = [ballesta, pistolaDePlata]
 	var property orientacion = izquierda
 	var property position = game.at(15, 1)
-	var property itemEquipado 
+	var property itemEquipado
 	var property cantFlechas = 1
-	var property cantBalas = 0
-	var property cantSal = 0
+	
+	var property cantBalas = 1
+	var property cantSal = 1
 	
 	method nombre() = "cazador"
 	
@@ -127,10 +128,10 @@ object cazador inherits Colisionable {
 	
 	method ataqueA() {
 		if (itemEquipado.esArmaADistancia()){
-			itemEquipado.atacar(itemEquipado, self.position(), orientacion)
+			itemEquipado.disparar(itemEquipado, self.position(), orientacion)
 			self.restarMunicion(itemEquipado)
 		}else{
-		self.enemigo().recibirAtaqueCon(itemEquipado)
+		self.enemigo().recibirAtaqueCon(itemEquipado.dmg())
 		}
 	}
 
@@ -173,7 +174,8 @@ object cazador inherits Colisionable {
 			self.removerSalDeEncabezado(pos.right(1))		
 		}
 	}
-
+	
+	
 ///---------------------- MOVIMIENTO ------------------------
 
 	method mover(nuevaPosicion, dir) {

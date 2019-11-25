@@ -16,8 +16,6 @@ class Arma inherits Colisionable {
 	
 	override method sePuedeAgarrar() = true
 	
-	override method esAtacable() = false 
-	
 	method esArrojado() {}
 	
 	method esArmaADistancia() = false
@@ -33,70 +31,43 @@ class Arma inherits Colisionable {
 
 object estacaYMartillo inherits Arma {
 	const property image = "estacaYMartillo.png" 
-    var property danio = 1
+    var property danio = 99999999
     var property id = 2
-  /*   override method esUsadaCon(enemigo){ 
-        if (dracula.malherido())
-    	   cazador.atacarACon(dracula, self) 
-    }*/
     
 	override method nombre() = "estaca y el martillo"
 }
 
 class ArmaADistancia inherits Arma{
-	
 	override method esArmaADistancia() = true
-	method atacar(arma, pos, dir) {
-		arma.tipoDeMunicion(pos, dir)
-		arma.disparar(flecha, pos, dir)
-	}	
+	
+	method disparar(arma, pos, dir){
+		var flechas = new Flecha(tipo = flecha, position = dir.unaPosicionA(cazador.position()))
+		var balas = new Bala(tipo = bala, position = dir.unaPosicionA(cazador.position()))
+		
+		if(arma.esBallesta()){
+			self.validarPuedeDisparar(dir)
+			flechas.trayectoria(flechas, pos, dir)
+		}else{
+			self.validarPuedeDisparar(dir)
+			balas.trayectoria(balas, pos, dir)
+		}		
+	}
+	method validarPuedeDisparar(dir) = cazador.puedeMoverAl(dir)
 }
 
 object ballesta inherits ArmaADistancia {
 	const property image = "ballesta.png" 
 	var property danio = 2	
-
-
-	method disparar(municion, pos, dir){
-		game.onTick(100, "Proyectil avanzando", {municion.mover(municion.position(), dir)})		
-	}
-	
-	method tipoDeMunicion(pos, dir){ 
-		return if (cazador.cantFlechas() > 0){
-		 	flecha.avanzarYSpawnear(pos, dir)
-		}else{
-		 game.error("No poseo flechas")
-		}
 		
-	}
 	override method nombre() = "ballesta"
 	
 	override method esBallesta() = true 
-}
-
-object flecha inherits Flecha{
-	override method image() = "flechaLeft.png" 
-	override method position() = position
-	
-	method avanzarYSpawnear(pos, dir){
-		position = dir.unaPosicionA(pos)
-		game.addVisualIn(self, position)
-		return self
-	}
-	
 }
 
 object pistolaDePlata inherits ArmaADistancia {
 	const property image = "armaPlata.png" 
 	var property danio = 4 
 	
-	method tipoDeMunicion(){
-		if (cazador.cantBalas() > 0){
-	
-		}else{
-			game.say(cazador,"No poseo balas")
-		}
-	}
 	override method nombre() = "pistola de plata"
 	
 	override method esPistola() = true 

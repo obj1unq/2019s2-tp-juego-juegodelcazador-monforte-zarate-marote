@@ -7,7 +7,7 @@ class NoColisionable {
 	
 	method esColisionable() = false
 	
-	method esAtacable() = false
+	method esEnemigo() = false
 
     method puedeSoltarse() = false
 
@@ -23,7 +23,7 @@ class Colisionable {
 	
 	method esColisionable() = true
 	
-	method esAtacable() = false
+	method esEnemigo() = false
 	
 	method puedeSoltarse() = true
 	
@@ -40,6 +40,8 @@ class Colisionable {
 	}
 	
 	method colisionasteCon(ob1, obj2) {}
+	
+	method obtenerObjetoDelLugar(elQuePida) = game.getObjectsIn(elQuePida.position())
 }
  
 class GraficaParaCartel {

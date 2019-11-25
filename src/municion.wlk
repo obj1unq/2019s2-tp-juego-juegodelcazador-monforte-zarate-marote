@@ -23,21 +23,40 @@ class Municion inherits ArmaADistancia{
 
 class Proyectil inherits Municion{
 	var property orientacion = cazador.orientacion()
-	var property cant = 1
-	
+
 	var alcance = self.alcance()
 	method alcance()
-
-	method crear(posicion) {
-		return game.addVisualIn(self, posicion)
+	method dmg()
+	
+	method crear(dir) {
+		 game.addVisual(self)
 	}
 	
-		method mover(nuevaPosicion, dir) {
+	 
+	 method trayectoria(municion, pos, dir){
+	 	orientacion = dir
+	 	municion.crear(dir)
+	 	game.onTick(100, "trayectoria", {
+	 		municion.mover(dir.posicionAl(self),dir)
+	 		municion.impactar()
+	 	})
+	 }
+	 
+	 method impactar(){
+	 	if(!self.obtenerObjetoDelLugar(self).isEmpty() and self.obtenerObjetoDelLugar(self).first().esEnemigo())
+	 		self.obtenerObjetoDelLugar(self).first().recibirAtaque(self.dmg())
+	 }
+	 
+	method mover(nuevaPosicion,dir) {
 		// Puede mover si no hay un obj no colisionable en direccion dir
-		orientacion = dir
+		
 		if (self.elProyectilTieneAlcance() and self.puedeMoverAl(dir)) {
 			self.position(nuevaPosicion)
-		}else{orientacion = orientacion.opuesto()}
+			alcance--
+		}else{
+			self.desaparecer()
+			game.removeTickEvent("trayectoria")
+		}
 	}
 
 	method puedeMoverAl(dir) {
@@ -45,9 +64,8 @@ class Proyectil inherits Municion{
 		// Todos los obj entienden el mensaje esColisionable()
 		return game.getObjectsIn(dir.posicionAl(self)).isEmpty() or 
 			  game.getObjectsIn(dir.posicionAl(self)).all{ obj => obj.esColisionable() }
-	
 	}
-	
+
 	method elProyectilTieneAlcance() = (alcance > 0)
 	
 } 
@@ -55,9 +73,11 @@ class Proyectil inherits Municion{
 class Sal inherits Proyectil {
 	var property image = "sal.png"
 	
-	override method alcance() = 1
+	method cant() = 1
 	
-	override method puedeSoltarse() = true
+	override method dmg(){}
+	
+	override method alcance() = 1
 	
 	override method esArrojado() {
 	   game.addVisualIn(self, cazador.position())	
@@ -71,8 +91,9 @@ class Sal inherits Proyectil {
 
 
 class Bala inherits Proyectil {
+	var tipo
 	
-	method image() = orientacion.imagenDelPersonaje(self.nombre())
+	method image() = tipo.image()
 	
 	override method nombre() = "bala"
 	
@@ -80,11 +101,13 @@ class Bala inherits Proyectil {
 	
 	override method esBala() = true
 	
+	override method dmg() = 4
 }
 
 class Flecha inherits Proyectil {
+	var tipo
 	
-	method image() = "flechas.png"
+	method image() = tipo.image()
 	
 	override method nombre() = "flecha"
 	
@@ -92,4 +115,27 @@ class Flecha inherits Proyectil {
 	
 	override method esFlecha() = true
 	
+	override method dmg() = 2
 }
+// estas son de proyectil
+
+object flecha inherits Flecha{
+	
+	override method image() = orientacion.imagenDelPersonaje(self.nombre())	
+}
+
+object bala inherits Bala{
+	
+	override method image() = orientacion.imagenDelPersonaje(self.nombre())
+}
+
+// estas son para el loot
+object carcaj inherits Flecha{
+	
+	override method image() = "flechas.png"
+}
+object cargador inherits Bala{
+	
+	override method image() = "balas.png"
+}
+
