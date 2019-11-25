@@ -26,15 +26,18 @@ class Arma inherits Colisionable {
 	
 	method nombre()
 	
+	method esEstaca() = false
+	
 	
 }
 
-object estacaYMartillo inherits Arma {
+object estaca inherits Arma {
 	const property image = "estacaYMartillo.png" 
     var property danio = 99999999
     var property id = 2
     
-	override method nombre() = "estaca y el martillo"
+    override method esEstaca() = true
+	override method nombre() = "estaca"
 }
 
 class ArmaADistancia inherits Arma{
@@ -44,15 +47,18 @@ class ArmaADistancia inherits Arma{
 		var flechas = new Flecha(tipo = flecha, position = dir.unaPosicionA(cazador.position()))
 		var balas = new Bala(tipo = bala, position = dir.unaPosicionA(cazador.position()))
 		
-		if(arma.esBallesta()){
-			self.validarPuedeDisparar(dir)
+		if(arma.esBallesta() && self.validarPuedeDisparar(dir)){
+			
 			flechas.trayectoria(flechas, pos, dir)
-		}else{
-			self.validarPuedeDisparar(dir)
+		}else if(arma.esPistola() && self.validarPuedeDisparar(dir)){
+			
 			balas.trayectoria(balas, pos, dir)
 		}		
 	}
 	method validarPuedeDisparar(dir) = cazador.puedeMoverAl(dir)
+	
+	
+	
 }
 
 object ballesta inherits ArmaADistancia {
@@ -62,6 +68,8 @@ object ballesta inherits ArmaADistancia {
 	override method nombre() = "ballesta"
 	
 	override method esBallesta() = true 
+	
+	method estaCargada() = cazador.cantFlechas() > 0
 }
 
 object pistolaDePlata inherits ArmaADistancia {
@@ -72,4 +80,5 @@ object pistolaDePlata inherits ArmaADistancia {
 	
 	override method esPistola() = true 
 	
+	method estaCargada() = cazador.cantBalas() > 0
 }

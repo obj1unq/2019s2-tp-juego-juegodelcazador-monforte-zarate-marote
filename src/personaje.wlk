@@ -114,9 +114,9 @@ object cazador inherits Colisionable {
 	}
 
 	method comprobarVida(){
-       if(vidasDeJuego.contador() > 1) {
-			self.reiniciarUbicacion()
-			vidasDeJuego.descontar()			
+		vidasDeJuego.descontar()
+        if(vidasDeJuego.contador() > 0) {
+			self.reiniciarUbicacion()			
 		  } else { 
 			self.perdiste()
 		}
@@ -127,12 +127,12 @@ object cazador inherits Colisionable {
 	}
 	
 	method ataqueA() {
-		if (itemEquipado.esArmaADistancia()){
+		if (itemEquipado.esArmaADistancia() and itemEquipado.estaCargada()){
 			itemEquipado.disparar(itemEquipado, self.position(), orientacion)
 			self.restarMunicion(itemEquipado)
-		}else{
+		}else if (itemEquipado.esEstaca()){
 		self.enemigo().recibirAtaqueCon(itemEquipado.dmg())
-		}
+		}else{}
 	}
 
 	method enemigo() = game.getObjectsIn(orientacion.posicionAl(self)).head()
@@ -181,11 +181,12 @@ object cazador inherits Colisionable {
 	method mover(nuevaPosicion, dir) {
 		// Puede mover si no hay un objeto no colisionable en direccion dir
 		orientacion = dir
-		if (/*self.estaVivo() and */self.puedeMoverAl(dir)) {
+		if (self.puedeJugar() and self.puedeMoverAl(dir)) {
 			self.position(nuevaPosicion)
 			self.sonidoDePasos()			
 		}
 	}
+	method puedeJugar() = vidasDeJuego.contador() > 0
 	
 	method sonidoDePasos(){
 		game.sound(["paso1.mp3","paso2.mp3","paso3.mp3","paso4.mp3", "paso5.mp3"].anyOne())
@@ -202,10 +203,11 @@ object cazador inherits Colisionable {
 
 	method ganaElJuego() = not dracula.estaVivo()
 
-	method perdiste() { 
-		game.say(self, "EL MAL SEGUIRA LATENTE")
-		game.sound("moriste.mp3")
-		game.addVisual(gameOver)
-		game.schedule(4000, {game.stop()})		
+	method perdiste() {
+		if(!game.hasVisual(gameOver)){
+			game.say(self, "EL MAL SEGUIRA LATENTE")
+			game.sound("moriste.mp3")
+			game.addVisual(gameOver)
+			game.schedule(4000, {game.stop()})}		
 	}
 }

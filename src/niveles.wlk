@@ -40,7 +40,7 @@ class Nivel {
       keyboard.e().onPressDo({ cazador.soltar()})
       keyboard.a().onPressDo({ cazador.ataqueA()})
 	  keyboard.num1().onPressDo({ cazador.equipar(ballesta) })
-      keyboard.num2().onPressDo({ cazador.equipar(estacaYMartillo) })
+      keyboard.num2().onPressDo({ cazador.equipar(estaca) })
       keyboard.num3().onPressDo({ cazador.equipar(pistolaDePlata) })
       keyboard.space().onPressDo({ self.siguienteNivel()})
 	}
@@ -186,15 +186,15 @@ object nivel1 inherits Nivel{
 	puerta.crear(game.at(11,12), "puerta.png")
 	
 	// Fantasmas
-   // const fantasmasPos = [game.at(3, 4), /*game.at(7, 1),game.at(2, 10),*/  game.at(11, 7),  game.at(16, 8)]
-    //fantasmasPos.forEach({pos => new Fantasma().crearFantasma(pos)})
-    //var fantasmaTrap = new Fantasma(position = game.at(1, 9), hp = 1, orientacion = arriba)
-    //var fantasmaTrap2 = new Fantasma(position = game.at(7, 1), hp = 1)
-    //game.addVisual(fantasmaTrap)
-    //fantasmaTrap.patrullar()
-    //game.addVisual(fantasmaTrap2)
-    //fantasmaTrap2.patrullar()
-    //game.onTick(10000, "activar fantasmatrap", { if(!game.hasVisual(fantasmaTrap2) and !game.hasVisual(fantasmaBoss)){fantasmaBoss.iniciarEvento()}})
+    const fantasmasPos = [game.at(3, 4), /*game.at(7, 1),game.at(2, 10),*/  game.at(11, 7),  game.at(16, 8)]
+    fantasmasPos.forEach({pos => new Fantasma().crearFantasma(pos)})
+    var fantasmaTrap = new Fantasma(position = game.at(1, 9), hp = 1, orientacion = arriba)
+    var fantasmaTrap2 = new Fantasma(position = game.at(7, 1), hp = 1)
+    game.addVisual(fantasmaTrap)
+    fantasmaTrap.patrullar()
+    game.addVisual(fantasmaTrap2)
+    fantasmaTrap2.patrullar()
+    game.onTick(10000, "activar fantasmatrap", { if(!game.hasVisual(fantasmaTrap2) and !game.hasVisual(fantasmaBoss)){fantasmaBoss.iniciarEvento()}})
 	   
     // Sales
     const sales = [ new Sal(position = game.at(17,1)),new Sal(position = game.at(18,1)),new Sal(position = game.at(19,1)),
@@ -206,7 +206,7 @@ object nivel1 inherits Nivel{
     vidas.forEach({vida => game.addVisual(vida)})
      
     // Flechas
-    const flechas = [new Flecha(position = game.at(1,3)),new Flecha(position = game.at(14,3)),new Flecha(position = game.at(16,10))]
+    const flechas = [new Flecha(tipo = carcaj, position = game.at(1,3)),new Flecha(tipo = carcaj, position = game.at(14,3)),new Flecha(tipo = carcaj, position = game.at(16,10))]
     flechas.forEach({flecha => game.addVisual(flecha)}) 	
     }
 }
@@ -262,11 +262,11 @@ object nivel2 inherits Nivel{
     posicionesPared.forEach({posicion => new Pared().crear(posicion, "muroCastillo1.jpg")})
     
     //Brujas
-    //const brujasPos = [game.at(7, 2), game.at(2, 6), game.at(13, 4), game.at(6, 8), game.at(17, 12), game.at(4, 12)]
-	//brujasPos.forEach({pos => new Bruja().crearBruja(pos)})
+    const brujasPos = [game.at(7, 2), game.at(2, 6), game.at(13, 4), game.at(6, 8), game.at(17, 12), game.at(4, 12)]
+	brujasPos.forEach({pos => new Bruja().crearBruja(pos)})
     
-    const flechas = [new Flecha(position = game.at(3,1)),new Flecha(position = game.at(15,11)),
-    	             new Flecha(position = game.at(13,9))]
+    const flechas = [new Flecha(tipo = carcaj, position = game.at(3,1)),new Flecha(tipo = carcaj, position = game.at(15,11)),
+    	             new Flecha(tipo = carcaj, position = game.at(13,9))]
     
     flechas.forEach({flecha => game.addVisual(flecha)})
     
@@ -274,7 +274,7 @@ object nivel2 inherits Nivel{
     
     vidas.forEach({vida => game.addVisual(vida)})
     
-    const balas = [new Bala(position = game.at(1,10)),new Bala(position = game.at(19,4))]
+    const balas = [new Bala(tipo = cargador, position = game.at(1,10)),new Bala(tipo = cargador, position = game.at(19,4))]
     
     balas.forEach({bala => game.addVisual(bala)})
     
@@ -326,27 +326,23 @@ object nivel3 inherits Nivel{
     posicionesPared.forEach({posicion => new Pared().crear(posicion, "muroCastillo1.jpg")})
        
     //Murcielagos
-    //const murcielagosPos = [game.at(7, 2), game.at(16, 1), game.at(11, 5), game.at(3, 7), game.at(17, 6), game.at(14, 12), game.at(12, 8)] 
-	//murcielagosPos.forEach({pos => new Murcielago().crearMurcielago(pos)})
+    const murcielagosPos = [game.at(7, 2), game.at(16, 1), game.at(11, 5), game.at(3, 7), game.at(17, 6), game.at(14, 12), game.at(12, 8)] 
+	murcielagosPos.forEach({pos => new Murcielago().crearMurcielago(pos)})
 
     
     const vidas = [new Vida(position = game.at(3,10)),new Vida(position = game.at(18,9))] 
     
     vidas.forEach({vida => game.addVisual(vida)})
     
-    const balas = [new Bala(position = game.at(18,4)),new Bala(position = game.at(3,4)),
-    	           new Bala(position = game.at(20,12)),new Bala(position = game.at(8,12))]
+    const balas = [new Bala(tipo = cargador, position = game.at(18,4)),new Bala(tipo = cargador, position = game.at(3,4)),
+    	           new Bala(tipo = cargador, position = game.at(20,12)),new Bala(tipo = cargador, position = game.at(8,12))]
     
     balas.forEach({bala => game.addVisual(bala)})
     
-    game.addVisualIn(estacaYMartillo, game.at(3,9))
+    game.addVisualIn(estaca, game.at(3,9))
     
     game.addVisualIn(pistolaDePlata, game.at(20,1))
     
-    dracula.position(game.at(11, 10))
-    
-    game.addVisual(dracula)
-    
-    dracula.elVerdaderoDesafio()    
+    game.onTick(500, "activar final", { if(game.hasVisual(pistolaDePlata) and !game.hasVisual(dracula)){dracula.iniciarEvento()}})    
     }	
 }

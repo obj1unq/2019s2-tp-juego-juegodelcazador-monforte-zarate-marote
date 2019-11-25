@@ -107,8 +107,6 @@ object dracula inherits Enemigo{
     const property image = "dracula.png"
 	const property atk = 4
     
-    override method position() = game.at(11,10)
-    
     override method atk() {
     	game.say(self, ["La sangre me otorga más PODER!",
     					"EL MAL PREVALECERÁ!",
@@ -117,6 +115,13 @@ object dracula inherits Enemigo{
     	return atk
     } 
     
+    method inicializarHp(){
+    	hp = 10
+    } 
+    
+    method inicializarPos(){
+    	position = (11->10)
+    }
     method curarse(vida){
     	hp = hp+vida
     }
@@ -124,11 +129,20 @@ object dracula inherits Enemigo{
     method malherido() {
     	return hp < 5
     }
+    
     override method hp() = 	10
 
 	
-	method elVerdaderoDesafio(){
-		game.onTick(500, "sedDeSangre", { => self.cazarOSerCazado()})
+	method iniciarEvento(){
+		self.position(game.at(11, 11))
+		self.inicializarHp()
+		game.addVisual(self)
+		self.elVerdaderoDesafio()
+	}
+	
+	method frenesi(){
+		game.removeTickEvent("sedDeSangre")
+		game.onTick(400, "frenesí", { => self.acercarse()})
 	}
 	
 	
@@ -136,11 +150,20 @@ object dracula inherits Enemigo{
 		if (!self.malherido()){
 			self.acercarse()
 		}else{
-			self.huir()
-		}
-		
-	}	
+			self.frenesi()
+		}	
+	}
 	
+	method elVerdaderoDesafio(){
+		game.onTick(700, "sedDeSangre", { => self.cazarOSerCazado()})
+	}
+	
+		
+	/*override method desaparecer(){
+		super()
+		game.sound("buscarSonido.mp3") hay que buscar alguno para dracula
+	}
+	*/
 }
 	
 class Bruja inherits Enemigo{ 

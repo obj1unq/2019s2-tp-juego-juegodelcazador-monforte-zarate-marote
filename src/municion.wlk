@@ -49,7 +49,7 @@ class Proyectil inherits Municion{
 	 
 	method mover(nuevaPosicion,dir) {
 		// Puede mover si no hay un obj no colisionable en direccion dir
-		
+		orientacion = dir
 		if (self.elProyectilTieneAlcance() and self.puedeMoverAl(dir)) {
 			self.position(nuevaPosicion)
 			alcance--
