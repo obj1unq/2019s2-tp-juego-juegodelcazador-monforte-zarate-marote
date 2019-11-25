@@ -110,11 +110,14 @@ object configuracionTeclado inherits Nivel{
 	}
 	
 	override method siguienteNivel(nivel) {
-		game.schedule(6000, { nivel.cargar()} )
+		game.schedule(4000, { nivel.cargar()} )
 	}
 	
 	override method visuales() {
+		//Fondo
 		suelo.crear(game.at(0,0), "controles.jpg" ) 
+		
+		//Teclas
 		game.addVisual(teclaUp)
 		game.addVisual(teclaDown)
 		game.addVisual(teclaLeft)
@@ -122,11 +125,11 @@ object configuracionTeclado inherits Nivel{
         game.addVisual(tecla1)
 		game.addVisual(tecla2)
 		game.addVisual(tecla3)
-		game.addVisual(tecla4)
+		game.addVisual(teclaT)
 		game.addVisual(teclaR)
-		game.addVisual(teclaS)
-		game.addVisual(teclaE)
 		game.addVisual(teclaA)
+		game.addVisual(teclaE)
+		game.addVisual(teclaSpace)
 	}
 	
 	override method sound() {}
@@ -147,43 +150,49 @@ object nivel1 inherits Nivel{
 	
 	override method cargar() {
 		game.clear()
+		//game.onTick(6000, "nivel1 song", {self.sound()})
 		super()
 	}
 	
 	override method sound() = game.sound("Nivel1.mp3")
 	
 	override method visuales() {
+	
+	//Fondo	
 	suelo.crear(game.at(0,0), "nivel1.jpg" )  
 		
-	   /// LABERINTO
-    const posicionesPared = [(0->0),(0->1),(0->2),(0->3),(0->4),(0->5),(0->6),(0->7),(0->8),(0->9),(0->10),(0->11),
-    	                     (1->0),(1->2),(1->4),(1->5),(1->11),
-    	                     (2->0),(2->2),(2->5),(2->7),(2->8),(2->9),(2->11),
-    	                     (3->0),(3->2),(3->3),(3->7),(3->9),(3->11),
-    	                     (4->0),(4->3),(4->5),(4->6),(4->7),(4->11),
-    	                     (5->0),(5->1),(5->6),(5->9),(5->10),(5->11),
-    	                     (6->0),(6->1),(6->2),(6->3),(6->4),(6->6),(6->7),(6->9),(6->11),
-    	                     (7->0),(7->4),(7->6),(7->11),
-    	                     (8->0),(8->2),(8->6),(8->7),(8->8),(8->9),(8->11),
-    	                     (9->0),(9->2),(9->3),(9->4),(9->6),(9->9),(9->11),
-    	                     (10->0),(10->4),(10->5),(10->6),(10->8),(10->9),(10->11),(10->12),
-    	                     (11->0),(11->1),(11->2),(11->6),(11->8),(11->13),
-    	                     (12->0),(12->4),(12->6),(12->8),(12->9),(12->11),(12->12),
-    	                     (13->0),(13->2),(13->3),(13->4),(13->9),(13->10),(13->11),
-    	                     (14->0),(14->2),(14->4),(14->5),(14->6),(14->7),(14->11),
-    	                     (15->0),(15->2),(15->4),(15->6),(15->7),(15->9),(15->11),
-    	                     (16->0),(16->1),(16->2),(16->9),(16->11),
-    	                     (17->0),(17->2),(17->4),(17->5),(17->6),(17->7),(17->9),(17->10),(17->11),
-    	                     (18->0),(18->2),(18->3),(18->4),(18->6),(18->11),
-    	                     (19->0),(19->2),(19->4),(19->6),(19->8),(19->10),(19->11),
-    	                     (20->0),(20->8),(20->11),
-    	                     (21->0),(21->1),(21->2),(21->3),(21->4),(21->5),(21->6),(21->7),(21->8),(21->9),(21->10),(21->11)]
-                            
-    posicionesPared.forEach({posicion => new Pared().crear(posicion, "laberinto1.png")})
+	//Laberinto
+    const ancho = game.width() - 1
+    const largo = game.height() - 5
     
-    // CASTILLO	
+    var posBordes = []
+    (0 .. ancho).forEach{ n => posBordes.add(game.at(n, 0))} // borde abajo
+    (0 .. largo).forEach{ n => posBordes.add(game.at(0, n))} // borde izquierdo
+    (0 .. largo).forEach{ n => posBordes.add(game.at(ancho, n))} // borde derecho	
+		
+    const posCentro = [game.at(1,0),game.at(1,2),game.at(1,4),game.at(1,5),game.at(1,11),game.at(2,0),game.at(2,2),game.at(2,5),game.at(2,7),
+    	               game.at(2,8),game.at(2,9),game.at(2,11),game.at(3,0),game.at(3,2),game.at(3,3),game.at(3,7),game.at(3,9),game.at(3,11),
+    	               game.at(4,0),game.at(4,3),game.at(4,5),game.at(4,6),game.at(4,7),game.at(4,11),game.at(5,0),game.at(5,1),game.at(5,6),
+    	               game.at(5,9),game.at(5,10),game.at(5,11),game.at(6,0),game.at(6,1),game.at(6,2),game.at(6,3),game.at(6,4),game.at(6,6),
+    	               game.at(6,7),game.at(6,9),game.at(6,11),game.at(7,0),game.at(7,4),game.at(7,6),game.at(7,11),game.at(8,0),game.at(8,2),
+    	               game.at(8,6),game.at(8,7),game.at(8,8),game.at(8,9),game.at(8,11),game.at(9,0),game.at(9,2),game.at(9,3),game.at(9,4),
+    	               game.at(9,6),game.at(9,9),game.at(9,11),game.at(10,0),game.at(10,4),game.at(10,5),game.at(10,6),game.at(10,8),game.at(10,9),
+    	               game.at(10,11),game.at(10,12),game.at(11,0),game.at(11,1),game.at(11,2),game.at(11,6),game.at(11,8),game.at(11,13),game.at(12,0),
+    	               game.at(12,4),game.at(12,6),game.at(12,8),game.at(12,9),game.at(12,11),game.at(12,12),game.at(13,0),game.at(13,2),game.at(13,3),
+    	               game.at(13,4),game.at(13,9),game.at(13,10),game.at(13,11),game.at(14,0),game.at(14,2),game.at(14,4),game.at(14,5),game.at(14,6),
+    	               game.at(14,7),game.at(14,11),game.at(15,0),game.at(15,2),game.at(15,4),game.at(15,6),game.at(15,7),game.at(15,9),game.at(15,11),
+    	               game.at(16,0),game.at(16,1),game.at(16,2),game.at(16,9),game.at(16,11),game.at(17,0),game.at(17,2),game.at(17,4),game.at(17,5),
+    	               game.at(17,6),game.at(17,7),game.at(17,9),game.at(17,10),game.at(17,11),game.at(18,0),game.at(18,2),game.at(18,3),game.at(18,4),
+    	               game.at(18,6),game.at(18,11),game.at(19,0),game.at(19,2),game.at(19,4),game.at(19,6),game.at(19,8),game.at(19,10),game.at(19,11),
+    	               game.at(20,0),game.at(20,8),game.at(20,11)]
+                            
+    posBordes.forEach({ posicion => new Pared().crear(posicion, "laberinto1.png")})                       
+    posCentro.forEach({posicion => new Pared().crear(posicion, "laberinto1.png")})
+  
+    //Castillo	
 	game.addVisualIn(castillo, game.at(2,12))
-	puerta.crear(game.at(11,12), "puerta.png")
+	//Puerta
+	game.addVisualIn(puerta, game.at(11,12))
 	
 	// Fantasmas
     const fantasmasPos = [game.at(3, 4), /*game.at(7, 1),game.at(2, 10),*/  game.at(11, 7),  game.at(16, 8)]
@@ -200,11 +209,7 @@ object nivel1 inherits Nivel{
     const sales = [ new Sal(position = game.at(17,1)),new Sal(position = game.at(18,1)),new Sal(position = game.at(19,1)),
     	            new Sal(position = game.at(20,1)),new Sal(position = game.at(20,2))]           
     sales.forEach({sal => game.addVisual(sal)}) 
-     
-    // Vidas
-    const vidas = [new Vida(position = game.at(1,1)),new Vida(position = game.at(18,5))] 
-    vidas.forEach({vida => game.addVisual(vida)})
-     
+    
     // Flechas
     const flechas = [new Flecha(tipo = carcaj, position = game.at(1,3)),new Flecha(tipo = carcaj, position = game.at(14,3)),new Flecha(tipo = carcaj, position = game.at(16,10))]
     flechas.forEach({flecha => game.addVisual(flecha)}) 	
@@ -226,40 +231,42 @@ object nivel2 inherits Nivel{
     
     override method cargar() {
 		game.clear()
+		//game.onTick(6000, "nivel2 song", {self.sound()})
 		super()	
 	}
     
     override method sound() = game.sound("Nivel2.mp3")
 	
     override method visuales() {
+    	
+    //Fondo
     suelo.crear(game.at(0,0), "nivel2.jpg" )  
-    
-    puerta.crear(game.at(15,2), "puerta.png")
+    //Puerta
+    game.addVisualIn(puerta, game.at(15,2))
 
-    const posicionesPared = [(0->0),(0->1),(0->2),(0->3),(0->4),(0->5),(0->6),(0->7),(0->8),(0->9),(0->10),(0->11),(0->12),(0->13),
-    	                     (1->0),(1->8),(1->11),(1->13),
-    	                     (2->0),(2->8),(2->11),(2->13),
-    	                     (3->0),(3->3),(3->4),(3->5),(3->8),(3->11),(3->13),
-    	                     (4->0),(4->1),(4->2),(4->3),(4->7),(4->8),(4->9),(4->10),(4->11),(4->13),
-    	                     (5->0),(5->3),(5->7),(5->13),
-    	                     (6->0),(6->3),(6->13),
-    	                     (7->0),(7->7),(7->10),(7->13),
-    	                     (8->0),(8->3),(8->4),(8->6),(8->7),(8->9),(8->10),(8->12),(8->13),
-    	                     (9->0),(9->3),(9->7),(9->10),(9->13),
-    	                     (10->0),(10->3),(10->7),(10->10),(10->13),
-    	                     (11->0),(11->3),(11->7),(11->10),(11->13),
-     	                     (12->0),(12->1),(12->2),(12->3),(12->7),(12->10),(12->13),
-    	                     (13->0),(13->3),(13->5),(13->6),(13->7),(13->8),(13->10),(13->12),(13->13),
-    	                     (14->0),(14->3),(14->6),(14->10),(14->13),
-    	                     (15->0),(15->3),(15->6),(15->10),(15->13),
-    	                     (16->0),(16->3),(16->6),(16->10),(16->11),(16->13),
-    	                     (17->0),(17->6),(17->10),(17->13),
-    	                     (18->0),(18->3),(18->4),(18->5),(18->6),(18->7),(18->8),(18->10),(18->13),
-    	                     (19->0),(19->5),(19->8),(19->13),
-    	                     (20->0),(20->5),(20->13),
-    	                     (21->0),(21->1),(21->2),(21->3),(21->4),(21->5),(21->6),(21->7),(21->8),(21->9),(21->10),(21->11),(21->12),(21->13)]
-                            
-    posicionesPared.forEach({posicion => new Pared().crear(posicion, "muroCastillo1.jpg")})
+    //Paredes
+    const ancho = game.width() - 1
+    const largo = game.height() - 3
+    
+    var posBordes = []
+    (0 .. ancho).forEach{ n => posBordes.add(game.at(n, 0))} // borde abajo
+    (0 .. ancho).forEach{ n => posBordes.add(game.at(n, largo))} // borde arriba
+    (0 .. largo).forEach{ n => posBordes.add(game.at(0, n))} // borde izquierdo
+    (0 .. largo).forEach{ n => posBordes.add(game.at(ancho, n))} // borde derecho
+
+    const posCentro = [game.at(1,0),game.at(1,8),game.at(2,0),game.at(2,8),game.at(3,0),game.at(3,3),game.at(3,4),game.at(3,5),game.at(3,8),
+    	               game.at(4,0),game.at(4,1),game.at(4,2),game.at(4,3),game.at(4,7),game.at(4,8),game.at(4,9),game.at(4,10),game.at(4,11),
+    	               game.at(5,0),game.at(5,3),game.at(5,7),game.at(5,10),game.at(6,0),game.at(6,3),game.at(7,0),game.at(7,7),game.at(7,10),game.at(8,0),
+    	               game.at(8,3),game.at(8,4),game.at(8,6),game.at(8,7),game.at(8,9),game.at(8,10),game.at(8,12),game.at(9,0),game.at(9,3),
+    	               game.at(9,7),game.at(9,10),game.at(10,0),game.at(10,3),game.at(10,7),game.at(10,10),game.at(11,0),game.at(11,3),game.at(11,7),
+    	               game.at(11,10),game.at(12,0),game.at(12,1),game.at(12,2),game.at(12,3),game.at(12,7),game.at(12,10),game.at(13,0),game.at(13,3),
+    	               game.at(13,5),game.at(13,6),game.at(13,7),game.at(13,8),game.at(13,10),game.at(13,12),game.at(14,0),game.at(14,3),game.at(14,6),
+    	               game.at(14,10),game.at(15,0),game.at(15,3),game.at(15,6),game.at(15,10),game.at(16,0),game.at(16,3),game.at(16,6),game.at(16,10),
+    	               game.at(16,11),game.at(17,0),game.at(17,6),game.at(17,10),game.at(18,0),game.at(18,3),game.at(18,4),game.at(18,5),game.at(18,6),
+    	               game.at(18,7),game.at(18,8),game.at(18,9),game.at(18,10),game.at(19,0),game.at(19,5),game.at(19,8),game.at(20,0),game.at(20,5)]
+    
+    posBordes.forEach({ posicion => new Pared().crear(posicion, "muroCastillo1.jpg")})                        
+    posCentro.forEach({ posicion => new Pared().crear(posicion, "muroCastillo1.jpg")})
     
     //Brujas
     const brujasPos = [game.at(7, 2), game.at(2, 6), game.at(13, 4), game.at(6, 8), game.at(17, 12), game.at(4, 12)]
@@ -267,19 +274,12 @@ object nivel2 inherits Nivel{
     
     const flechas = [new Flecha(tipo = carcaj, position = game.at(3,1)),new Flecha(tipo = carcaj, position = game.at(15,11)),
     	             new Flecha(tipo = carcaj, position = game.at(13,9))]
-    
     flechas.forEach({flecha => game.addVisual(flecha)})
     
-    const vidas = [new Vida(position = game.at(11,1)),new Vida(position = game.at(16,7))] 
-    
-    vidas.forEach({vida => game.addVisual(vida)})
-    
     const balas = [new Bala(tipo = cargador, position = game.at(1,10)),new Bala(tipo = cargador, position = game.at(19,4))]
-    
     balas.forEach({bala => game.addVisual(bala)})
     
-    game.addVisualIn(ballesta, game.at(14,5))
-    
+    game.addVisualIn(ballesta, game.at(14,5))    
     }
 }
 
@@ -291,52 +291,45 @@ object nivel3 inherits Nivel{
     
     override method cargar() {
 		game.clear()
-		game.onTick(18000, "dracula song", {self.sound()})
+		game.onTick(8000, "dracula song", {self.sound()})
 		super()	
 	}
     
     override method sound() = game.sound("draculaSong.mp3")
     
     override method visuales() {
+    
+    //Fondo	
     suelo.crear(game.at(0,0), "nivel3.jpg" )  
-    /// LABERINTO
-    const posicionesPared = [(0->0),(0->1),(0->2),(0->3),(0->4),(0->5),(0->6),(0->7),(0->8),(0->9),(0->10),(0->11),
-    	                     (1->0),(1->11),
-    	                     (2->0),(2->11),
-    	                     (3->0),(3->5),(3->8),(3->11),
-    	                     (4->0),(4->3),(4->4),(4->5),(4->8),(4->9),(4->10),(4->11),
-    	                     (5->0),(5->3),(5->10),(5->11),
-    	                     (6->0),(6->11),
-    	                     (7->0),(7->6),(7->7),(7->11),(7->12),(7->13),
-    	                     (8->0),(8->13),
-    	                     (9->0),(9->3),(9->13),
-    	                     (10->0),(10->3),(10->13),
-    	                     (11->0),(11->3),(11->13),
-     	                     (12->0),(12->3),(12->13),
-    	                     (13->0),(13->13),
-    	                     (14->0),(14->6),(14->7),(14->13),
-    	                     (15->0),(15->13),
-    	                     (16->0),(16->3),(16->10),(16->13),
-    	                     (17->0),(17->3),(17->4),(17->5),(17->8),(17->9),(17->10),(17->13),
-    	                     (18->0),(18->5),(18->8),(18->13),
-    	                     (19->0),(19->13),
-    	                     (20->0),(20->13),
-    	                     (21->0),(21->1),(21->2),(21->3),(21->4),(21->5),(21->6),(21->7),(21->8),(21->9),(21->10),(21->11),(21->12),(21->13)]
-                            
-    posicionesPared.forEach({posicion => new Pared().crear(posicion, "muroCastillo1.jpg")})
+    
+    //Paredes
+    const ancho = game.width() - 1
+    const largo = game.height() - 3
+    
+    var posBordes = []
+    (0 .. ancho).forEach{ n => posBordes.add(game.at(n, 0))} // borde abajo
+    (0 .. ancho).forEach{ n => posBordes.add(game.at(n, largo))} // borde arriba
+    (0 .. largo).forEach{ n => posBordes.add(game.at(0, n))} // borde izquierdo
+    (0 .. largo).forEach{ n => posBordes.add(game.at(ancho, n))} // borde derecho
+       
+    const posCentro = [game.at(1,0),game.at(2,0),game.at(3,0),game.at(3,5),game.at(3,8),game.at(4,0),game.at(4,3),game.at(4,4),
+    	               game.at(4,5),game.at(4,8),game.at(4,9),game.at(4,10),game.at(5,0),game.at(5,3),game.at(5,10),game.at(6,0),
+    	               game.at(7,0),game.at(7,6),game.at(7,7),game.at(8,0),game.at(9,0),game.at(9,3),game.at(10,0),game.at(10,3),
+    	               game.at(11,0),game.at(11,3),game.at(12,0),game.at(12,3),game.at(13,0),game.at(14,0),game.at(14,6),game.at(14,7),
+    	               game.at(15,0),game.at(16,0),game.at(16,3),game.at(16,10),game.at(17,0),game.at(17,3),game.at(17,4),game.at(17,5),
+    	               game.at(17,8),game.at(17,9),game.at(17,10),game.at(18,0),game.at(18,5),game.at(18,8),game.at(19,0),game.at(20,0)]
+    
+    posBordes.forEach({ posicion => new Pared().crear(posicion, "muroCastillo1.jpg")})                        
+    posCentro.forEach({posicion => new Pared().crear(posicion, "muroCastillo1.jpg")})       
        
     //Murcielagos
     const murcielagosPos = [game.at(7, 2), game.at(16, 1), game.at(11, 5), game.at(3, 7), game.at(17, 6), game.at(14, 12), game.at(12, 8)] 
 	murcielagosPos.forEach({pos => new Murcielago().crearMurcielago(pos)})
 
-    
-    const vidas = [new Vida(position = game.at(3,10)),new Vida(position = game.at(18,9))] 
-    
-    vidas.forEach({vida => game.addVisual(vida)})
+    game.addVisual(new Vida(position = game.at(18,9)))  
     
     const balas = [new Bala(tipo = cargador, position = game.at(18,4)),new Bala(tipo = cargador, position = game.at(3,4)),
-    	           new Bala(tipo = cargador, position = game.at(20,12)),new Bala(tipo = cargador, position = game.at(8,12))]
-    
+    	           new Bala(tipo = cargador, position = game.at(20,12)),new Bala(tipo = cargador, position = game.at(8,12))]  
     balas.forEach({bala => game.addVisual(bala)})
     
     game.addVisualIn(estaca, game.at(3,9))

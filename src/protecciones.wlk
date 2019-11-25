@@ -11,8 +11,6 @@ class Proteccion inherits Colisionable{
 	//	cazador.recoger(self)
 	}
 	override method sePuedeAgarrar() = true
-	
-	
 }
 
 class Ajo inherits Proteccion {

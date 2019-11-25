@@ -23,9 +23,7 @@ object puerta inherits Colisionable {
 	}
 	
 	method crear(posicion,imagen) {	
-		// Genera una puerta en el tablero.
-		image = imagen
-		game.addVisualIn(self, posicion)
+		// Polimorfismo
 	}
 }
 
@@ -57,6 +55,30 @@ object encabezado{
 	var property image = "encabezado.png" 
 	var property position = (-1 -> 15)
 
+}
+
+object suelo {
+	const property position = 0
+	var property image
+	
+    method crear(posicion,imagen) {	
+		//parametros respetan polimorfismo
+		image = imagen
+		game.addVisualIn(self, posicion)
+	}
+}
+
+object vidasDeJuego {
+	var property contador = 3
+
+    method descontar() { 
+    	contador -= 1
+    }
+    
+    method sumar() {
+        contador +=1	
+    }
+    
 }
 
 // OBJETOS DE MENU
@@ -106,11 +128,6 @@ object tecla3 {
     var property image = "tecla3.png"
 }
 
-object tecla4 {
-	const property position = game.at(5,9)
-    var property image = "tecla4.png"
-}
-
 object teclaR {
 	const property position = game.at(3,7)
     var property image = "teclaR.png"
@@ -121,9 +138,9 @@ object teclaE {
     var property image = "teclaE.png"
 }
 
-object teclaS {
+object teclaT {
 	const property position = game.at(3,3)
-    var property image = "teclaS.png"
+    var property image = "teclaT.png"
 }
 
 object teclaA {
@@ -131,31 +148,14 @@ object teclaA {
     var property image = "teclaA.png"
 }
 
+object teclaSpace {
+	const property position = game.at(1,1)
+    var property image = "teclaSpace.png"
+}
+
+
 object gameOver {
     const property position = game.at(8,6)
 	const property image = "gameOver.png"	
 }
 
-object suelo {
-	const property position = 0
-	var property image
-	
-    method crear(posicion,imagen) {	
-		//parametros respetan polimorfismo
-		image = imagen
-		game.addVisualIn(self, posicion)
-	}
-}
-
-object vidasDeJuego {
-	var property contador = 3
-
-    method descontar() { 
-    	contador -= 1
-    }
-    
-    method sumar() {
-        contador +=1	
-    }
-    
-}
