@@ -92,8 +92,7 @@ class Sal inherits Proyectil {
 
 class Bala inherits Proyectil {
 	var tipo
-	
-	method image() = tipo.image()
+	var property image = bala.image()
 	
 	method cantidad() = 6
 	
@@ -108,6 +107,9 @@ class Bala inherits Proyectil {
 
 class Flecha inherits Proyectil {
 	var tipo
+	
+	var property image = flecha.image()
+	
 	method cantidad() = 4
 	
 	method image() = tipo.image()

@@ -160,11 +160,12 @@ object dracula inherits Enemigo{
 	}
 	
 		
-	/*override method desaparecer(){
+	override method desaparecer(){
 		super()
-		game.sound("buscarSonido.mp3") hay que buscar alguno para dracula
+		game.sound("muerteDracula.mp3") 
+		cazador.ganar()
 	}
-	*/
+	
 }
 	
 class Bruja inherits Enemigo{ 
