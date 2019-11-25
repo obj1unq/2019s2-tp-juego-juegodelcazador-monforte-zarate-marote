@@ -42,7 +42,7 @@ object cazador inherits Colisionable {
 	 }
 	
 	method colocarObjetoEnEncabezado(obj){
-		if((!obj.esMunicion()) or (obj.esSal()))
+		if((!obj.esMunicion() and !obj.esVida()) or (obj.esSal()))
 		self.buscarEspacioLibre(obj, game.at(0,15))
 	}
 	
@@ -208,5 +208,8 @@ object cazador inherits Colisionable {
 			game.sound("moriste.mp3")
 			game.addVisual(gameOver)
 			game.schedule(4000, {game.stop()})}		
+	}
+	method ganaste(){
+		game.addVisual()
 	}
 }

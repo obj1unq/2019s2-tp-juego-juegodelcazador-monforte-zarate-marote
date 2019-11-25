@@ -35,7 +35,7 @@ object estaca inherits Arma {
 	const property image = "estacaYMartillo.png" 
     var property danio = 99999999
     var property id = 2
-    
+    method dmg() = danio
     override method esEstaca() = true
 	override method nombre() = "estaca"
 }
