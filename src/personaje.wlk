@@ -26,16 +26,19 @@ object cazador inherits Colisionable {
 ///---------------------- LOOTEO ------------------------
 
 	method recoger() {
-		if (not game.getObjectsIn(position).isEmpty()){ 
+		if (not game.colliders(self).isEmpty()){ 
 		var objeto = game.colliders(self).first()
 		if (objeto.sePuedeAgarrar()){ 
 		    inventario.add(objeto)
 		   	game.removeVisual(objeto)
+		   	
+		   	//TODO: Ojo con romper el polimorfismo
 	        self.convertirAMunicion(objeto) 
 	        self.recogerSiEsVida(objeto)
 	        self.colocarObjetoEnEncabezado(objeto)
 	        //self.colocarVidaEnEncabezado(objeto)
 	    } else {
+	    	//TODO: Usar excepciones
 	    	game.say(self, "No hay nada para recoger")
 	    }
 	  }
@@ -93,6 +96,8 @@ object cazador inherits Colisionable {
 		return inventario.contains(objeto)
 	}
 
+	//TODO: POLIMORFISMO
+	//TODO: Esto tiene sentido?
 	method equipar(objeto) {
 		if(objeto.esBallesta()) {
 			itemEquipado = ballesta			

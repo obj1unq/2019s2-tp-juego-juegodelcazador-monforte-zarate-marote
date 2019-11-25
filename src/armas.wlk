@@ -46,9 +46,11 @@ class ArmaADistancia inherits Arma{
 	override method esArmaADistancia() = true
 	
 	method disparar(arma, pos, dir){
+		//TODO: self.proyectil()
 		var flechas = new Flecha(orientacion = cazador.orientacion(), tipo = flecha, position = dir.unaPosicionA(cazador.position()))
 		var balas = new Bala(orientacion = cazador.orientacion(), tipo = bala, position = dir.unaPosicionA(cazador.position()))
 		
+		//TODO: Rompe el polimorfismo
 		if(arma.esBallesta() && self.validarPuedeDisparar(dir)){
 			
 			flechas.trayectoria(flechas, pos, dir)
