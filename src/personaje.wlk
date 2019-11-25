@@ -6,7 +6,6 @@ import wollok.game.*
 import protecciones.*
 import direcciones.*
 import municion.*
-import menu.*
 import objetosVisuales.*
 
 object cazador inherits Colisionable {

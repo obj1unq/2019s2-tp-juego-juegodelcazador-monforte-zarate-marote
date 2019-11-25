@@ -37,7 +37,7 @@ class Nivel {
 	  keyboard.right().onPressDo{ cazador.mover(cazador.position().right(1), derecha)}
 	  keyboard.t().onPressDo({ cazador.trampaDeSal()})
       keyboard.r().onPressDo({ cazador.recoger()})
-      keyboard.e().onPressDo({ cazador.soltar()})
+      //keyboard.e().onPressDo({ cazador.soltar()})
       keyboard.a().onPressDo({ cazador.ataqueA()})
 	  keyboard.num1().onPressDo({ cazador.equipar(ballesta) })
       keyboard.num2().onPressDo({ cazador.equipar(estaca) })
@@ -110,7 +110,7 @@ object configuracionTeclado inherits Nivel{
 	}
 	
 	override method siguienteNivel(nivel) {
-		game.schedule(4000, { nivel.cargar()} )
+		game.schedule(5000, { nivel.cargar()} )
 	}
 	
 	override method visuales() {
@@ -125,11 +125,18 @@ object configuracionTeclado inherits Nivel{
         game.addVisual(tecla1)
 		game.addVisual(tecla2)
 		game.addVisual(tecla3)
-		game.addVisual(teclaT)
 		game.addVisual(teclaR)
 		game.addVisual(teclaA)
-		game.addVisual(teclaE)
+		game.addVisual(teclaT)
 		game.addVisual(teclaSpace)
+		
+		//Definicion
+		game.addVisual(atacar)
+		game.addVisual(recoger)
+		game.addVisual(equipar)
+		game.addVisual(arrojar)
+		game.addVisual(movimientos)
+	
 	}
 	
 	override method sound() {}

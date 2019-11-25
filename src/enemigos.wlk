@@ -19,8 +19,7 @@ class Enemigo inherits Colisionable {
 		game.onTick(1000, "persiguiendo al cazador", { => self.acercarse()})
 	}
 	
-	method acercarse(){
-		
+	method acercarse(){	
 		var otraPosicion = cazador.position()
 		var newX = position.x() + if(otraPosicion.x() > position.x()) 1 else -1
 		var newY = position.y() + if(otraPosicion.y() > position.y()) 1 else -1
@@ -31,7 +30,6 @@ class Enemigo inherits Colisionable {
 		newY = newY.max(0).min(game.height() - 1)
 		
 		position = game.at(newX, newY)
-		
 	}
 
 	method escapar(){
@@ -43,23 +41,19 @@ class Enemigo inherits Colisionable {
 		var newX = position.x() + if(otraPosicion.x() > position.x()) -1 else 1
 		var newY = position.y() +  if(otraPosicion.y() > position.y()) -1 else 1
 		
-
 		newX = newX.max(0).min(game.width() - 1)
 		newY = newY.max(0).min(game.height() - 1)
 		
 		position = game.at(newX, newY)
-		
 	}
 	
 	method estaVivo() = hp > 0
 
     method recibirAtaque(dmg){
-    	if(self.estaVivo()){
-    		hp = (hp - dmg).max(0)
-    	}else{
-    		self.desaparecer()
+    	hp = (hp - dmg).max(0)
+    	if(!self.estaVivo()){
+    	   self.desaparecer()
     	}
-    	
     }
     
     method colisionarCon(cazador) {
@@ -84,7 +78,6 @@ class Enemigo inherits Colisionable {
 		game.addVisual(murci)
 		murci.patrullar()
 	}
-	
 	
 ///---------------------- MOVIMIENTO ------------------------
 	
@@ -131,7 +124,6 @@ object dracula inherits Enemigo{
     }
     
     override method hp() = 	10
-
 	
 	method iniciarEvento(){
 		game.removeTickEvent("activar final")
@@ -146,7 +138,6 @@ object dracula inherits Enemigo{
 		game.onTick(400, "frenesí", { => self.acercarse()})
 	}
 	
-	
 	method cazarOSerCazado(){
 		if (!self.malherido()){
 			self.acercarse()
@@ -158,7 +149,6 @@ object dracula inherits Enemigo{
 	method elVerdaderoDesafio(){
 		game.onTick(700, "sedDeSangre", { => self.cazarOSerCazado()})
 	}
-	
 		
 	/*override method desaparecer(){
 		super()
@@ -193,8 +183,7 @@ class Fantasma inherits Enemigo{
 	   if(game.getObjectsIn(self.position()).any({obj => obj.esSal()})){
 	   self.desaparecer()
 	   game.getObjectsIn(self.position()).find({obj => obj.esSal()}).desaparecer()
-	   }
-	   
+	   }   
 	}
 	
 	override method desaparecer(){
@@ -206,9 +195,10 @@ class Fantasma inherits Enemigo{
 		// Puede mover si no hay un obj no colisionable en direccion dir
 		if (self.puedeMoverAl(dir)) {
 			self.position(nuevaPosicion)
-			self.morirSiEsSal()
-			
-		}else{orientacion = orientacion.opuesto()}
+			self.morirSiEsSal()	
+		}else{
+			orientacion = orientacion.opuesto()
+		}
 	}	
 	
 	method patrullar(){
@@ -246,7 +236,6 @@ object fantasmaBoss inherits Fantasma {
 	
 	method todaviaResiste() = resistenciaALaSal > 0 
 	
-	
 	override method acechar(){
 		self.huirSiEsSal()
 		self.acercarse()
@@ -260,7 +249,6 @@ object fantasmaBoss inherits Fantasma {
 	   game.getObjectsIn(self.position()).find({obj => obj.esSal()}).desaparecer()
 	   }
 	}	
-
 }
 
 class Murcielago inherits Enemigo{
@@ -275,4 +263,3 @@ class Murcielago inherits Enemigo{
 	
 	override method atk() = atk
 }
-

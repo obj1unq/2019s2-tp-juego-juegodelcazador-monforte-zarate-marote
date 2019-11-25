@@ -94,68 +94,93 @@ object salirJuego {
 }
 
 object teclaDown {
-	const property position = game.at(3,11)
+	const property position = game.at(2,3)
     var property image = "teclaDown.png"
 }
 
 object teclaUp {
-	const property position = game.at(3,12)
+	const property position = game.at(2,4)
     var property image = "teclaUp.png"
 }
 
 object teclaLeft {
-	const property position = game.at(2,11)
+	const property position = game.at(1,3)
     var property image = "teclaLeft.png"
 }
 
 object teclaRight {
-	const property position = game.at(4,11)
+	const property position = game.at(3,3)
     var property image = "teclaRight.png"
 }
 
 object tecla1 {
-	const property position = game.at(2,9)
+	const property position = game.at(1,10)
     var property image = "tecla1.png"
 }
 
 object tecla2 {
-	const property position = game.at(3,9)
+	const property position = game.at(2,10)
     var property image = "tecla2.png"
 }
 
 object tecla3 {
-	const property position = game.at(4,9)
+	const property position = game.at(3,10)
     var property image = "tecla3.png"
 }
 
-object teclaR {
-	const property position = game.at(3,7)
-    var property image = "teclaR.png"
-}
-
-object teclaE {
-	const property position = game.at(3,5)
-    var property image = "teclaE.png"
-}
-
-object teclaT {
-	const property position = game.at(3,3)
-    var property image = "teclaT.png"
-}
-
 object teclaA {
-	const property position = game.at(3,1)
+	const property position = game.at(2,14)
     var property image = "teclaA.png"
 }
 
+object teclaR {
+	const property position = game.at(2,12)
+    var property image = "teclaR.png"
+}
+
+object teclaT {
+	const property position = game.at(2,6)
+    var property image = "teclaT.png"
+}
+
 object teclaSpace {
-	const property position = game.at(1,1)
+	const property position = game.at(1,8)
     var property image = "teclaSpace.png"
+}
+
+object movimientos {
+	const property position = game.at(6,3)
+    var property image = "movimientos.jpg"
+}
+
+object recoger {
+	const property position = game.at(6,12)
+    var property image = "recoger.jpg"
+}
+
+object equipar {
+	const property position = game.at(6,10)
+    var property image = "equipar.jpg"
+}
+
+object atacar {
+	const property position = game.at(6,14)
+    var property image = "atacar.jpg"
+}
+
+object arrojar {
+	const property position = game.at(6,6)
+    var property image = "arrojar.jpg"
 }
 
 
 object gameOver {
     const property position = game.at(8,6)
 	const property image = "gameOver.png"	
+}
+
+object youWin {
+    const property position = game.at(8,6)
+	const property image = "youWin.png"	
 }
 

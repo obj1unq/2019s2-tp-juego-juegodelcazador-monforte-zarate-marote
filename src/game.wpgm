@@ -7,7 +7,6 @@ import niveles.*
 import direcciones.*
 import protecciones.*
 import municion.*
-import menu.*
 
 program MonstersHunter {
 	
@@ -17,7 +16,7 @@ program MonstersHunter {
 	game.width(22)
 
  	//  VISUALES
- 	nivel1.cargar()
+ 	menu.cargar()
 
  	//  COMIENZA
 	game.start()
