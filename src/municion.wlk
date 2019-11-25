@@ -100,8 +100,10 @@ class Sal inherits Proyectil {
 
 class Bala inherits Proyectil {
 	var property tipo = cargador	
+	
 	method image() = tipo.image()
-	method cantidad() = 6
+	
+	method cantidad() = 10
 	
 	override method nombre() = "bala"
 	
@@ -114,7 +116,9 @@ class Bala inherits Proyectil {
 
 class Flecha inherits Proyectil {
 	var property tipo = carcaj
+	
 	method image() = tipo.image()
+	
 	method cantidad() = 4
 	
 	override method nombre() = "flecha"

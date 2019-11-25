@@ -109,7 +109,7 @@ object dracula inherits Enemigo{
     } 
     
     method inicializarHp(){
-    	hp = 10
+    	hp = 25
     } 
     
     method inicializarPos(){
@@ -120,7 +120,7 @@ object dracula inherits Enemigo{
     }
     
     method malherido() {
-    	return hp < 5
+    	return hp < 10
     }
     
     override method hp() = 	10
@@ -155,6 +155,7 @@ object dracula inherits Enemigo{
 		super()
 		game.sound("muerteDracula.mp3") 
 		game.sound("winSound.mp3")
+		cazador.ganaste()
 	}
 	
 }

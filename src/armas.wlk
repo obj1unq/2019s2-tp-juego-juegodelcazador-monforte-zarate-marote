@@ -28,7 +28,7 @@ class Arma inherits Colisionable {
 	
 	method esEstaca() = false
 	
-	method esArmaDeCazador() = false
+	
 }
 
 object estaca inherits Arma {

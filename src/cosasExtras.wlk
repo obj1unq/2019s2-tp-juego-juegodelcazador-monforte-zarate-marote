@@ -56,6 +56,8 @@ class Colisionable {
 	method crear(posicion,imagen) {	
 		// Polimorfismo
 	}
+	
+	method esArmaDeCazador() = false
 }
  
 class Encabezado {

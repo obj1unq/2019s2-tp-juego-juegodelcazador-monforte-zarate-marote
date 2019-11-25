@@ -34,7 +34,7 @@ object cazador inherits Colisionable {
 	        self.convertirAMunicion(objeto) 
 	        self.recogerSiEsVida(objeto)
 	        self.colocarObjetoEnEncabezado(objeto)
-	       // self.colocarVidaEnEncabezado(objeto)
+	        //self.colocarVidaEnEncabezado(objeto)
 	    } else {
 	    	game.say(self, "No hay nada para recoger")
 	    }
@@ -133,7 +133,7 @@ object cazador inherits Colisionable {
 			itemEquipado.disparar(itemEquipado, self.position(), orientacion)
 			self.restarMunicion(itemEquipado)
 		}else if (itemEquipado.esEstaca()){
-	     	self.enemigo().recibirAtaqueCon(itemEquipado.dmg())
+	     	self.enemigo().recibirAtaque(itemEquipado.dmg())
 		}else{}
 	}
 
@@ -226,9 +226,9 @@ object cazador inherits Colisionable {
 	}
 	method ganaste(){
 		if(!game.hasVisual(youWin)){
-		   game.say(self, "...")  // agregar
+		   game.say(self, "NO FUISTE UNA AMENAZA")  // agregar
 		   game.addVisual(youWin)	
-		   game.schedule(4000, {game.stop()})
+		   game.schedule(6000, {game.stop()})
 		}
 	}
 }

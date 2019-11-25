@@ -30,6 +30,7 @@ class Nivel {
 	
 	 method cargarObjetos(){
     	cazador.inventario().forEach({objeto => cazador.buscarEspacioLibre(objeto, game.at(0,15))})
+    	
     }
     
 	method sound()
