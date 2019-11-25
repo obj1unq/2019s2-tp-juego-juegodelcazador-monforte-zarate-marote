@@ -95,6 +95,8 @@ class Bala inherits Proyectil {
 	
 	method image() = tipo.image()
 	
+	method cantidad() = 6
+	
 	override method nombre() = "bala"
 	
 	override method alcance() = 6
@@ -106,6 +108,7 @@ class Bala inherits Proyectil {
 
 class Flecha inherits Proyectil {
 	var tipo
+	method cantidad() = 4
 	
 	method image() = tipo.image()
 	
@@ -136,6 +139,6 @@ object carcaj inherits Flecha{
 }
 object cargador inherits Bala{
 	
-	override method image() = "balas.png"
+	override method image() = "balasDePlata.png"
 }
 

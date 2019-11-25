@@ -134,6 +134,7 @@ object dracula inherits Enemigo{
 
 	
 	method iniciarEvento(){
+		game.removeTickEvent("activar final")
 		self.position(game.at(11, 11))
 		self.inicializarHp()
 		game.addVisual(self)
@@ -223,6 +224,7 @@ object fantasmaBoss inherits Fantasma {
 	override method atk() = atk + 3
 	
 	method iniciarEvento(){
+		game.removeTickEvent("activar fantasmatrap")
 		self.position(game.at(11, 11))
 		game.addVisual(self)
 		self.acecharOHuir()

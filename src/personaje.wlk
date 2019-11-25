@@ -68,10 +68,10 @@ object cazador inherits Colisionable {
 	
 	method convertir(objeto){
 		if(objeto.esBala()){
-			cantBalas = (cantBalas + 1).min(15)//objeto.cant()).min(15)
+			cantBalas = (cantBalas + objeto.cantidad()).min(15)//objeto.cant()).min(15)
 			inventario.remove(objeto)
 		}else if (objeto.esFlecha()){
-			cantFlechas = (cantFlechas + 1).min(15)//objeto.cant()).min(15)
+			cantFlechas = (cantFlechas + objeto.cantidad()).min(15)//objeto.cant()).min(15)
 			inventario.remove(objeto)
 		}else{
 			cantSal = cantSal + objeto.cant()
