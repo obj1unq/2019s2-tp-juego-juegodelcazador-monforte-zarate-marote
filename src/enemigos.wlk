@@ -127,6 +127,7 @@ object dracula inherits Enemigo{
 	
 	method iniciarEvento(){
 		game.removeTickEvent("activar final")
+		game.sound("eternal.mp3")
 		self.position(game.at(11, 11))
 		self.inicializarHp()
 		game.addVisual(self)
@@ -153,7 +154,7 @@ object dracula inherits Enemigo{
 	override method desaparecer(){
 		super()
 		game.sound("muerteDracula.mp3") 
-		cazador.ganar()
+		game.sound("winSound.mp3")
 	}
 	
 }

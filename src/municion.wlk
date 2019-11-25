@@ -28,14 +28,14 @@ class Proyectil inherits Municion{
 	method alcance()
 	method dmg()
 	
-	method crear(dir) {
+	method crear() {
 		 game.addVisual(self)
 	}
 	
 	 
 	 method trayectoria(municion, pos, dir){
 	 	orientacion = dir
-	 	municion.crear(dir)
+	 	municion.crear()
 	 	game.onTick(100, "trayectoria", {
 	 		municion.mover(dir.posicionAl(self),dir)
 	 		municion.impactar()
@@ -75,6 +75,10 @@ class Sal inherits Proyectil {
 	
 	method cant() = 1
 	
+	method crear(dir){
+		game.addVisualIn(self, dir)
+	}
+	
 	override method dmg(){}
 	
 	override method alcance() = 1
@@ -87,13 +91,14 @@ class Sal inherits Proyectil {
 	
 	override method nombre() = "sal"
 	
+	method esArmaDeCazador() = true
 }
 
 
+
 class Bala inherits Proyectil {
-	var tipo
-	var property image = bala.image()
-	
+	var property tipo	
+	method image() = tipo.image()
 	method cantidad() = 6
 	
 	override method nombre() = "bala"
@@ -106,13 +111,9 @@ class Bala inherits Proyectil {
 }
 
 class Flecha inherits Proyectil {
-	var tipo
-	
-	var property image = flecha.image()
-	
-	method cantidad() = 4
-	
+	var property tipo
 	method image() = tipo.image()
+	method cantidad() = 4
 	
 	override method nombre() = "flecha"
 	
@@ -143,4 +144,3 @@ object cargador inherits Bala{
 	
 	override method image() = "balasDePlata.png"
 }
-

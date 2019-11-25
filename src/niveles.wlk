@@ -16,6 +16,7 @@ class Nivel {
 		self.visuales()
 		self.cazador()
 		self.cartel()
+		self.cargarObjetos()
 	}
 
 	method cazador() {
@@ -27,6 +28,10 @@ class Nivel {
 		})
 	}
 	
+	 method cargarObjetos(){
+    	cazador.inventario().forEach({objeto => cazador.buscarEspacioLibre(objeto, game.at(0,15))})
+    }
+    
 	method sound()
 	
 	method controles() {
@@ -151,8 +156,8 @@ object nivel1 inherits Nivel{
 	override method siguienteNivel(nivel){
 		game.sound("aperturaPuerta.mp3")
 		game.onCollideDo(cazador, {puerta => puerta.cambioDeEscenario(nivel)})
-		game.schedule(2000, { game.sound("cierrePuerta.mp3") })
-		game.onTick(4000, "nivel 1 musica", {game.sound("Nivel1.mp3") })
+		game.schedule(3000, { game.sound("cierrePuerta.mp3") })
+		game.schedule(4000, {game.sound("Nivel1.mp3") })
 	}
 	
 	override method cargar() {
@@ -239,9 +244,10 @@ object nivel2 inherits Nivel{
     override method cargar() {
 		game.clear()
 		//game.onTick(6000, "nivel2 song", {self.sound()})
-		super()	
+		super()
+		self.cargarObjetos()	
+		
 	}
-    
     override method sound() = game.sound("Nivel2.mp3")
 	
     override method visuales() {

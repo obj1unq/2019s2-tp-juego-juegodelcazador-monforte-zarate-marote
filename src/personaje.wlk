@@ -9,14 +9,13 @@ import municion.*
 import objetosVisuales.*
 
 object cazador inherits Colisionable {
-	const property inventario = [ballesta, pistolaDePlata]
+	const property inventario = []
 	var property orientacion = izquierda
 	var property position = game.at(15, 1)
 	var property itemEquipado
-	var property cantFlechas = 1
-	
-	var property cantBalas = 1
-	var property cantSal = 1
+	var property cantFlechas = 0
+	var property cantBalas = 0
+	var property cantSal = 0
 	
 	method nombre() = "cazador"
 	
@@ -42,7 +41,7 @@ object cazador inherits Colisionable {
 	 }
 	
 	method colocarObjetoEnEncabezado(obj){
-		if((!obj.esMunicion() and !obj.esVida()) or (obj.esSal()))
+		if((!obj.esMunicion() and !obj.esVida()) or (obj.esArmaDeCazador()))
 		self.buscarEspacioLibre(obj, game.at(0,15))
 	}
 	
@@ -78,13 +77,6 @@ object cazador inherits Colisionable {
 		}
 	}
 	
-    method soltar() {
-    	const objeto = inventario.head()
-    	if(objeto.puedeSoltarse()) {
-    	    objeto.esArrojado()
-            inventario.remove(inventario.head())	
-    	} 		
-    }
     
     method agregarVida() {
 		vidasDeJuego.sumar()
@@ -179,12 +171,16 @@ object cazador inherits Colisionable {
 
 	method mover(nuevaPosicion, dir) {
 		// Puede mover si no hay un objeto no colisionable en direccion dir
-		orientacion = dir
-		if (self.puedeJugar() and self.puedeMoverAl(dir)) {
+		if (self.puedeJugar() and self.puedeMoverAl(dir) and self.estaOrientado(dir)) {
 			self.position(nuevaPosicion)
 			self.sonidoDePasos()			
+		}else{
+			orientacion = dir
 		}
 	}
+	
+	method estaOrientado(dir) = orientacion == dir
+	 
 	method puedeJugar() = vidasDeJuego.contador() > 0
 	
 	method sonidoDePasos(){
@@ -210,6 +206,6 @@ object cazador inherits Colisionable {
 			game.schedule(4000, {game.stop()})}		
 	}
 	method ganaste(){
-		game.addVisual()
+		//game.addVisual()
 	}
 }

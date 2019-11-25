@@ -28,6 +28,7 @@ class Arma inherits Colisionable {
 	
 	method esEstaca() = false
 	
+	method esArmaDeCazador() = false
 	
 }
 
@@ -35,9 +36,11 @@ object estaca inherits Arma {
 	const property image = "estacaYMartillo.png" 
     var property danio = 99999999
     var property id = 2
+    
     method dmg() = danio
     override method esEstaca() = true
 	override method nombre() = "estaca"
+	override method esArmaDeCazador() = true
 }
 
 class ArmaADistancia inherits Arma{
@@ -70,6 +73,8 @@ object ballesta inherits ArmaADistancia {
 	override method esBallesta() = true 
 	
 	method estaCargada() = cazador.cantFlechas() > 0
+	
+	override method esArmaDeCazador() = true
 }
 
 object pistolaDePlata inherits ArmaADistancia {
@@ -81,4 +86,6 @@ object pistolaDePlata inherits ArmaADistancia {
 	override method esPistola() = true 
 	
 	method estaCargada() = cazador.cantBalas() > 0
+	
+	override method esArmaDeCazador() = true
 }
