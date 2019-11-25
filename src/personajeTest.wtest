@@ -5,6 +5,7 @@ import armas.*
 import cosasExtras.*
 import protecciones.*
 import municion.*
+import objetosVisuales.*
 
 describe "cazador" {
 	
@@ -12,32 +13,29 @@ const sal = new Sal()
 const fantasma = new Fantasma(position = 17->3, hp =1)
 const bruja = new Bruja(position = 15->0,  hp =1)
 const murcielago = new Murcielago(position = 17->0,  hp =1)
+const flecha = new Flecha()
+const bala = new Bala()
 	
 	fixture{
 		game.addVisual(ballesta)
 		game.addVisual(pistolaDePlata)
-		game.addVisual(estacaYMartillo)
+		game.addVisual(estaca)
 		game.height(14)
 		game.width(22)
 			
 	}
 	
 	test "Cazador recoge armas" {
-    cazador.recoger(ballesta)
-    cazador.recoger(pistolaDePlata)
-    cazador.recoger(estacaYMartillo)
-	assert.that(cazador.inventario().contains({[ballesta, pistolaDePlata, estacaYMartillo]}))  
+    cazador.recoger()
+    cazador.recoger()
+    cazador.recoger()
+	assert.that(cazador.inventario().contains({[ballesta, pistolaDePlata, estaca]}))  
 	}
 
     test "Cazador recoge sal" {
-      cazador.recoger(sal)
+      cazador.recoger()
 	  assert.equals(1, cazador.cantSal())  
 }
-
-    /*test "Tiempo de protreccion por ajo" {
-       cazador.recoger(ajo)
-	   assert.equals(10, cazador.tiempoProtegido()) 
-}*/
    
    /* test "Cantidad de ballesta en inventario" {
        cazador.recoger(ajo)
@@ -46,29 +44,23 @@ const murcielago = new Murcielago(position = 17->0,  hp =1)
        assert.equals(3,cazador.cantDe(ajo))
     }*/
     
-    test "Cazador recoge vida" {
-       cazador.hp(2)	
-       cazador.curarse()
-       assert.equals(3, cazador.hp())	
+    test "Cazador recoge vida" {	
+       cazador.agregarVida()
+       assert.equals(4, vidasDeJuego.contador())	
     }
 
     test "Recibe ataque de fantasma" {
        cazador.recibirAtaque(fantasma.atk())
-       assert.equals(9, cazador.hp())	
+       assert.equals(2, vidasDeJuego.contador())	
     }
     
     test "Recibe ataque de murcielago" {
        cazador.recibirAtaque(murcielago.atk())
-       assert.equals(9, cazador.hp())	
-    }
-    
-    test "Recibe ataque de bruja" {
-       cazador.recibirAtaque(bruja.atk())
-       assert.equals(8, cazador.hp())	
+       assert.equals(2, vidasDeJuego.contador())	
     }
     
     test "Gana el juego" {	
-       assert.notThat(dracula.estaVivo()) 	
+       assert.that(cazador.ganaElJuego()) 	
     }
     
     test "No gana el juego" {
@@ -76,11 +68,10 @@ const murcielago = new Murcielago(position = 17->0,  hp =1)
     }
     
     test "Pierde el juego" {
-       cazador.hp(0)
-       assert.that(cazador.muere())	
+       //assert.equals(0,vidasDeJuego.contador())	
     }
     
     test "No pierde el juego" {
-       assert.notThat(cazador.muere())
+      // assert.notThat(cazador.muere())
     }
 }

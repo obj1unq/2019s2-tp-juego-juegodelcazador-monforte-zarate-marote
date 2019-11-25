@@ -29,7 +29,6 @@ class Arma inherits Colisionable {
 	method esEstaca() = false
 	
 	method esArmaDeCazador() = false
-	
 }
 
 object estaca inherits Arma {
@@ -59,9 +58,6 @@ class ArmaADistancia inherits Arma{
 		}		
 	}
 	method validarPuedeDisparar(dir) = cazador.puedeMoverAl(dir)
-	
-	
-	
 }
 
 object ballesta inherits ArmaADistancia {

@@ -21,17 +21,13 @@ object puerta inherits Colisionable {
 	method cambioDeEscenario(nivel) {
 		game.schedule(2000, { nivel.cargar()})
 	}
-	
-	method crear(posicion,imagen) {	
-		// Polimorfismo
-	}
 }
 
 class Pared inherits NoColisionable {
 	const property position
 	var property image
 	
-    method crear(posicion,imagen) {	
+    override method crear(posicion,imagen) {	
 		// Genera una pared en el tablero.
 		image = imagen
 		game.addVisualIn(self, posicion)
@@ -51,10 +47,14 @@ class Trampa inherits Colisionable {
 	}
 }
 
-object encabezado{
+object encabezadoInventario{
 	var property image = "encabezado.png" 
 	var property position = (-1 -> 15)
+}
 
+object encabezadoVidas{
+	var property image = "encabezado.png" 
+	var property position = (-1 -> 14)
 }
 
 object suelo {
@@ -77,8 +77,7 @@ object vidasDeJuego {
     
     method sumar() {
         contador +=1	
-    }
-    
+    } 
 }
 
 // OBJETOS DE MENU

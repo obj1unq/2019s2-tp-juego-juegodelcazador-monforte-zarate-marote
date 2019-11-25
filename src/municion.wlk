@@ -18,6 +18,10 @@ class Municion inherits ArmaADistancia{
 	method esFlecha() = false
 	
 	method colisionasteCon(fantasma) {}
+
+    method crear(posicion) {	
+		game.addVisualIn(self, posicion)
+	}
 	
 }
 
@@ -94,10 +98,8 @@ class Sal inherits Proyectil {
 	method esArmaDeCazador() = true
 }
 
-
-
 class Bala inherits Proyectil {
-	var property tipo	
+	var property tipo = cargador	
 	method image() = tipo.image()
 	method cantidad() = 6
 	
@@ -111,7 +113,7 @@ class Bala inherits Proyectil {
 }
 
 class Flecha inherits Proyectil {
-	var property tipo
+	var property tipo = carcaj
 	method image() = tipo.image()
 	method cantidad() = 4
 	

@@ -54,7 +54,9 @@ class Nivel {
 
 	method ganaste(){} 
 	 
-	method siguienteNivel() 
+	method siguienteNivel() {}
+	 
+	method posicionDeReinicio()
 	 
 	method siguienteNivel(nivel)
 	
@@ -65,8 +67,8 @@ class Nivel {
 	}
 	
 	method cartel(){ 
- 		game.addVisual(new GraficaParaCartel("CartelVidas.png",game.at(0, 14)))
- 		game.addVisual(encabezado)
+ 		game.addVisual(encabezadoInventario)
+ 		game.addVisual(encabezadoVidas)
  		game.errorReporter(cazador)
  	}
 }
@@ -94,6 +96,8 @@ object menu inherits Nivel{
         game.addVisual(salirJuego)   
 	}
 	
+	override method posicionDeReinicio() {}
+	
 	override method controles(){
         keyboard.enter().onPressDo({self.siguienteNivel(configuracionTeclado)})
         keyboard.q().onPressDo({game.stop()})	
@@ -113,6 +117,8 @@ object configuracionTeclado inherits Nivel{
 	override method siguienteNivel(){
 		self.siguienteNivel(nivel1)
 	}
+	
+	override method posicionDeReinicio() {}
 	
 	override method siguienteNivel(nivel) {
 		game.schedule(5000, { nivel.cargar()} )
@@ -166,6 +172,10 @@ object nivel1 inherits Nivel{
 		super()
 	}
 	
+	override method posicionDeReinicio() {
+		return game.at(15,1)
+	}
+	
 	override method sound() = game.sound("Nivel1.mp3")
 	
 	override method visuales() {
@@ -206,8 +216,8 @@ object nivel1 inherits Nivel{
 	//Puerta
 	game.addVisualIn(puerta, game.at(11,12))
 	
-	// Fantasmas
-    const fantasmasPos = [game.at(3, 4), /*game.at(7, 1),game.at(2, 10),*/  game.at(11, 7),  game.at(16, 8)]
+	//Fantasmas
+    const fantasmasPos = [game.at(3, 4),game.at(6, 5), game.at(6, 10), game.at(11, 7),  game.at(16, 8)]
     fantasmasPos.forEach({pos => new Fantasma().crearFantasma(pos)})
     var fantasmaTrap = new Fantasma(position = game.at(1, 9), hp = 1, orientacion = arriba)
     var fantasmaTrap2 = new Fantasma(position = game.at(7, 1), hp = 1)
@@ -217,14 +227,12 @@ object nivel1 inherits Nivel{
     fantasmaTrap2.patrullar()
     game.onTick(10000, "activar fantasmatrap", { if(!game.hasVisual(fantasmaTrap2) and !game.hasVisual(fantasmaBoss)){fantasmaBoss.iniciarEvento()}})
 	   
-    // Sales
-    const sales = [ new Sal(position = game.at(17,1)),new Sal(position = game.at(18,1)),new Sal(position = game.at(19,1)),
-    	            new Sal(position = game.at(20,1)),new Sal(position = game.at(20,2))]           
-    sales.forEach({sal => game.addVisual(sal)}) 
-    
-    // Flechas
-    const flechas = [new Flecha(tipo = carcaj, position = game.at(1,3)),new Flecha(tipo = carcaj, position = game.at(14,3)),new Flecha(tipo = carcaj, position = game.at(16,10))]
-    flechas.forEach({flecha => game.addVisual(flecha)}) 	
+    //Sales
+    const salesPos = [ game.at(1,1),game.at(9,8),game.at(15,5),game.at(17,1),game.at(18,5),game.at(20,10),game.at(18,10)]           
+    salesPos.forEach({pos => new Sal().crear(pos)}) 
+    //Flechas
+    const flechasPos = [game.at(1,3),game.at(14,3),game.at(16,10)]
+    flechasPos.forEach({pos => new Flecha().crear(pos)}) 	
     }
 }
 
@@ -245,9 +253,13 @@ object nivel2 inherits Nivel{
 		game.clear()
 		//game.onTick(6000, "nivel2 song", {self.sound()})
 		super()
-		self.cargarObjetos()	
-		
+		self.cargarObjetos()		
 	}
+	
+	override method posicionDeReinicio() {
+		return game.at(11,12)
+	}
+	
     override method sound() = game.sound("Nivel2.mp3")
 	
     override method visuales() {
@@ -284,15 +296,16 @@ object nivel2 inherits Nivel{
     //Brujas
     const brujasPos = [game.at(7, 2), game.at(2, 6), game.at(13, 4), game.at(6, 8), game.at(17, 12), game.at(4, 12)]
 	brujasPos.forEach({pos => new Bruja().crearBruja(pos)})
-    
-    const flechas = [new Flecha(tipo = carcaj, position = game.at(3,1)),new Flecha(tipo = carcaj, position = game.at(15,11)),
-    	             new Flecha(tipo = carcaj, position = game.at(13,9))]
-    flechas.forEach({flecha => game.addVisual(flecha)})
-    
-    const balas = [new Bala(tipo = cargador, position = game.at(1,10)),new Bala(tipo = cargador, position = game.at(19,4))]
-    balas.forEach({bala => game.addVisual(bala)})
-    
-    game.addVisualIn(ballesta, game.at(14,5))    
+    //Flechas
+    const flechasPos = [game.at(3,1),game.at(15,11),game.at(13,9)]
+    flechasPos.forEach({pos => new Flecha().crear(pos)})
+    //Balas
+    const balasPos = [game.at(1,10),game.at(19,4)]
+    balasPos.forEach({pos => new Bala().crear(pos)})
+    //Vida
+    game.addVisualIn(new Vida(), game.at(11,1))
+    //Ballesta
+    game.addVisualIn(ballesta, game.at(19,6))    
     }
 }
 
@@ -301,6 +314,10 @@ object nivel3 inherits Nivel{
 	override method siguienteNivel() {}
 	
 	override method siguienteNivel(nivel) {}
+    
+    override method posicionDeReinicio() {
+		return game.at(15,2)
+	}
     
     override method cargar() {
 		game.clear()
@@ -338,15 +355,14 @@ object nivel3 inherits Nivel{
     //Murcielagos
     const murcielagosPos = [game.at(7, 2), game.at(16, 1), game.at(11, 5), game.at(3, 7), game.at(17, 6), game.at(14, 12), game.at(12, 8)] 
 	murcielagosPos.forEach({pos => new Murcielago().crearMurcielago(pos)})
-
-    game.addVisual(new Vida(position = game.at(18,9)))  
-    
-    const balas = [new Bala(tipo = cargador, position = game.at(18,4)),new Bala(tipo = cargador, position = game.at(3,4)),
-    	           new Bala(tipo = cargador, position = game.at(20,12)),new Bala(tipo = cargador, position = game.at(8,12))]  
-    balas.forEach({bala => game.addVisual(bala)})
-    
+    //Balas
+    const balasPos = [game.at(18,4),game.at(3,4),game.at(20,12),game.at(8,12)]  
+    balasPos.forEach({pos => new Bala().crear(pos)})
+    //Vida
+    game.addVisual(new Vida(position = game.at(18,9))) 
+    //Estaca 
     game.addVisualIn(estaca, game.at(3,9))
-    
+    //Pistola
     game.addVisualIn(pistolaDePlata, game.at(20,1))
     
     game.onTick(500, "activar final", { if(game.hasVisual(pistolaDePlata) and !game.hasVisual(dracula)){dracula.iniciarEvento()}})    

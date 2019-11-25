@@ -9,14 +9,13 @@ import protecciones.*
 import municion.*
 
 program MonstersHunter {
-	
  	//  GAME
  	game.title("Monsters Hunter")
 	game.height(16)
 	game.width(22)
 
  	//  VISUALES
- 	menu.cargar()
+ 	nivel2.cargar()
 
  	//  COMIENZA
 	game.start()

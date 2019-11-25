@@ -3,7 +3,6 @@ import personaje.*
 import cosasExtras.*
 import enemigos.*
 
-
 class Proteccion inherits Colisionable{
 	const property position
 

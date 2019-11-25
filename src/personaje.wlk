@@ -34,28 +34,36 @@ object cazador inherits Colisionable {
 	        self.convertirAMunicion(objeto) 
 	        self.recogerSiEsVida(objeto)
 	        self.colocarObjetoEnEncabezado(objeto)
+	       // self.colocarVidaEnEncabezado(objeto)
 	    } else {
 	    	game.say(self, "No hay nada para recoger")
 	    }
 	  }
-	 }
+	}
 	
 	method colocarObjetoEnEncabezado(obj){
 		if((!obj.esMunicion() and !obj.esVida()) or (obj.esArmaDeCazador()))
 		self.buscarEspacioLibre(obj, game.at(0,15))
 	}
 	
+	method colocarVidaEnEncabezado(obj){
+		if(obj.esVida())
+		self.buscarEspacioLibre(obj, game.at(0,14))
+	}
+	
 	method buscarEspacioLibre(obj, pos){
 		if(game.getObjectsIn(pos).isEmpty() or 
-		   game.getObjectsIn(pos).first() == obj){
+		    game.getObjectsIn(pos).first() == obj){
 			game.addVisualIn(obj, pos)
-		}else{self.buscarEspacioLibre(obj, pos.right(1))
+		}else{
+			self.buscarEspacioLibre(obj, pos.right(1))
 		}
 	}
 	
 	method recogerSiEsVida(obj){
 		if(obj.esVida())
 			self.agregarVida()
+			self.colocarVidaEnEncabezado(obj)
 			inventario.remove(obj)
 	}
 
@@ -76,7 +84,6 @@ object cazador inherits Colisionable {
 			inventario.remove(objeto)
 		}
 	}
-	
     
     method agregarVida() {
 		vidasDeJuego.sumar()
@@ -87,9 +94,13 @@ object cazador inherits Colisionable {
 	}
 
 	method equipar(objeto) {
-		if (self.tiene(objeto)) {
-			itemEquipado = self.encontrarObjetoEnBolsa(objeto)
-		} else {
+		if(objeto.esBallesta()) {
+			itemEquipado = ballesta			
+		  }else if(objeto.esPistola()) {
+		  	itemEquipado = pistolaDePlata
+		  }else if(objeto.esEstaca()) {
+		  	itemEquipado = estaca
+		  } else {
 			game.say(self, "No posees la " + objeto.nombre())
 		}
 	}
@@ -114,7 +125,7 @@ object cazador inherits Colisionable {
 	}	
 	
 	method reiniciarUbicacion() {
-	     position = game.at(15,1)	
+	     position = game.at(15,1) //Posicion inicial de nivel revisar	
 	}
 	
 	method ataqueA() {
@@ -122,7 +133,7 @@ object cazador inherits Colisionable {
 			itemEquipado.disparar(itemEquipado, self.position(), orientacion)
 			self.restarMunicion(itemEquipado)
 		}else if (itemEquipado.esEstaca()){
-		self.enemigo().recibirAtaqueCon(itemEquipado.dmg())
+	     	self.enemigo().recibirAtaqueCon(itemEquipado.dmg())
 		}else{}
 	}
 
@@ -166,20 +177,28 @@ object cazador inherits Colisionable {
 		}
 	}
 	
+	method removerVidaDeEncabezado(pos){
+		if(!game.getObjectsIn(pos).isEmpty() and
+			game.getObjectsIn(pos).head().esVida()){
+			game.removeVisual(game.getObjectsIn(pos).head())
+		}
+		else{
+			self.removerVidaDeEncabezado(pos.right(1))		
+		}
+	}
 	
 ///---------------------- MOVIMIENTO ------------------------
 
 	method mover(nuevaPosicion, dir) {
 		// Puede mover si no hay un objeto no colisionable en direccion dir
-		if (self.puedeJugar() and self.puedeMoverAl(dir) and self.estaOrientado(dir)) {
+		orientacion = dir
+		if (self.puedeJugar() and self.puedeMoverAl(dir)) {
 			self.position(nuevaPosicion)
-			self.sonidoDePasos()			
-		}else{
-			orientacion = dir
+			//self.sonidoDePasos()			
 		}
 	}
 	
-	method estaOrientado(dir) = orientacion == dir
+	//method estaOrientado(dir) = orientacion == dir
 	 
 	method puedeJugar() = vidasDeJuego.contador() > 0
 	
@@ -193,19 +212,23 @@ object cazador inherits Colisionable {
 	}
 
 	method colisionarCon(objeto) {
-	    // self.recoger(objeto)    
 	}
 
-	method ganaElJuego() = not dracula.estaVivo()
+	method ganaElJuego() = ! dracula.estaVivo()
 
 	method perdiste() {
 		if(!game.hasVisual(gameOver)){
 			game.say(self, "EL MAL SEGUIRA LATENTE")
 			game.sound("moriste.mp3")
 			game.addVisual(gameOver)
-			game.schedule(4000, {game.stop()})}		
+			game.schedule(4000, {game.stop()})
+		}		
 	}
 	method ganaste(){
-		//game.addVisual()
+		if(!game.hasVisual(youWin)){
+		   game.say(self, "...")  // agregar
+		   game.addVisual(youWin)	
+		   game.schedule(4000, {game.stop()})
+		}
 	}
 }
