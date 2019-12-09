@@ -62,19 +62,19 @@ class Enemigo inherits Colisionable {
     method atk()
     
     method crearFantasma(posicion) {
-		var fantasmin = new Fantasma(position = posicion, hp = 1)
+		const fantasmin = new Fantasma(position = posicion, hp = 1)
 		game.addVisual(fantasmin)
 		fantasmin.patrullar()
 	}
 	
 	method crearBruja(posicion) {
-		var bruji = new Bruja(position = posicion, hp = 1)
+		const bruji = new Bruja(position = posicion, hp = 1)
 		game.addVisual(bruji)
 		bruji.patrullar()
 	}
 	
 	method crearMurcielago(posicion) {
-		var murci = new Murcielago(orientacion = arriba, position = posicion, hp = 1)
+		const murci = new Murcielago(orientacion = arriba, position = posicion, hp = 1)
 		game.addVisual(murci)
 		murci.patrullar()
 	}
@@ -167,7 +167,7 @@ class Bruja inherits Enemigo{
     override method atk() = atk
     
     method patrullar(){
-		game.onTick(500, "brujaMoving", { => self.mover(orientacion.posicionAl(self), orientacion) })	
+		game.onTick(400, "brujaMoving", { => self.mover(orientacion.posicionAl(self), orientacion) })	
 	}
 
 }

@@ -14,12 +14,12 @@ class Nivel {
 	method cargar() {
 		self.controles()
 		self.visuales()
-		self.cazador()
+		self.personaje()
 		self.cartel()
 		self.cargarObjetos()
 	}
 
-	method cazador() {
+	method personaje() {
 		// Personaje
 		game.addVisual(cazador)
 		// Colisiones 
@@ -122,7 +122,7 @@ object configuracionTeclado inherits Nivel{
 	override method posicionDeReinicio() {}
 	
 	override method siguienteNivel(nivel) {
-		game.schedule(5000, { nivel.cargar()} )
+		game.schedule(8000, { nivel.cargar()} )
 	}
 	
 	override method visuales() {
@@ -188,7 +188,7 @@ object nivel1 inherits Nivel{
     const ancho = game.width() - 1
     const largo = game.height() - 5
     
-    var posBordes = []
+    const posBordes = []
     (0 .. ancho).forEach{ n => posBordes.add(game.at(n, 0))} // borde abajo
     (0 .. largo).forEach{ n => posBordes.add(game.at(0, n))} // borde izquierdo
     (0 .. largo).forEach{ n => posBordes.add(game.at(ancho, n))} // borde derecho	
@@ -220,8 +220,8 @@ object nivel1 inherits Nivel{
 	//Fantasmas
     const fantasmasPos = [game.at(3, 4),game.at(6, 5), game.at(6, 10), game.at(11, 7),  game.at(16, 8)]
     fantasmasPos.forEach({pos => new Fantasma().crearFantasma(pos)})
-    var fantasmaTrap = new Fantasma(position = game.at(1, 9), hp = 1, orientacion = arriba)
-    var fantasmaTrap2 = new Fantasma(position = game.at(7, 1), hp = 1)
+    const fantasmaTrap = new Fantasma(position = game.at(1, 9), hp = 1, orientacion = arriba)
+    const fantasmaTrap2 = new Fantasma(position = game.at(7, 1), hp = 1)
     game.addVisual(fantasmaTrap)
     fantasmaTrap.patrullar()
     game.addVisual(fantasmaTrap2)
@@ -232,8 +232,10 @@ object nivel1 inherits Nivel{
     const salesPos = [ game.at(1,1),game.at(9,8),game.at(15,5),game.at(17,1),game.at(18,5),game.at(20,10),game.at(18,10)]           
     salesPos.forEach({pos => new Sal().crear(pos)}) 
     //Flechas
-    const flechasPos = [game.at(1,3),game.at(14,3),game.at(16,10)]
+    const flechasPos = [game.at(1,3),game.at(14,3),game.at(16,10),game.at(3,8),game.at(11,9),game.at(19,3)]
     flechasPos.forEach({pos => new Flecha().crear(pos)}) 	
+    //Vida
+    game.addVisualIn(new Vida(), game.at(7,7))
     }
 }
 
@@ -252,7 +254,7 @@ object nivel2 inherits Nivel{
     
     override method cargar() {
 		game.clear()
-		//game.onTick(6000, "nivel2 song", {self.sound()})
+		game.onTick(6000, "nivel2 song", {self.sound()})
 		super()
 		self.cargarObjetos()		
 	}
@@ -274,7 +276,7 @@ object nivel2 inherits Nivel{
     const ancho = game.width() - 1
     const largo = game.height() - 3
     
-    var posBordes = []
+    const posBordes = []
     (0 .. ancho).forEach{ n => posBordes.add(game.at(n, 0))} // borde abajo
     (0 .. ancho).forEach{ n => posBordes.add(game.at(n, largo))} // borde arriba
     (0 .. largo).forEach{ n => posBordes.add(game.at(0, n))} // borde izquierdo
@@ -295,13 +297,14 @@ object nivel2 inherits Nivel{
     posCentro.forEach({ posicion => new Pared().crear(posicion, "muroCastillo1.jpg")})
     
     //Brujas
-    const brujasPos = [game.at(7, 2), game.at(2, 6), game.at(13, 4), game.at(6, 8), game.at(17, 12), game.at(4, 12)]
+    const brujasPos = [game.at(7, 2), game.at(2, 6), game.at(13, 4), game.at(6, 8), game.at(17, 12),
+    	               game.at(4, 12),game.at(13,9),game.at(8,5),game.at(17,1),game.at(5,11)]
 	brujasPos.forEach({pos => new Bruja().crearBruja(pos)})
     //Flechas
-    const flechasPos = [game.at(3,1),game.at(15,11),game.at(13,9)]
+    const flechasPos = [game.at(3,1),game.at(9,12),game.at(17,7),game.at(20,9)]
     flechasPos.forEach({pos => new Flecha().crear(pos)})
     //Balas
-    const balasPos = [game.at(1,10),game.at(19,4)]
+    const balasPos = [game.at(1,10),game.at(19,4),game.at(12,6),game.at(5,1)]
     balasPos.forEach({pos => new Bala().crear(pos)})
     //Vida
     game.addVisualIn(new Vida(), game.at(11,1))
@@ -337,7 +340,7 @@ object nivel3 inherits Nivel{
     const ancho = game.width() - 1
     const largo = game.height() - 3
     
-    var posBordes = []
+    const posBordes = []
     (0 .. ancho).forEach{ n => posBordes.add(game.at(n, 0))} // borde abajo
     (0 .. ancho).forEach{ n => posBordes.add(game.at(n, largo))} // borde arriba
     (0 .. largo).forEach{ n => posBordes.add(game.at(0, n))} // borde izquierdo

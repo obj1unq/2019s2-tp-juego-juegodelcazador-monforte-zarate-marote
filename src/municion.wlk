@@ -103,7 +103,7 @@ class Bala inherits Proyectil {
 	
 	method image() = tipo.image()
 	
-	method cantidad() = 10
+	method cantidad() = 5
 	
 	override method nombre() = "bala"
 	
@@ -119,7 +119,7 @@ class Flecha inherits Proyectil {
 	
 	method image() = tipo.image()
 	
-	method cantidad() = 4
+	method cantidad() = 2
 	
 	override method nombre() = "flecha"
 	
